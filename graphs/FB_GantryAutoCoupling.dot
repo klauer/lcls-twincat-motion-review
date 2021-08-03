@@ -1,0 +1,8 @@
+digraph FB_GantryAutoCoupling {
+     node [style=filled]
+    FB_GantryAutoCoupling [fillcolor = bisque];
+    FB_GantryAutoCoupling -> DUT_MotionStage;
+    FB_GantryAutoCoupling -> FB_GantryDiffVirtualLimitSwitch;
+    FB_GantryAutoCoupling -> FB_SetEnables;
+    FB_GantryAutoCoupling -> ST_RenishawAbsEnc;
+}

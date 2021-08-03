@@ -1,0 +1,13 @@
+digraph FB_PositionStatePMPS_Base {
+     node [style=filled]
+    FB_PositionStatePMPS_Base [fillcolor = bisque];
+    FB_PositionStatePMPS -> FB_PositionStatePMPS_Base;
+    FB_PositionStatePMPS_Base -> DUT_MotionStage;
+    FB_PositionStatePMPS_Base -> DUT_PositionState;
+    FB_PositionStatePMPS_Base -> FB_PositionStatePMPS;
+    FB_PositionStatePMPS_Base -> F_AtPositionState;
+    FB_PositionStatePMPS_Base -> F_PosOverLowerBound;
+    FB_PositionStatePMPS_Base -> F_PosUnderUpperBound;
+    FB_PositionStatePMPS_Base -> MOTION_GVL;
+    FB_PositionStatePMPS_Test -> FB_PositionStatePMPS_Base;
+}

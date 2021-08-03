@@ -1,0 +1,7 @@
+digraph FB_StatePTPMove {
+     node [style=filled]
+    FB_StatePTPMove [fillcolor = bisque];
+    FB_StatePTPMove -> DUT_MotionStage;
+    FB_StatePTPMove -> DUT_PositionState;
+    FB_StatePTPMove -> ENUM_EpicsMotorCmd;
+}

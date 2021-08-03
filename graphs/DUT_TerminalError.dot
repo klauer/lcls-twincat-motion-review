@@ -1,0 +1,8 @@
+digraph DUT_TerminalError {
+     node [style=filled]
+    DUT_TerminalError [fillcolor = bisque];
+    DUT_TerminalError -> DUT_ErrorState;
+    FB_ErrorList -> DUT_TerminalError;
+    FB_TerminalError -> DUT_TerminalError;
+    ST_ErrorSystem -> DUT_TerminalError;
+}

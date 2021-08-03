@@ -1,0 +1,7 @@
+digraph DUT_ErrorState {
+     node [style=filled]
+    DUT_ErrorState [fillcolor = bisque];
+    DUT_TerminalError -> DUT_ErrorState;
+    FB_ErrorList -> DUT_ErrorState;
+    FB_TerminalError -> DUT_ErrorState;
+}

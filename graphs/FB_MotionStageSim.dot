@@ -1,0 +1,9 @@
+digraph FB_MotionStageSim {
+     node [style=filled]
+    FB_MotionStageSim [fillcolor = bisque];
+    BasicTests -> FB_MotionStageSim;
+    FB_MotionStageSim -> DUT_MotionStage;
+    FB_MotionStageSim -> ENUM_StageEnableMode;
+    FB_MotionStageSim -> FB_MotionStage;
+    Interactive -> FB_MotionStageSim;
+}

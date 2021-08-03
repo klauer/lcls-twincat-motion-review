@@ -1,0 +1,7 @@
+digraph FB_DriveVirtual {
+     node [style=filled]
+    FB_DriveVirtual [fillcolor = bisque];
+    FB_DriveVirtual -> DUT_AxisStatus_v0_01;
+    FB_DriveVirtual -> FB_HomeVirtual;
+    FB_MotionStage -> FB_DriveVirtual;
+}

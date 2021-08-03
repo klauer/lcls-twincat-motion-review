@@ -1,0 +1,6 @@
+digraph DUT_MotionPneumaticActuator {
+     node [style=filled]
+    DUT_MotionPneumaticActuator [fillcolor = bisque];
+    DUT_MotionPneumaticActuator -> ENUM_PnuematicActuatorPositionState;
+    FB_MotionPneumaticActuator -> DUT_MotionPneumaticActuator;
+}

@@ -1,0 +1,8 @@
+digraph FB_PositionStateInOut_WithPMPS_Test {
+     node [style=filled]
+    FB_PositionStateInOut_WithPMPS_Test [fillcolor = bisque];
+    FB_PositionStateBase_WithPMPS_Test -> FB_PositionStateInOut_WithPMPS_Test;
+    FB_PositionStateInOut_WithPMPS_Test -> DUT_PositionState;
+    FB_PositionStateInOut_WithPMPS_Test -> ENUM_EpicsInOut;
+    FB_PositionStateInOut_WithPMPS_Test -> FB_PositionStateBase_WithPMPS_Test;
+}

@@ -1,0 +1,7 @@
+digraph GVL_ErrorSystem {
+     node [style=filled]
+    GVL_ErrorSystem [fillcolor = bisque];
+    FB_ErrorList -> GVL_ErrorSystem;
+    FB_TerminalError -> GVL_ErrorSystem;
+    ST_ErrorSystem -> GVL_ErrorSystem;
+}

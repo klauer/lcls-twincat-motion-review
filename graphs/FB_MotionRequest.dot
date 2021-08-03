@@ -1,0 +1,12 @@
+digraph FB_MotionRequest {
+     node [style=filled]
+    FB_MotionRequest [fillcolor = bisque];
+    BasicTests -> FB_MotionRequest;
+    ENUM_MotionRequest -> FB_MotionRequest;
+    FB_MotionRequest -> DUT_MotionStage;
+    FB_MotionRequest -> ENUM_EpicsMotorCmd;
+    FB_MotionRequest -> ENUM_MotionRequest;
+    FB_MotionRequest -> FB_MotionStage;
+    FB_MotionRequest -> F_MotionErrorCodeLookup;
+    FB_PositionStateMove -> FB_MotionRequest;
+}

@@ -1,0 +1,6 @@
+digraph FB_HomeWriteNcVelocities {
+     node [style=filled]
+    FB_HomeWriteNcVelocities [fillcolor = bisque];
+    FB_HomeToSwitch -> FB_HomeWriteNcVelocities;
+    FB_HomeWriteNcVelocities -> FB_WriteFloatParameter;
+}

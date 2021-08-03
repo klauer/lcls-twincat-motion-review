@@ -1,0 +1,8 @@
+digraph FB_PositionStateInOut {
+     node [style=filled]
+    FB_PositionStateInOut [fillcolor = bisque];
+    FB_PositionStateBase -> FB_PositionStateInOut;
+    FB_PositionStateInOut -> DUT_PositionState;
+    FB_PositionStateInOut -> ENUM_EpicsInOut;
+    FB_PositionStateInOut -> FB_PositionStateBase;
+}

@@ -1,0 +1,14 @@
+digraph FB_PositionStateMove {
+     node [style=filled]
+    FB_PositionStateMove [fillcolor = bisque];
+    FB_PositionStateBase -> FB_PositionStateMove;
+    FB_PositionStateManager -> FB_PositionStateMove;
+    FB_PositionStateMove -> DUT_MotionStage;
+    FB_PositionStateMove -> DUT_PositionState;
+    FB_PositionStateMove -> ENUM_MotionRequest;
+    FB_PositionStateMove -> FB_MotionRequest;
+    FB_PositionStateMove -> FB_PositionStateManager;
+    FB_PositionStateMove -> F_AtPositionState;
+    FB_PositionStateMove -> F_MotionErrorCodeLookup;
+    Interactive -> FB_PositionStateMove;
+}

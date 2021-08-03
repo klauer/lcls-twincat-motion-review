@@ -1,0 +1,8 @@
+digraph F_PosWithinDelta {
+     node [style=filled]
+    F_PosWithinDelta [fillcolor = bisque];
+    F_AtPositionState -> F_PosWithinDelta;
+    F_PosWithinDelta -> DUT_PositionState;
+    F_PosWithinDelta -> F_PosOverLowerBound;
+    F_PosWithinDelta -> F_PosUnderUpperBound;
+}

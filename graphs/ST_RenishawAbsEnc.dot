@@ -1,0 +1,8 @@
+digraph ST_RenishawAbsEnc {
+     node [style=filled]
+    ST_RenishawAbsEnc [fillcolor = bisque];
+    FB_GantryAutoCoupling -> ST_RenishawAbsEnc;
+    FB_GantryDiffVirtualLimitSwitch -> ST_RenishawAbsEnc;
+    ST_RenishawAbsEnc -> EL5042;
+    ST_RenishawAbsEnc -> EL5042_Status;
+}

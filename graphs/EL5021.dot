@@ -1,0 +1,6 @@
+digraph EL5021 {
+     node [style=filled]
+    EL5021 [fillcolor = bisque];
+    EL5021 -> FB_TerminalError;
+    EL5021 -> ST_ErrorSystem;
+}

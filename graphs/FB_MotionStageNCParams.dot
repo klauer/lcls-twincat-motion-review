@@ -1,0 +1,6 @@
+digraph FB_MotionStageNCParams {
+     node [style=filled]
+    FB_MotionStageNCParams [fillcolor = bisque];
+    FB_MotionStage -> FB_MotionStageNCParams;
+    FB_MotionStageNCParams -> DUT_MotionStage;
+}

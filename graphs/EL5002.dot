@@ -1,0 +1,6 @@
+digraph EL5002 {
+     node [style=filled]
+    EL5002 [fillcolor = bisque];
+    EL5002 -> FB_TerminalError;
+    EL5002 -> ST_ErrorSystem;
+}

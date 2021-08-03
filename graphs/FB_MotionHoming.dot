@@ -1,0 +1,7 @@
+digraph FB_MotionHoming {
+     node [style=filled]
+    FB_MotionHoming [fillcolor = bisque];
+    FB_MotionHoming -> DUT_MotionStage;
+    FB_MotionHoming -> ENUM_EpicsHomeCmd;
+    FB_MotionStage -> FB_MotionHoming;
+}

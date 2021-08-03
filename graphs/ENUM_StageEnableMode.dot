@@ -1,0 +1,9 @@
+digraph ENUM_StageEnableMode {
+     node [style=filled]
+    ENUM_StageEnableMode [fillcolor = bisque];
+    DUT_MotionStage -> ENUM_StageEnableMode;
+    ENUM_StageEnableMode -> FB_MotionStage;
+    FB_MotionStage -> ENUM_StageEnableMode;
+    FB_MotionStageSim -> ENUM_StageEnableMode;
+    Interactive -> ENUM_StageEnableMode;
+}

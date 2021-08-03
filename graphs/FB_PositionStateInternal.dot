@@ -1,0 +1,11 @@
+digraph FB_PositionStateInternal {
+     node [style=filled]
+    FB_PositionStateInternal [fillcolor = bisque];
+    DUT_PositionState -> FB_PositionStateInternal;
+    FB_PositionStateBase -> FB_PositionStateInternal;
+    FB_PositionStateInternal -> DUT_MotionStage;
+    FB_PositionStateInternal -> DUT_PositionState;
+    FB_PositionStateInternal -> FB_PositionStateLock;
+    FB_PositionStateInternal -> FB_RawCountConverter;
+    FB_PositionStateManager -> FB_PositionStateInternal;
+}

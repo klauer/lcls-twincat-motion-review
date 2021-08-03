@@ -1,0 +1,8 @@
+digraph BasicTests {
+     node [style=filled]
+    BasicTests [fillcolor = bisque];
+    BasicTests -> DUT_MotionStage;
+    BasicTests -> FB_MotionRequest;
+    BasicTests -> FB_MotionStageSim;
+    Interactive -> BasicTests;
+}

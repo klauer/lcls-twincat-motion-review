@@ -1,0 +1,8 @@
+digraph FB_PositionStatePMPS {
+     node [style=filled]
+    FB_PositionStatePMPS [fillcolor = bisque];
+    FB_PositionStateBase_WithPMPS -> FB_PositionStatePMPS;
+    FB_PositionStatePMPS -> FB_PositionStatePMPS_Base;
+    FB_PositionStatePMPS -> MOTION_GVL;
+    FB_PositionStatePMPS_Base -> FB_PositionStatePMPS;
+}

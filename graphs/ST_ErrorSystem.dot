@@ -1,0 +1,27 @@
+digraph ST_ErrorSystem {
+     node [style=filled]
+    ST_ErrorSystem [fillcolor = bisque];
+    EL1008 -> ST_ErrorSystem;
+    EL1018 -> ST_ErrorSystem;
+    EL1808 -> ST_ErrorSystem;
+    EL1809 -> ST_ErrorSystem;
+    EL1819 -> ST_ErrorSystem;
+    EL2014 -> ST_ErrorSystem;
+    EL2252 -> ST_ErrorSystem;
+    EL2808 -> ST_ErrorSystem;
+    EL2819 -> ST_ErrorSystem;
+    EL3174_0002 -> ST_ErrorSystem;
+    EL3214 -> ST_ErrorSystem;
+    EL3255 -> ST_ErrorSystem;
+    EL5002 -> ST_ErrorSystem;
+    EL5021 -> ST_ErrorSystem;
+    EL5042 -> ST_ErrorSystem;
+    EL5101 -> ST_ErrorSystem;
+    EL9410 -> ST_ErrorSystem;
+    EL9505 -> ST_ErrorSystem;
+    FB_ErrorList -> ST_ErrorSystem;
+    FB_TerminalError -> ST_ErrorSystem;
+    ST_ErrorSystem -> DUT_TerminalError;
+    ST_ErrorSystem -> GVL;
+    ST_ErrorSystem -> GVL_ErrorSystem;
+}

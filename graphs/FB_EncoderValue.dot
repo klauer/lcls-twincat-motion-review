@@ -1,0 +1,6 @@
+digraph FB_EncoderValue {
+     node [style=filled]
+    FB_EncoderValue [fillcolor = bisque];
+    FB_EncoderValue -> DUT_MotionStage;
+    FB_MotionStage -> FB_EncoderValue;
+}

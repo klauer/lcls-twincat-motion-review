@@ -1,0 +1,6 @@
+digraph EL9410 {
+     node [style=filled]
+    EL9410 [fillcolor = bisque];
+    EL9410 -> FB_TerminalError;
+    EL9410 -> ST_ErrorSystem;
+}

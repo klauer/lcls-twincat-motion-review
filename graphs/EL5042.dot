@@ -1,0 +1,7 @@
+digraph EL5042 {
+     node [style=filled]
+    EL5042 [fillcolor = bisque];
+    EL5042 -> FB_TerminalError;
+    EL5042 -> ST_ErrorSystem;
+    ST_RenishawAbsEnc -> EL5042;
+}

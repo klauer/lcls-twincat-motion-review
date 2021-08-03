@@ -1,0 +1,9 @@
+digraph ENUM_EpicsInOut {
+     node [style=filled]
+    ENUM_EpicsInOut [fillcolor = bisque];
+    ENUM_EpicsInOut -> FB_PositionStateManager;
+    FB_EpicsInOut -> ENUM_EpicsInOut;
+    FB_PositionStateInOut -> ENUM_EpicsInOut;
+    FB_PositionStateInOut_WithPMPS -> ENUM_EpicsInOut;
+    FB_PositionStateInOut_WithPMPS_Test -> ENUM_EpicsInOut;
+}

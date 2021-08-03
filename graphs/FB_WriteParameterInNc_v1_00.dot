@@ -1,0 +1,6 @@
+digraph FB_WriteParameterInNc_v1_00 {
+     node [style=filled]
+    FB_WriteParameterInNc_v1_00 [fillcolor = bisque];
+    FB_HomeToSwitch -> FB_WriteParameterInNc_v1_00;
+    FB_HomeWriteSoftLimEnable -> FB_WriteParameterInNc_v1_00;
+}

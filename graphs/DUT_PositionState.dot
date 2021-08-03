@@ -1,0 +1,23 @@
+digraph DUT_PositionState {
+     node [style=filled]
+    DUT_PositionState [fillcolor = bisque];
+    DUT_PositionState -> FB_PositionStateInternal;
+    DUT_PositionState -> FB_PositionStateLock;
+    FB_EpicsInOut -> DUT_PositionState;
+    FB_PositionStateBase -> DUT_PositionState;
+    FB_PositionStateInOut -> DUT_PositionState;
+    FB_PositionStateInOut_WithPMPS -> DUT_PositionState;
+    FB_PositionStateInOut_WithPMPS_Test -> DUT_PositionState;
+    FB_PositionStateInternal -> DUT_PositionState;
+    FB_PositionStateLock -> DUT_PositionState;
+    FB_PositionStateManager -> DUT_PositionState;
+    FB_PositionStateMove -> DUT_PositionState;
+    FB_PositionStatePMPS_Base -> DUT_PositionState;
+    FB_StatePTPMove -> DUT_PositionState;
+    F_AtPositionState -> DUT_PositionState;
+    F_PosOverLowerBound -> DUT_PositionState;
+    F_PosUnderUpperBound -> DUT_PositionState;
+    F_PosWithinDelta -> DUT_PositionState;
+    Interactive -> DUT_PositionState;
+    MOTION_GVL -> DUT_PositionState;
+}

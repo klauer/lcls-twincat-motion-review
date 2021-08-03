@@ -1,0 +1,5 @@
+digraph FB_RawCountConverter {
+     node [style=filled]
+    FB_RawCountConverter [fillcolor = bisque];
+    FB_PositionStateInternal -> FB_RawCountConverter;
+}

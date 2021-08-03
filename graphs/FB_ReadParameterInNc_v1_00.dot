@@ -1,0 +1,5 @@
+digraph FB_ReadParameterInNc_v1_00 {
+     node [style=filled]
+    FB_ReadParameterInNc_v1_00 [fillcolor = bisque];
+    FB_HomeReadSoftLimEnable -> FB_ReadParameterInNc_v1_00;
+}

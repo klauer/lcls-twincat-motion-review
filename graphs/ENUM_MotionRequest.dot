@@ -1,0 +1,9 @@
+digraph ENUM_MotionRequest {
+     node [style=filled]
+    ENUM_MotionRequest [fillcolor = bisque];
+    ENUM_MotionRequest -> FB_MotionRequest;
+    FB_MotionRequest -> ENUM_MotionRequest;
+    FB_PositionStateBase -> ENUM_MotionRequest;
+    FB_PositionStateManager -> ENUM_MotionRequest;
+    FB_PositionStateMove -> ENUM_MotionRequest;
+}

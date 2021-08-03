@@ -1,0 +1,7 @@
+digraph DUT_AxisStatus_v0_01 {
+     node [style=filled]
+    DUT_AxisStatus_v0_01 [fillcolor = bisque];
+    DUT_AxisStatus_v0_01 -> DUT_AxisStatus_v0_01;
+    DUT_MotionStage -> DUT_AxisStatus_v0_01;
+    FB_DriveVirtual -> DUT_AxisStatus_v0_01;
+}

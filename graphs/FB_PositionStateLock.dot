@@ -1,0 +1,7 @@
+digraph FB_PositionStateLock {
+     node [style=filled]
+    FB_PositionStateLock [fillcolor = bisque];
+    DUT_PositionState -> FB_PositionStateLock;
+    FB_PositionStateInternal -> FB_PositionStateLock;
+    FB_PositionStateLock -> DUT_PositionState;
+}

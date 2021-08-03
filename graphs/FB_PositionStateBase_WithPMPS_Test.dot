@@ -1,0 +1,8 @@
+digraph FB_PositionStateBase_WithPMPS_Test {
+     node [style=filled]
+    FB_PositionStateBase_WithPMPS_Test [fillcolor = bisque];
+    FB_PositionStateBase_WithPMPS_Test -> FB_PositionStateBase;
+    FB_PositionStateBase_WithPMPS_Test -> FB_PositionStateInOut_WithPMPS_Test;
+    FB_PositionStateBase_WithPMPS_Test -> FB_PositionStatePMPS_Test;
+    FB_PositionStateInOut_WithPMPS_Test -> FB_PositionStateBase_WithPMPS_Test;
+}

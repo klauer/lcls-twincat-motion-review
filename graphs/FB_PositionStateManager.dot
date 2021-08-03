@@ -1,0 +1,14 @@
+digraph FB_PositionStateManager {
+     node [style=filled]
+    FB_PositionStateManager [fillcolor = bisque];
+    ENUM_EpicsInOut -> FB_PositionStateManager;
+    FB_EpicsInOut -> FB_PositionStateManager;
+    FB_PositionStateManager -> DUT_MotionStage;
+    FB_PositionStateManager -> DUT_PositionState;
+    FB_PositionStateManager -> ENUM_MotionRequest;
+    FB_PositionStateManager -> FB_EpicsInOut;
+    FB_PositionStateManager -> FB_PositionStateInternal;
+    FB_PositionStateManager -> FB_PositionStateMove;
+    FB_PositionStateManager -> F_AtPositionState;
+    FB_PositionStateMove -> FB_PositionStateManager;
+}

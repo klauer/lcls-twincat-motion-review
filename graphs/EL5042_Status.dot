@@ -1,0 +1,5 @@
+digraph EL5042_Status {
+     node [style=filled]
+    EL5042_Status [fillcolor = bisque];
+    ST_RenishawAbsEnc -> EL5042_Status;
+}

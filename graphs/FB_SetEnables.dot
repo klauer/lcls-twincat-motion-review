@@ -1,0 +1,7 @@
+digraph FB_SetEnables {
+     node [style=filled]
+    FB_SetEnables [fillcolor = bisque];
+    FB_GantryAutoCoupling -> FB_SetEnables;
+    FB_MotionStage -> FB_SetEnables;
+    FB_SetEnables -> DUT_MotionStage;
+}

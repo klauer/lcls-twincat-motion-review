@@ -1,0 +1,7 @@
+digraph ENUM_StageBrakeMode {
+     node [style=filled]
+    ENUM_StageBrakeMode [fillcolor = bisque];
+    DUT_MotionStage -> ENUM_StageBrakeMode;
+    ENUM_StageBrakeMode -> FB_MotionStage;
+    FB_MotionStage -> ENUM_StageBrakeMode;
+}

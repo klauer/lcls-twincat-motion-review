@@ -1,0 +1,26 @@
+digraph FB_TerminalError {
+     node [style=filled]
+    FB_TerminalError [fillcolor = bisque];
+    EL1008 -> FB_TerminalError;
+    EL1018 -> FB_TerminalError;
+    EL1808 -> FB_TerminalError;
+    EL1809 -> FB_TerminalError;
+    EL1819 -> FB_TerminalError;
+    EL2014 -> FB_TerminalError;
+    EL2252 -> FB_TerminalError;
+    EL2808 -> FB_TerminalError;
+    EL2819 -> FB_TerminalError;
+    EL3174_0002 -> FB_TerminalError;
+    EL3214 -> FB_TerminalError;
+    EL3255 -> FB_TerminalError;
+    EL5002 -> FB_TerminalError;
+    EL5021 -> FB_TerminalError;
+    EL5042 -> FB_TerminalError;
+    EL5101 -> FB_TerminalError;
+    EL9410 -> FB_TerminalError;
+    EL9505 -> FB_TerminalError;
+    FB_TerminalError -> DUT_ErrorState;
+    FB_TerminalError -> DUT_TerminalError;
+    FB_TerminalError -> GVL_ErrorSystem;
+    FB_TerminalError -> ST_ErrorSystem;
+}

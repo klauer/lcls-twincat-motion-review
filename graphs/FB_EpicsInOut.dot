@@ -1,0 +1,9 @@
+digraph FB_EpicsInOut {
+     node [style=filled]
+    FB_EpicsInOut [fillcolor = bisque];
+    FB_EpicsInOut -> DUT_MotionStage;
+    FB_EpicsInOut -> DUT_PositionState;
+    FB_EpicsInOut -> ENUM_EpicsInOut;
+    FB_EpicsInOut -> FB_PositionStateManager;
+    FB_PositionStateManager -> FB_EpicsInOut;
+}

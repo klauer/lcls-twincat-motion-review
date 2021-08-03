@@ -1,0 +1,8 @@
+digraph MOTION_GVL {
+     node [style=filled]
+    MOTION_GVL [fillcolor = bisque];
+    FB_PositionStateBase -> MOTION_GVL;
+    FB_PositionStatePMPS -> MOTION_GVL;
+    FB_PositionStatePMPS_Base -> MOTION_GVL;
+    MOTION_GVL -> DUT_PositionState;
+}

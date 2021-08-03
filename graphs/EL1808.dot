@@ -1,0 +1,6 @@
+digraph EL1808 {
+     node [style=filled]
+    EL1808 [fillcolor = bisque];
+    EL1808 -> FB_TerminalError;
+    EL1808 -> ST_ErrorSystem;
+}

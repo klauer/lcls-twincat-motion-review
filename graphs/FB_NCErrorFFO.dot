@@ -1,0 +1,6 @@
+digraph FB_NCErrorFFO {
+     node [style=filled]
+    FB_NCErrorFFO [fillcolor = bisque];
+    FB_EncErrorFFO -> FB_NCErrorFFO;
+    FB_NCErrorFFO -> DUT_MotionStage;
+}

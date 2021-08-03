@@ -1,0 +1,7 @@
+digraph F_MotionErrorCodeLookup {
+     node [style=filled]
+    F_MotionErrorCodeLookup [fillcolor = bisque];
+    FB_MotionRequest -> F_MotionErrorCodeLookup;
+    FB_MotionStage -> F_MotionErrorCodeLookup;
+    FB_PositionStateMove -> F_MotionErrorCodeLookup;
+}

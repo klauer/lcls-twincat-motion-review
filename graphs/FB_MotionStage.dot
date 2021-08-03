@@ -1,0 +1,22 @@
+digraph FB_MotionStage {
+     node [style=filled]
+    FB_MotionStage [fillcolor = bisque];
+    ENUM_EpicsHomeCmd -> FB_MotionStage;
+    ENUM_StageBrakeMode -> FB_MotionStage;
+    ENUM_StageEnableMode -> FB_MotionStage;
+    FB_GantryDiffVirtualLimitSwitch -> FB_MotionStage;
+    FB_MotionRequest -> FB_MotionStage;
+    FB_MotionStage -> DUT_MotionStage;
+    FB_MotionStage -> ENUM_EpicsHomeCmd;
+    FB_MotionStage -> ENUM_EpicsMotorCmd;
+    FB_MotionStage -> ENUM_StageBrakeMode;
+    FB_MotionStage -> ENUM_StageEnableMode;
+    FB_MotionStage -> FB_DriveVirtual;
+    FB_MotionStage -> FB_EncSaveRestore;
+    FB_MotionStage -> FB_EncoderValue;
+    FB_MotionStage -> FB_MotionHoming;
+    FB_MotionStage -> FB_MotionStageNCParams;
+    FB_MotionStage -> FB_SetEnables;
+    FB_MotionStage -> F_MotionErrorCodeLookup;
+    FB_MotionStageSim -> FB_MotionStage;
+}

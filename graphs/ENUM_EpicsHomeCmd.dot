@@ -1,0 +1,8 @@
+digraph ENUM_EpicsHomeCmd {
+     node [style=filled]
+    ENUM_EpicsHomeCmd [fillcolor = bisque];
+    DUT_MotionStage -> ENUM_EpicsHomeCmd;
+    ENUM_EpicsHomeCmd -> FB_MotionStage;
+    FB_MotionHoming -> ENUM_EpicsHomeCmd;
+    FB_MotionStage -> ENUM_EpicsHomeCmd;
+}

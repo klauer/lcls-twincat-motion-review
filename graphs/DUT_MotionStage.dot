@@ -1,0 +1,29 @@
+digraph DUT_MotionStage {
+     node [style=filled]
+    DUT_MotionStage [fillcolor = bisque];
+    BasicTests -> DUT_MotionStage;
+    DUT_MotionStage -> DUT_AxisStatus_v0_01;
+    DUT_MotionStage -> ENUM_EpicsHomeCmd;
+    DUT_MotionStage -> ENUM_StageBrakeMode;
+    DUT_MotionStage -> ENUM_StageEnableMode;
+    FB_EncErrorFFO -> DUT_MotionStage;
+    FB_EncSaveRestore -> DUT_MotionStage;
+    FB_EncoderValue -> DUT_MotionStage;
+    FB_EpicsInOut -> DUT_MotionStage;
+    FB_GantryAutoCoupling -> DUT_MotionStage;
+    FB_MotionHoming -> DUT_MotionStage;
+    FB_MotionRequest -> DUT_MotionStage;
+    FB_MotionStage -> DUT_MotionStage;
+    FB_MotionStageNCParams -> DUT_MotionStage;
+    FB_MotionStageSim -> DUT_MotionStage;
+    FB_NCErrorFFO -> DUT_MotionStage;
+    FB_PositionStateBase -> DUT_MotionStage;
+    FB_PositionStateInternal -> DUT_MotionStage;
+    FB_PositionStateManager -> DUT_MotionStage;
+    FB_PositionStateMove -> DUT_MotionStage;
+    FB_PositionStatePMPS_Base -> DUT_MotionStage;
+    FB_SetEnables -> DUT_MotionStage;
+    FB_StatePTPMove -> DUT_MotionStage;
+    F_AtPositionState -> DUT_MotionStage;
+    Interactive -> DUT_MotionStage;
+}

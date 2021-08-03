@@ -1,0 +1,9 @@
+digraph FB_PositionStateBase_WithPMPS {
+     node [style=filled]
+    FB_PositionStateBase_WithPMPS [fillcolor = bisque];
+    FB_PositionStateBase_WithPMPS -> FB_EncErrorFFO;
+    FB_PositionStateBase_WithPMPS -> FB_PositionStateBase;
+    FB_PositionStateBase_WithPMPS -> FB_PositionStateInOut_WithPMPS;
+    FB_PositionStateBase_WithPMPS -> FB_PositionStatePMPS;
+    FB_PositionStateInOut_WithPMPS -> FB_PositionStateBase_WithPMPS;
+}

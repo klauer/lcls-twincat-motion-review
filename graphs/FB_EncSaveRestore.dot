@@ -1,0 +1,6 @@
+digraph FB_EncSaveRestore {
+     node [style=filled]
+    FB_EncSaveRestore [fillcolor = bisque];
+    FB_EncSaveRestore -> DUT_MotionStage;
+    FB_MotionStage -> FB_EncSaveRestore;
+}

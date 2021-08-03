@@ -1,0 +1,7 @@
+digraph FB_GantryDiffVirtualLimitSwitch {
+     node [style=filled]
+    FB_GantryDiffVirtualLimitSwitch [fillcolor = bisque];
+    FB_GantryAutoCoupling -> FB_GantryDiffVirtualLimitSwitch;
+    FB_GantryDiffVirtualLimitSwitch -> FB_MotionStage;
+    FB_GantryDiffVirtualLimitSwitch -> ST_RenishawAbsEnc;
+}

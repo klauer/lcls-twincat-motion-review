@@ -1,0 +1,8 @@
+digraph FB_ErrorList {
+     node [style=filled]
+    FB_ErrorList [fillcolor = bisque];
+    FB_ErrorList -> DUT_ErrorState;
+    FB_ErrorList -> DUT_TerminalError;
+    FB_ErrorList -> GVL_ErrorSystem;
+    FB_ErrorList -> ST_ErrorSystem;
+}

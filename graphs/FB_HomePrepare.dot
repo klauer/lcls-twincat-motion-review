@@ -1,0 +1,8 @@
+digraph FB_HomePrepare {
+     node [style=filled]
+    FB_HomePrepare [fillcolor = bisque];
+    FB_HomePrepare -> FB_HomeReadNcVelocities;
+    FB_HomePrepare -> FB_HomeReadSoftLimEnable;
+    FB_HomePrepare -> FB_HomeWriteSoftLimEnable;
+    FB_HomeVirtual -> FB_HomePrepare;
+}

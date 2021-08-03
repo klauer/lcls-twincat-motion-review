@@ -1,0 +1,7 @@
+digraph ENUM_EpicsMotorCmd {
+     node [style=filled]
+    ENUM_EpicsMotorCmd [fillcolor = bisque];
+    FB_MotionRequest -> ENUM_EpicsMotorCmd;
+    FB_MotionStage -> ENUM_EpicsMotorCmd;
+    FB_StatePTPMove -> ENUM_EpicsMotorCmd;
+}
