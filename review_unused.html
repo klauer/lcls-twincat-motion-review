@@ -1,0 +1,272 @@
+<html>
+<head>
+    <script>
+    </script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<h1>lcls-twincat-motion extras - unreviewed items</h1>
+
+<h2 id="dutEL2521_Ctrl">dutEL2521_Ctrl</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Line</th>
+            <th>Code</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td id="dutEL2521_Ctrl:1" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:1">1&nbsp;</a></td>
+            <td class="code">TYPE <a class="coderef" href="#dutEL2521_Ctrl">dutEL2521_Ctrl</a>&nbsp;:</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Ctrl:2" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:2">2&nbsp;</a></td>
+            <td class="code">STRUCT</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Ctrl:3" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:3">3&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///The control word (CW) is located in the output process image, and is transmitted from the controller to the terminal.</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Ctrl:4" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:4">4&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///CW.0&nbsp;FREQ_SEL 0bin /&nbsp;1bin &nbsp;Rapid change of the base frequency (only if the ramp function is inactive):</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Ctrl:5" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:5">5&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///0bin = Base frequency 1&nbsp;(object 8001:02)</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Ctrl:6" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:6">6&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///1bin = Base frequency 2&nbsp;(object 8001:03) </td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Ctrl:7" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:7">7&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;FREQ_SEL: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Ctrl:8" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:8">8&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///CW.1&nbsp;RAMP_DIS 1bin Operation of the ramp function is cancelled, in spite of object 8000:06&nbsp;being active;&nbsp;if travel distance control is active, it is interrupted by this bit </td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Ctrl:9" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:9">9&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;RAMP_DIS: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Ctrl:10" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:10">10&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///CW.2&nbsp;GO_COUNTER 1bin &nbsp;If travel distance control is active (object 8000:0A), then a&nbsp;pre-set counter value is approached when the bit is set </td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Ctrl:11" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:11">11&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;GO_COUNTER: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Ctrl:12" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:12">12&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///CW.5&nbsp;CNT_CLR 1bin The contents of the counter is cleared or set (object 8000:0B) by this bit. </td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Ctrl:13" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:13">13&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///Any overflow or underflow bits that might be set are also cleared by this bit. </td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Ctrl:14" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:14">14&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///The process can be edge triggered or level triggered (object 8000:05). </td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Ctrl:15" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:15">15&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;CNT_CLR: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Ctrl:16" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:16">16&nbsp;</a></td>
+            <td class="code">END_STRUCT</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Ctrl:17" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:17">17&nbsp;</a></td>
+            <td class="code">END_TYPE</td>
+            <td class="note"></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>dutEL2521_Ctrl - API Usage Requirements</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>dutEL2521_Ctrl - Assumptions for Correct Functionality</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>dutEL2521_Ctrl - Failure Modes</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>dutEL2521_Ctrl - Summary</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+
+<h2 id="dutEL2521_Status">dutEL2521_Status</h2>
+<img src="graphs/dutEL2521_Status.dot.png" />
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Line</th>
+            <th>Code</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td id="dutEL2521_Status:1" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:1">1&nbsp;</a></td>
+            <td class="code">TYPE <a class="coderef" href="#dutEL2521_Status">dutEL2521_Status</a>&nbsp;:</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Status:2" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:2">2&nbsp;</a></td>
+            <td class="code">STRUCT</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Status:3" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:3">3&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///The status word (SW) is located in the input process image, and is transmitted from the terminal to the controller.</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Status:4" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:4">4&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///SW.0&nbsp;SEL_ACK/END_COUNTER 1bin &nbsp;Confirms the change of base frequency. At activated travel distance control: target counter value reached </td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Status:5" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:5">5&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;SEL_ACK: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Status:6" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:6">6&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///SW.1&nbsp;RAMP_ACTIVE 1bin Ramp is currently being followed </td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Status:7" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:7">7&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;RAMP_ACTIVE: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Status:8" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:8">8&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///SW.2&nbsp;UNDERFLOW 1bin This bit is set if the 16-bit counter underflows (0&nbsp;->&nbsp;65535). It is reset when the counter drops below two thirds of its measuring range (43690&nbsp;->&nbsp;43689) or immediately an overflow occurs. </td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Status:9" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:9">9&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;UNDERFLOW: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Status:10" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:10">10&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///SW.3&nbsp;OVERFLOW 1bin This bit is set if the 16-bit counter overflows (65535&nbsp;->&nbsp;0). It is reset when the counter exceeds one third of its measuring range (21845&nbsp;->&nbsp;21846) or immediately an underflow occurs </td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Status:11" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:11">11&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;OVERFLOW: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Status:12" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:12">12&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///SW.4&nbsp;INPUT_T 1bin Status of INPUT_T </td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Status:13" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:13">13&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;INPUT_T: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Status:14" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:14">14&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///SW.5&nbsp;INPUT_Z 1bin Status of INPUT_Z </td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Status:15" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:15">15&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;INPUT_Z: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Status:16" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:16">16&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///SW.6&nbsp;ERROR 1bin General error bit, included with overflow/underflow </td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Status:17" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:17">17&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;ERROR: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Status:18" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:18">18&nbsp;</a></td>
+            <td class="code">END_STRUCT</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="dutEL2521_Status:19" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:19">19&nbsp;</a></td>
+            <td class="code">END_TYPE</td>
+            <td class="note"></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>dutEL2521_Status - API Usage Requirements</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>dutEL2521_Status - Assumptions for Correct Functionality</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>dutEL2521_Status - Failure Modes</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>dutEL2521_Status - Summary</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+</body>

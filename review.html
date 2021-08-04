@@ -2,72 +2,7 @@
 <head>
     <script>
     </script>
-    <style>
-        #toc_container {
-            background: #f9f9f9 none repeat scroll 0 0;
-            border: 1px solid #aaa;
-            display: table;
-            font-size: 95%;
-            margin-bottom: 1em;
-            padding: 20px;
-            width: auto;
-        }
-
-        .toc_title {
-            font-weight: 700;
-            text-align: center;
-        }
-
-        #toc_container li, #toc_container ul, #toc_container ul li{
-            list-style: outside none none !important;
-        }
-        table {
-            border-collapse: collapse;
-            width: 95vw;
-        }
-
-        tr:nth-child(even) {
-          background: #eeeeee;
-        }
-
-        thead {
-            border: 1px dashed;
-        }
-        tbody {
-            border: none;
-        }
-        td {
-          border-right: solid 1px lightgray;
-          border-left: solid 1px lightgray;
-        }
-        .lineid {
-            font-family: monospace;
-            font-weight: bold;
-            text-align: right;
-            vertical-align: top;
-            width: 0;
-        }
-        .code {
-            font-family: monospace;
-            word-wrap: break-word;
-            text-align: left;
-            vertical-align: top;
-        }
-        .note {
-            font-family: times;
-        }
-        .coderef {
-          color: black;
-        }
-        .unassuming-link {
-          color: black;
-          text-decoration: none;
-        }
-        img {
-            max-width: 75vw;
-            padding: 1em;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
@@ -143,6 +78,12 @@ General assumptions
 the IOC.
 </pre>
 
+Omitted items:
+<ol>
+    <li>dutEL2521_Ctrl</li>
+    <li>dutEL2521_Status</li>
+</ol>
+
 <div id="toc_container">
     <p class="toc_title">Contents</p>
     <ul class="toc_list">
@@ -155,8 +96,8 @@ the IOC.
                  <li><a href="#DUT_MotionStage">4. DUT_MotionStage</a></li>
                  <li><a href="#DUT_PositionState">5. DUT_PositionState</a></li>
                  <li><a href="#DUT_TerminalError">6. DUT_TerminalError</a></li>
-                 <li><a href="#dutEL2521_Ctrl">7. dutEL2521_Ctrl</a></li>
-                 <li><a href="#dutEL2521_Status">8. dutEL2521_Status</a></li>
+                 <li><a href="review_unused.html#dutEL2521_Ctrl">7. dutEL2521_Ctrl</a></li>
+                 <li><a href="review_unused.html#dutEL2521_Status">8. dutEL2521_Status</a></li>
                  <li><a href="#EL5042_Status">9. EL5042_Status</a></li>
                  <li><a href="#ENUM_EpicsHomeCmd">10. ENUM_EpicsHomeCmd</a></li>
                  <li><a href="#ENUM_EpicsInOut">11. ENUM_EpicsInOut</a></li>
@@ -3244,8 +3185,11 @@ for each of these? State machine dependent?)
     <li>nEncoder</li>
     <li>nCommand (internally + IOC)</li>
     <li>nCmdData (internally + IOC)</li>
-    <li>bAxisParamsInit; could use invalid encoder values on initialization in
-        <a href="#FB_PositionStateInternal">FB_PositionStateInternal</a></li>
+    <li>
+        bAxisParamsInit; could use invalid encoder values on initialization in
+        <a href="#FB_PositionStateInternal">FB_PositionStateInternal</a> for
+        all states.
+    </li>
 </ul>
 
 <h3>DUT_MotionStage - Mappable Inputs</h3>
@@ -3815,25 +3759,47 @@ Related:
 
 <h3>DUT_PositionState - API Usage Requirements</h3>
 <ul>
+    <li>This DUT should not have a pytmc pragma attached.</li>
+    <li>Must be set: <span class="code">sName</span></li>
+    <li>Must be set: <span class="code">fPosition</span></li>
+    <li>Must be set: <span class="code">fVelocity</span> (TODO: or 0 velocity request will be made?)</li>
+    <li>Must be set: <span class="code">bMoveOk</span> (Safety parameter. This
+        must be set to TRUE by the PLC program to allow moves to this state.)</li>
+    <li>Should be set: <span class="code">fDelta</span> (or position value needs to be exact)</li>
+    <li>Optional: <span class="code">fAccel</span> (or default NC acceleration will be used)</li>
+    <li>Optional: <span class="code">fDecel</span> (or default NC deceleration will be used)</li>
+    <li>Optional: <span class="code">bUseRawCounts</span> (only if raw counts should be used)</li>
     <li>
+        Optional: <span class="code">bLocked</span> (set only if the state should be immutable; TODO check logic with zeros for fAccel etc)
     </li>
+    <li>Set automatically: <span class="code">nEncoderCount</span> (by <a href="#FB_PositionStateInternal">FB_PositionStateInternal</a>)</li>
+
 </ul>
 
-<h3>DUT_PositionState - Assumptions for Correct Functionality</h3>
+The following must not be modified externally:
 <ul>
-    <li>
-    </li>
+    <li>bUpdated: could interfere with motion</li>
 </ul>
 
-<h3>DUT_PositionState - Failure Modes</h3>
-<ul>
-    <li>
-    </li>
-</ul>
+TODO: parameters updated after init?
 
 <h3>DUT_PositionState - Summary</h3>
 <ul>
+    <li>This is an integral part of the state positioner system.</li>    
     <li>
+        This is part of both the old, deprecated API (not under review here; 
+        <a href="#FB_EpicsInOut">FB_EpicsInOut</a>, 
+        <a href="#FB_PositionStateManager">FB_PositionStateManager</a>, 
+        and <a href="#FB_StatePTPMove">FB_StatePTPMove</a>)
+        and also the new states API.
+    </li>
+    <li>
+        Defines settings and current safety status for moves to specific
+        positions for an axis.
+    </li>
+    <li>
+        Includes PMPS integration by way of ST_BeamParams and
+        nRequestAssertionID.
     </li>
 </ul>
 
@@ -3894,12 +3860,12 @@ Related:
         <tr>
             <td id="DUT_TerminalError:9" class="lineid"><a class="unassuming-link" href="#DUT_TerminalError:9">9&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nDateTimeOn : ULINT;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Date and time when the error occured. Raw data</td>
-            <td class="note"></td>
+            <td class="note">Uses Tc2_EtherCAT.F_GetActualDcTime64</td>
         </tr>
         <tr>
             <td id="DUT_TerminalError:10" class="lineid"><a class="unassuming-link" href="#DUT_TerminalError:10">10&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;sDateTimeOn : STRING(24);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Date and time when the error occured. Readable format</td>
-            <td class="note"></td>
+            <td class="note">From nDateTimeOn, using Tc2_EtherCat.DCTIME64_TO_STRING</td>
         </tr>
         <tr>
             <td id="DUT_TerminalError:11" class="lineid"><a class="unassuming-link" href="#DUT_TerminalError:11">11&nbsp;</a></td>
@@ -3914,12 +3880,17 @@ Related:
         <tr>
             <td id="DUT_TerminalError:13" class="lineid"><a class="unassuming-link" href="#DUT_TerminalError:13">13&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bWcState : BOOL;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//WcState variable of the terminal</td>
-            <td class="note"></td>
+            <td class="note">Status of the working counter (TRUE means invalid)</td>
         </tr>
         <tr>
             <td id="DUT_TerminalError:14" class="lineid"><a class="unassuming-link" href="#DUT_TerminalError:14">14&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;uiInfoDataState : UINT;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//InfoData.State variable of the terminal</td>
-            <td class="note"></td>
+            <td class="note">
+                Beckhoff documentation:
+                <a href="https://infosys.beckhoff.com/english.php?content=../content/1033/tcsystemmanager/reference/ethercat/html/EtherCAT_Diagnostics.htm&id=">
+                    InfoData.State
+                </a>
+            </td>
         </tr>
         <tr>
             <td id="DUT_TerminalError:15" class="lineid"><a class="unassuming-link" href="#DUT_TerminalError:15">15&nbsp;</a></td>
@@ -3929,7 +3900,7 @@ Related:
         <tr>
             <td id="DUT_TerminalError:16" class="lineid"><a class="unassuming-link" href="#DUT_TerminalError:16">16&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;ErrorType : INT;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Error types (priorities) need to be developed</td>
-            <td class="note"></td>
+            <td class="note">(Isssue) Appears to be unused</td>
         </tr>
         <tr>
             <td id="DUT_TerminalError:17" class="lineid"><a class="unassuming-link" href="#DUT_TerminalError:17">17&nbsp;</a></td>
@@ -3951,291 +3922,14 @@ Related:
     <li><a href="#DUT_ErrorState">DUT_ErrorState</a></li>
 </ul>
 
-<h3>DUT_TerminalError - API Usage Requirements</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>DUT_TerminalError - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>DUT_TerminalError - Failure Modes</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
 <h3>DUT_TerminalError - Summary</h3>
 <ul>
     <li>
+        Terminal error indicator.  Used by <a href="#FB_TerminalError">FB_TerminalError></a>
+        as part of the error system <a href="#ST_ErrorSystem">ST_ErrorSystem</a>.
     </li>
-</ul>
-
-
-<h2 id="dutEL2521_Ctrl">dutEL2521_Ctrl</h2>
-<img src="graphs/dutEL2521_Ctrl.dot.png" />
-
-
-<table>
-    <thead>
-        <tr>
-            <th>Line</th>
-            <th>Code</th>
-            <th>Notes</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td id="dutEL2521_Ctrl:1" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:1">1&nbsp;</a></td>
-            <td class="code">TYPE <a class="coderef" href="#dutEL2521_Ctrl">dutEL2521_Ctrl</a>&nbsp;:</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Ctrl:2" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:2">2&nbsp;</a></td>
-            <td class="code">STRUCT</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Ctrl:3" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:3">3&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///The control word (CW) is located in the output process image, and is transmitted from the controller to the terminal.</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Ctrl:4" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:4">4&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///CW.0&nbsp;FREQ_SEL 0bin /&nbsp;1bin &nbsp;Rapid change of the base frequency (only if the ramp function is inactive):</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Ctrl:5" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:5">5&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///0bin = Base frequency 1&nbsp;(object 8001:02)</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Ctrl:6" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:6">6&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///1bin = Base frequency 2&nbsp;(object 8001:03) </td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Ctrl:7" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:7">7&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;FREQ_SEL: BOOL;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Ctrl:8" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:8">8&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///CW.1&nbsp;RAMP_DIS 1bin Operation of the ramp function is cancelled, in spite of object 8000:06&nbsp;being active;&nbsp;if travel distance control is active, it is interrupted by this bit </td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Ctrl:9" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:9">9&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;RAMP_DIS: BOOL;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Ctrl:10" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:10">10&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///CW.2&nbsp;GO_COUNTER 1bin &nbsp;If travel distance control is active (object 8000:0A), then a&nbsp;pre-set counter value is approached when the bit is set </td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Ctrl:11" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:11">11&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;GO_COUNTER: BOOL;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Ctrl:12" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:12">12&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///CW.5&nbsp;CNT_CLR 1bin The contents of the counter is cleared or set (object 8000:0B) by this bit. </td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Ctrl:13" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:13">13&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///Any overflow or underflow bits that might be set are also cleared by this bit. </td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Ctrl:14" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:14">14&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///The process can be edge triggered or level triggered (object 8000:05). </td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Ctrl:15" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:15">15&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;CNT_CLR: BOOL;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Ctrl:16" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:16">16&nbsp;</a></td>
-            <td class="code">END_STRUCT</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Ctrl:17" class="lineid"><a class="unassuming-link" href="#dutEL2521_Ctrl:17">17&nbsp;</a></td>
-            <td class="code">END_TYPE</td>
-            <td class="note"></td>
-        </tr>
-    </tbody>
-</table>
-
-
-<h3>dutEL2521_Ctrl - API Usage Requirements</h3>
-<ul>
     <li>
-    </li>
-</ul>
-
-<h3>dutEL2521_Ctrl - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>dutEL2521_Ctrl - Failure Modes</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>dutEL2521_Ctrl - Summary</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-
-<h2 id="dutEL2521_Status">dutEL2521_Status</h2>
-<img src="graphs/dutEL2521_Status.dot.png" />
-
-
-<table>
-    <thead>
-        <tr>
-            <th>Line</th>
-            <th>Code</th>
-            <th>Notes</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td id="dutEL2521_Status:1" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:1">1&nbsp;</a></td>
-            <td class="code">TYPE <a class="coderef" href="#dutEL2521_Status">dutEL2521_Status</a>&nbsp;:</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Status:2" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:2">2&nbsp;</a></td>
-            <td class="code">STRUCT</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Status:3" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:3">3&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///The status word (SW) is located in the input process image, and is transmitted from the terminal to the controller.</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Status:4" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:4">4&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///SW.0&nbsp;SEL_ACK/END_COUNTER 1bin &nbsp;Confirms the change of base frequency. At activated travel distance control: target counter value reached </td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Status:5" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:5">5&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;SEL_ACK: BOOL;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Status:6" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:6">6&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///SW.1&nbsp;RAMP_ACTIVE 1bin Ramp is currently being followed </td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Status:7" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:7">7&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;RAMP_ACTIVE: BOOL;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Status:8" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:8">8&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///SW.2&nbsp;UNDERFLOW 1bin This bit is set if the 16-bit counter underflows (0&nbsp;->&nbsp;65535). It is reset when the counter drops below two thirds of its measuring range (43690&nbsp;->&nbsp;43689) or immediately an overflow occurs. </td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Status:9" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:9">9&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;UNDERFLOW: BOOL;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Status:10" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:10">10&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///SW.3&nbsp;OVERFLOW 1bin This bit is set if the 16-bit counter overflows (65535&nbsp;->&nbsp;0). It is reset when the counter exceeds one third of its measuring range (21845&nbsp;->&nbsp;21846) or immediately an underflow occurs </td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Status:11" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:11">11&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;OVERFLOW: BOOL;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Status:12" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:12">12&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///SW.4&nbsp;INPUT_T 1bin Status of INPUT_T </td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Status:13" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:13">13&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;INPUT_T: BOOL;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Status:14" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:14">14&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///SW.5&nbsp;INPUT_Z 1bin Status of INPUT_Z </td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Status:15" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:15">15&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;INPUT_Z: BOOL;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Status:16" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:16">16&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///SW.6&nbsp;ERROR 1bin General error bit, included with overflow/underflow </td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Status:17" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:17">17&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;ERROR: BOOL;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Status:18" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:18">18&nbsp;</a></td>
-            <td class="code">END_STRUCT</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="dutEL2521_Status:19" class="lineid"><a class="unassuming-link" href="#dutEL2521_Status:19">19&nbsp;</a></td>
-            <td class="code">END_TYPE</td>
-            <td class="note"></td>
-        </tr>
-    </tbody>
-</table>
-
-
-<h3>dutEL2521_Status - API Usage Requirements</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>dutEL2521_Status - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>dutEL2521_Status - Failure Modes</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>dutEL2521_Status - Summary</h3>
-<ul>
-    <li>
+        Summary error states: None, Active, Inactive, Acknowledged
     </li>
 </ul>
 
@@ -4277,27 +3971,10 @@ Related:
 </table>
 
 
-<h3>EL5042_Status - API Usage Requirements</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>EL5042_Status - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>EL5042_Status - Failure Modes</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
 <h3>EL5042_Status - Summary</h3>
 <ul>
     <li>
+        (Issue) This type is empty and unused.
     </li>
 </ul>
 
@@ -33649,24 +33326,25 @@ Related:
 <h3>FB_PositionStateLock - API Usage Requirements</h3>
 <ul>
     <li>
+        (Issue) bUseRawCounts (and maybe others) are not respected.
     </li>
 </ul>
 
 <h3>FB_PositionStateLock - Assumptions for Correct Functionality</h3>
 <ul>
     <li>
+        bEnable must be set once the stage has its parameters initialized (
+        bAxisParamsInit).
     </li>
-</ul>
-
-<h3>FB_PositionStateLock - Failure Modes</h3>
-<ul>
     <li>
+        It does not appear that there is a combination of inputs that would
+        corrupt the cached position state.
     </li>
 </ul>
 
 <h3>FB_PositionStateLock - Summary</h3>
 <ul>
-    <li>
+    <li>On first call, caches stPositionerState internally.
     </li>
 </ul>
 
