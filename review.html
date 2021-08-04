@@ -113,7 +113,7 @@ Omitted items:
         <li>
             <a href="#GVLs">GVLs</a>
              <ul>
-                 <li><a href="#Global_Version">1. Global_Version</a></li>
+                 <li><a href="review_unused.html#Global_Version">1. Global_Version</a></li>
                  <li><a href="#GVL">2. GVL</a></li>
                  <li><a href="#GVL_ErrorSystem">3. GVL_ErrorSystem</a></li>
                  <li><a href="#MOTION_GVL">4. MOTION_GVL</a></li>
@@ -3220,6 +3220,11 @@ for each of these? State machine dependent?)
     <li>Defines the EPICS interface to moving a motor in TwinCAT.</li>
     <li>Can be used internally in a PLC project as well.</li>
     <li>Users must be careful to configure this structure correctly.</li>
+    <li>
+        (Docs) Contains all relevant information about a single axis. You can
+        pass this around and manipulate it inside of other function blocks. It
+        relys on FB_MotionStage to provide the logic.
+    </li>
 </ul>
 
 
@@ -4067,27 +4072,39 @@ Related:
     <li><a href="#FB_MotionStage">FB_MotionStage</a></li>
 </ul>
 
-<h3>ENUM_EpicsHomeCmd - API Usage Requirements</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>ENUM_EpicsHomeCmd - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
+(TODO these belong in a separate section)
 
 <h3>ENUM_EpicsHomeCmd - Failure Modes</h3>
 <ul>
     <li>
+        A misconfiguration of this setting has the potential to cause axis
+        failure.
+    </li>
+    <li>
+        Memory corruption of this setting could set the axis up for failure
+        on the next homing procedure.
+    </li>
+    <li>
+        Limit switch failure.
+    </li>
+    <li>
+        Absolute encoder failure.
     </li>
 </ul>
+
 
 <h3>ENUM_EpicsHomeCmd - Summary</h3>
 <ul>
     <li>
+        This is the set of valid options for homing in
+        <a class="coderef" href="#FB_MotionStage">FB_MotionStage</a>.
+    </li>
+    <li>
+        It represents all of the common single-axis homing procedures.
+    </li>
+    <li>
+        It is not necessarily intended for usage with gantries, outside of
+        ABSOLUTE_SET.
     </li>
 </ul>
 
@@ -4168,27 +4185,18 @@ Related:
 <h3>ENUM_EpicsInOut - API Usage Requirements</h3>
 <ul>
     <li>
-    </li>
-</ul>
-
-<h3>ENUM_EpicsInOut - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
+        Used to represent the state of an in/out positioner.
     </li>
 </ul>
 
 <h3>ENUM_EpicsInOut - Failure Modes</h3>
 <ul>
     <li>
+        Memory corruption of instances of this status may potentially have bad
+        consequences, but it would likely be limited to a single cycle as these
+        are refreshed every cycle.
     </li>
 </ul>
-
-<h3>ENUM_EpicsInOut - Summary</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
 
 <h2 id="ENUM_EpicsMotorCmd">ENUM_EpicsMotorCmd</h2>
 <img src="graphs/ENUM_EpicsMotorCmd.dot.png" />
@@ -4277,27 +4285,10 @@ Related:
 </table>
 
 
-<h3>ENUM_EpicsMotorCmd - API Usage Requirements</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>ENUM_EpicsMotorCmd - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>ENUM_EpicsMotorCmd - Failure Modes</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
 <h3>ENUM_EpicsMotorCmd - Summary</h3>
 <ul>
     <li>
+        This is <span class="code">nCommand</span> in <a href="#DUT_MotionStage">DUT_MotionStage</a>.
     </li>
 </ul>
 
@@ -4375,27 +4366,18 @@ Related:
     <li><a href="#FB_MotionRequest">FB_MotionRequest</a></li>
 </ul>
 
-<h3>ENUM_MotionRequest - API Usage Requirements</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>ENUM_MotionRequest - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>ENUM_MotionRequest - Failure Modes</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
 <h3>ENUM_MotionRequest - Summary</h3>
 <ul>
     <li>
+        Defines behavior options for when <a class="coderef"
+            href="#FB_MotionRequest">FB_MotionRequest</a>&nbsp;is run during an
+        active move from another source.
+    </li>
+    <li>
+        That is to say if one motion is in progress, and this setting is 
+        INTERRUPT when another simultaneous motion request is received,
+        the initial motion will be interrupted and the latter will be performed
+        instead.
     </li>
 </ul>
 
@@ -4441,7 +4423,7 @@ Related:
         <tr>
             <td id="ENUM_PnuematicActuatorPositionState:6" class="lineid"><a class="unassuming-link" href="#ENUM_PnuematicActuatorPositionState:6">6&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;RETRACTED  &nbsp;&nbsp;:= 0, // Out limit switch is active</td>
-            <td class="note"></td>
+            <td class="note">Normally, this would be UNKNOWN.</td>
         </tr>
         <tr>
             <td id="ENUM_PnuematicActuatorPositionState:7" class="lineid"><a class="unassuming-link" href="#ENUM_PnuematicActuatorPositionState:7">7&nbsp;</a></td>
@@ -4451,12 +4433,12 @@ Related:
         <tr>
             <td id="ENUM_PnuematicActuatorPositionState:8" class="lineid"><a class="unassuming-link" href="#ENUM_PnuematicActuatorPositionState:8">8&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;MOVING  &nbsp;&nbsp;:= 2, // Neither limit switches is Active</td>
-            <td class="note"></td>
+            <td class="note">This is normally paired with the UNKNOWN state.</td>
         </tr>
         <tr>
             <td id="ENUM_PnuematicActuatorPositionState:9" class="lineid"><a class="unassuming-link" href="#ENUM_PnuematicActuatorPositionState:9">9&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;INVALID :=3&nbsp;// Invalid state</td>
-            <td class="note"></td>
+            <td class="note">This goes against the UNKNOWN standard of being 0.</td>
         </tr>
         <tr>
             <td id="ENUM_PnuematicActuatorPositionState:10" class="lineid"><a class="unassuming-link" href="#ENUM_PnuematicActuatorPositionState:10">10&nbsp;</a></td>
@@ -4472,27 +4454,14 @@ Related:
 </table>
 
 
-<h3>ENUM_PnuematicActuatorPositionState - API Usage Requirements</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>ENUM_PnuematicActuatorPositionState - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>ENUM_PnuematicActuatorPositionState - Failure Modes</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
 <h3>ENUM_PnuematicActuatorPositionState - Summary</h3>
 <ul>
     <li>
+        Defines the positions for a pnuematic actuator.
+    </li>
+    <li>
+        (Issue) Potentially - does not follow the implicit standard of 0 being
+        the "UNKNOWN" or moving state.
     </li>
 </ul>
 
@@ -4538,7 +4507,7 @@ Related:
         <tr>
             <td id="ENUM_StageBrakeMode:6" class="lineid"><a class="unassuming-link" href="#ENUM_StageBrakeMode:6">6&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;IF_ENABLED, // Disengage brake when the motor is enabled</td>
-            <td class="note"></td>
+            <td class="note">This is the default for <a href="#DUT_MotionStage">DUT_MotionStage</a>.</td>
         </tr>
         <tr>
             <td id="ENUM_StageBrakeMode:7" class="lineid"><a class="unassuming-link" href="#ENUM_StageBrakeMode:7">7&nbsp;</a></td>
@@ -4570,27 +4539,18 @@ Related:
     <li><a href="#FB_MotionStage">FB_MotionStage</a></li>
 </ul>
 
-<h3>ENUM_StageBrakeMode - API Usage Requirements</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>ENUM_StageBrakeMode - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
 <h3>ENUM_StageBrakeMode - Failure Modes</h3>
 <ul>
     <li>
+        Memory corruption of this setting on an axis with a brake
+        could lead to motion failure.
     </li>
 </ul>
 
 <h3>ENUM_StageBrakeMode - Summary</h3>
 <ul>
     <li>
+        This defines the brake settings for a single axis.
     </li>
 </ul>
 
@@ -4671,24 +4631,25 @@ Related:
 <h3>ENUM_StageEnableMode - API Usage Requirements</h3>
 <ul>
     <li>
+        This is a user-facing setting which sets bEnable on the
+        <a href="#DUT_MotionStage">DUT_MotionStage</a>.
     </li>
 </ul>
 
 <h3>ENUM_StageEnableMode - Assumptions for Correct Functionality</h3>
 <ul>
     <li>
-    </li>
-</ul>
-
-<h3>ENUM_StageEnableMode - Failure Modes</h3>
-<ul>
-    <li>
+        This must be set appropriately depending on how the axis will be used.
     </li>
 </ul>
 
 <h3>ENUM_StageEnableMode - Summary</h3>
 <ul>
     <li>
+        From the documentation: Automatically enable the NC Axis ALWAYS, NEVER,
+        or only DURING_MOTION (default). Switch this to ALWAYS if you want
+        active position correction at all times and to NEVER if you're doing
+        checkout with the TwinCAT NC GUI.
     </li>
 </ul>
 
@@ -4759,31 +4720,22 @@ Related:
 <br/>
 <ul>
     <li><a href="#DUT_TerminalError">DUT_TerminalError</a></li>
-    <li><a href="#GVL">GVL</a></li>
     <li><a href="#GVL_ErrorSystem">GVL_ErrorSystem</a></li>
-</ul>
-
-<h3>ST_ErrorSystem - API Usage Requirements</h3>
-<ul>
-    <li>
-    </li>
 </ul>
 
 <h3>ST_ErrorSystem - Assumptions for Correct Functionality</h3>
 <ul>
     <li>
-    </li>
-</ul>
-
-<h3>ST_ErrorSystem - Failure Modes</h3>
-<ul>
-    <li>
+        <span class="code">GVL_ErrorSystem.cSizeOfErrorData</span> must be
+        set appropriately.
     </li>
 </ul>
 
 <h3>ST_ErrorSystem - Summary</h3>
 <ul>
     <li>
+        This is used internally in the error system to keep track of per-module
+        failures.
     </li>
 </ul>
 
@@ -4855,106 +4807,41 @@ Related:
 <h3>ST_RenishawAbsEnc - API Usage Requirements</h3>
 <ul>
     <li>
+        Count must be manually linked to encoder Position input.
+    </li>
+    <li>
+        Ref may be set to a zero position, if necessary.
+    </li>
+    <li>
+        Status remains empty and unused (see <a href="#EL5042_Status">EL5042_Status</a>).
     </li>
 </ul>
 
 <h3>ST_RenishawAbsEnc - Assumptions for Correct Functionality</h3>
 <ul>
     <li>
+        Linked appropriately to a BiSS-C absolute encoder.
     </li>
-</ul>
-
-<h3>ST_RenishawAbsEnc - Failure Modes</h3>
-<ul>
     <li>
+        Unsigned encoder values up to 64-bits supported (ULINT).
     </li>
 </ul>
 
 <h3>ST_RenishawAbsEnc - Summary</h3>
 <ul>
     <li>
+        Used as part of the gantry system.
+    </li>
+    <li>
+        Gantry difference is calculated as:
+        <span class="code">(Primary.Count - Primary.Ref) - (Secondary.Count - Secondary.Ref)</span>
+        in <a href="#FB_GantryDiffVirtualLimitSwitch">FB_GantryDiffVirtualLimitSwitch</a>.
     </li>
 </ul>
 
 
 <div id="GVLs" class="section">
 <h1>GVLs</h1>
-
-
-<h2 id="Global_Version">Global_Version</h2>
-
-
-<table>
-    <thead>
-        <tr>
-            <th>Line</th>
-            <th>Code</th>
-            <th>Notes</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td id="Global_Version:1" class="lineid"><a class="unassuming-link" href="#Global_Version:1">1&nbsp;</a></td>
-            <td class="code">{attribute 'TcGenerated'}</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Global_Version:2" class="lineid"><a class="unassuming-link" href="#Global_Version:2">2&nbsp;</a></td>
-            <td class="code">// This function has been automatically generated from the project information.</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Global_Version:3" class="lineid"><a class="unassuming-link" href="#Global_Version:3">3&nbsp;</a></td>
-            <td class="code">VAR_GLOBAL CONSTANT</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Global_Version:4" class="lineid"><a class="unassuming-link" href="#Global_Version:4">4&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;{attribute 'const_non_replaced'}</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Global_Version:5" class="lineid"><a class="unassuming-link" href="#Global_Version:5">5&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;{attribute 'linkalways'}</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Global_Version:6" class="lineid"><a class="unassuming-link" href="#Global_Version:6">6&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stLibVersion_lcls_twincat_motion : ST_LibVersion := (iMajor := 0, iMinor := 0, iBuild := 0, iRevision := 0, sVersion := '0.0.0');</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Global_Version:7" class="lineid"><a class="unassuming-link" href="#Global_Version:7">7&nbsp;</a></td>
-            <td class="code">END_VAR</td>
-            <td class="note"></td>
-        </tr>
-    </tbody>
-</table>
-
-
-<h3>Global_Version - API Usage Requirements</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>Global_Version - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>Global_Version - Failure Modes</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>Global_Version - Summary</h3>
-<ul>
-    <li>
-    </li>
-</ul>
 
 
 <h2 id="GVL">GVL</h2>
@@ -4989,27 +4876,13 @@ Related:
 </table>
 
 
-<h3>GVL - API Usage Requirements</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>GVL - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>GVL - Failure Modes</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
 <h3>GVL - Summary</h3>
 <ul>
     <li>
+        This is an apparently unused and poorly named GVL from tc_mca_std_lib.
+    </li>
+    <li>
+        (Issue) Mark this for deprecation/removal.
     </li>
 </ul>
 
@@ -5040,7 +4913,7 @@ Related:
         <tr>
             <td id="GVL_ErrorSystem:3" class="lineid"><a class="unassuming-link" href="#GVL_ErrorSystem:3">3&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;cSizeOfErrorData : UINT := 128;</td>
-            <td class="note"></td>
+            <td class="note">This is used to set the number of recorded items in <a href="#ST_ErrorSystem">ST_ErrorSystem</a></td>
         </tr>
         <tr>
             <td id="GVL_ErrorSystem:4" class="lineid"><a class="unassuming-link" href="#GVL_ErrorSystem:4">4&nbsp;</a></td>
@@ -5056,27 +4929,16 @@ Related:
 </table>
 
 
-<h3>GVL_ErrorSystem - API Usage Requirements</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>GVL_ErrorSystem - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>GVL_ErrorSystem - Failure Modes</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
 <h3>GVL_ErrorSystem - Summary</h3>
 <ul>
     <li>
+        This used for configuration setting information for the error system,
+        and contains only constant variables.
+    </li>
+    <li>
+        Constants may not be changed via code, but may be adjusted with online
+        changes.  Forced online changes are outside of the scope of this
+        review.
     </li>
 </ul>
 
