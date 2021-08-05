@@ -696,3 +696,718 @@
 </ul>
 
 
+<h2 id="FB_CalculateFrequency_3702_v0_01">FB_CalculateFrequency_3702_v0_01</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Line</th>
+            <th>Code</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:1" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:1">1&nbsp;</a></td>
+            <td class="code">FUNCTION_BLOCK <a class="coderef" href="#FB_CalculateFrequency_3702_v0_01">FB_CalculateFrequency_3702_v0_01</a></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:2" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:2">2&nbsp;</a></td>
+            <td class="code">VAR CONSTANT</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:3" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:3">3&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///200&nbsp;samples/period</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:4" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:4">4&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;cBufferSize: INT := 1000;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:5" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:5">5&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:6" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:6">6&nbsp;</a></td>
+            <td class="code">VAR_INPUT</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:7" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:7">7&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;En: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:8" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:8">8&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bCalculate: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:9" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:9">9&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;aBufferValue: ARRAY[0..(cBuffersize -&nbsp;1)] OF INT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:10" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:10">10&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;aBufferDcTime: ARRAY[0..(cBuffersize -&nbsp;1)] OF UDINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:11" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:11">11&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///If curve has a&nbsp;DC offset</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:12" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:12">12&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nDCOffset: INT := 0;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:13" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:13">13&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:14" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:14">14&nbsp;</a></td>
+            <td class="code">VAR_OUTPUT</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:15" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:15">15&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;EnO: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:16" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:16">16&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bError: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:17" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:17">17&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fActFrequency: LREAL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:18" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:18">18&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:19" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:19">19&nbsp;</a></td>
+            <td class="code">VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:20" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:20">20&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nIndex: INT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:21" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:21">21&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nFirstZeroCrossing: INT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:22" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:22">22&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nLastZeroCrossing: INT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:23" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:23">23&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;rTimeFirst: REAL := 0;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:24" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:24">24&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;rTimeLast: REAL := 0;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:25" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:25">25&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;rTimeRes: REAL := 0;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:26" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:26">26&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nCrossings: INT := 0;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:27" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:27">27&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:28" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:28">28&nbsp;</a></td>
+            <td class="code">VAR_TEMP</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:29" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:29">29&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;rRange: REAL := 0;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:30" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:30">30&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;rTimeSpan: REAL := 0;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:31" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:31">31&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:32" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:32">32&nbsp;</a></td>
+            <td class="code">EnO:=En;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:33" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:33">33&nbsp;</a></td>
+            <td class="code">bError:=FALSE;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:34" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:34">34&nbsp;</a></td>
+            <td class="code">nCrossings:=0;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:35" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:35">35&nbsp;</a></td>
+            <td class="code">IF En AND bCalculate THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:36" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:36">36&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;//Serach for crossings of nDCOffset</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:37" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:37">37&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;FOR nIndex:=1&nbsp;TO cBuffersize-1&nbsp;DO</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:38" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:38">38&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF((aBufferValue[nIndex]>nDCOffset AND aBufferValue[nIndex-1]<=nDCOffset) OR (aBufferValue[nIndex]<nDCOffset AND aBufferValue[nIndex-1]>=nDCOffset)) &nbsp;&nbsp;&nbsp;THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:39" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:39">39&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF(nCrossings=0) THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:40" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:40">40&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nFirstZeroCrossing:=nIndex;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:41" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:41">41&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:42" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:42">42&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nLastZeroCrossing:=nIndex;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:43" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:43">43&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nCrossings:=nCrossings+1;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:44" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:44">44&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:45" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:45">45&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;END_FOR  &nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:46" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:46">46&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:47" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:47">47&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;IF nFirstZeroCrossing <&nbsp;nLastZeroCrossing &nbsp;AND &nbsp;nCrossings>2&nbsp;THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:48" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:48">48&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//interpolate zero crossings for higher accuracy</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:49" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:49">49&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rTimeRes:=UDINT_TO_REAL(aBufferDcTime[1]-aBufferDcTime[0]);&nbsp;//Buffer must contain more than 2&nbsp;values</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:50" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:50">50&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rRange:=INT_TO_REAL(ABS(aBufferValue[nFirstZeroCrossing-1]-aBufferValue[nFirstZeroCrossing]));</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:51" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:51">51&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rTimeFirst:=UDINT_TO_REAL( aBufferDcTime[nFirstZeroCrossing-1])+ABS(INT_TO_REAL(aBufferValue[nFirstZeroCrossing-1])/rRange*rTimeRes);</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:52" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:52">52&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rRange:=INT_TO_REAL(ABS(aBufferValue[nLastZeroCrossing-1]-aBufferValue[nLastZeroCrossing]));</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:53" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:53">53&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rTimeLast:=UDINT_TO_REAL( aBufferDcTime[nLastZeroCrossing-1])+ABS(INT_TO_REAL(aBufferValue[nLastZeroCrossing-1])/rRange*rTimeRes);</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:54" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:54">54&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:55" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:55">55&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Time span first to last (considering that max one time counter overflow have occured in the total time range of the time buffer) &nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:56" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:56">56&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF rTimeFirst<rTimeLast THEN &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:57" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:57">57&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rTimeSpan:=rTimeLast-rTimeFirst;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:58" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:58">58&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE //overflow of counter once (only 32bit timestamp =4.29seconds)</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:59" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:59">59&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rTimeSpan:=4294967296.0-rTimeFirst+rTimeLast;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:60" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:60">60&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:61" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:61">61&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:62" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:62">62&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fActFrequency:=1000000000.0/rTimeSpan*(nCrossings-1)/2;&nbsp;//two crossings per period =>&nbsp;Average frequency over buffer.</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:63" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:63">63&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;ELSE</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:64" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:64">64&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fActFrequency:=0;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:65" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:65">65&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:66" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:66">66&nbsp;</a></td>
+            <td class="code">END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:67" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:67">67&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_CalculateFrequency_3702_v0_01:68" class="lineid"><a class="unassuming-link" href="#FB_CalculateFrequency_3702_v0_01:68">68&nbsp;</a></td>
+            <td class="code">END_FUNCTION_BLOCK</td>
+            <td class="note"></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>FB_CalculateFrequency_3702_v0_01 - API Usage Requirements</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>FB_CalculateFrequency_3702_v0_01 - Assumptions for Correct Functionality</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>FB_CalculateFrequency_3702_v0_01 - Failure Modes</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>FB_CalculateFrequency_3702_v0_01 - Summary</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+
+<h2 id="FB_EL1252ASM_v1_00">FB_EL1252ASM_v1_00</h2>
+<img src="graphs/FB_EL1252ASM_v1_00.dot.png" />
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Line</th>
+            <th>Code</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:1" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:1">1&nbsp;</a></td>
+            <td class="code">FUNCTION_BLOCK <a class="coderef" href="#FB_EL1252ASM_v1_00">FB_EL1252ASM_v1_00</a></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:2" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:2">2&nbsp;</a></td>
+            <td class="code">VAR_INPUT</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:3" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:3">3&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;En: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:4" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:4">4&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:5" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:5">5&nbsp;</a></td>
+            <td class="code">VAR_OUTPUT</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:6" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:6">6&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;EnO: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:7" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:7">7&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Di_1: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:8" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:8">8&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Di_2: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:9" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:9">9&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Di_1_LatchTimePos: ULINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:10" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:10">10&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Di_2_LatchTimePos: ULINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:11" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:11">11&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Di_1_LatchTimeNeg: ULINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:12" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:12">12&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Di_2_LatchTimeNeg: ULINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:13" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:13">13&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///Below bits can be used but then they must be enabled in the COE of the card. Nicklas suggested to not use these (since something wss written that you then only were allowed to read the latch time onece (some kkind of auto reset??)) &nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:14" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:14">14&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///Di_1_LatchNeg:BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:15" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:15">15&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///  &nbsp;&nbsp;Di_1_LatchPos:BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:16" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:16">16&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///  &nbsp;&nbsp;Di_2_LatchNeg:BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:17" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:17">17&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///  &nbsp;&nbsp;Di_2_LatchPos:BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:18" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:18">18&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Error: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:19" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:19">19&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:20" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:20">20&nbsp;</a></td>
+            <td class="code">VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:21" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:21">21&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Channel_1_Input AT %I*: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:22" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:22">22&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Channel_2_Input AT %I*: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:23" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:23">23&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///Latch_Status1&nbsp;AT %I*: USINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:24" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:24">24&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;///  &nbsp;&nbsp;Latch_Status2&nbsp;AT %I*: USINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:25" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:25">25&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Latch_LatchPos1&nbsp;AT %I*: ULINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:26" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:26">26&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Latch_LatchNeg1&nbsp;AT %I*: ULINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:27" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:27">27&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Latch_LatchPos2&nbsp;AT %I*: ULINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:28" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:28">28&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Latch_LatchNeg2&nbsp;AT %I*: ULINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:29" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:29">29&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;WcState_WcState AT %I*: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:30" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:30">30&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;InfoData_State AT %I*: UINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:31" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:31">31&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:32" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:32">32&nbsp;</a></td>
+            <td class="code">EnO:=En;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:33" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:33">33&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:34" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:34">34&nbsp;</a></td>
+            <td class="code">IF En AND (WcState_WcState OR InfoData_State<>16#8) THEN //InfoData_State==0&nbsp;=>&nbsp;in OP mode</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:35" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:35">35&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Error:=TRUE;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:36" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:36">36&nbsp;</a></td>
+            <td class="code">ELSE</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:37" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:37">37&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Error:=FALSE;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:38" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:38">38&nbsp;</a></td>
+            <td class="code">END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:39" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:39">39&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:40" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:40">40&nbsp;</a></td>
+            <td class="code">IF En THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:41" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:41">41&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;IF Error=FALSE THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:42" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:42">42&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Di_1:=Channel_1_Input;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:43" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:43">43&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Di_2:=Channel_2_Input;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:44" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:44">44&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;(*  &nbsp;&nbsp;Di_1_LatchPos:=Latch_Status1.0;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:45" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:45">45&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Di_1_LatchNeg:=Latch_Status1.1;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:46" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:46">46&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Di_2_LatchPos:=Latch_Status2.0;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:47" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:47">47&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Di_2_LatchNeg:=Latch_Status2.1;*)</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:48" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:48">48&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Di_1_LatchTimePos:=Latch_LatchPos1;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:49" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:49">49&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Di_2_LatchTimePos:=Latch_LatchPos2;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:50" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:50">50&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Di_1_LatchTimeNeg:=Latch_LatchNeg1;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:51" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:51">51&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Di_2_LatchTimeNeg:=Latch_LatchNeg2;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:52" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:52">52&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:53" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:53">53&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;ELSE</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:54" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:54">54&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Di_1:=FALSE;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:55" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:55">55&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Di_2:=FALSE;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:56" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:56">56&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:57" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:57">57&nbsp;</a></td>
+            <td class="code">END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:58" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:58">58&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_EL1252ASM_v1_00:59" class="lineid"><a class="unassuming-link" href="#FB_EL1252ASM_v1_00:59">59&nbsp;</a></td>
+            <td class="code">END_FUNCTION_BLOCK</td>
+            <td class="note"></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>FB_EL1252ASM_v1_00 - API Usage Requirements</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>FB_EL1252ASM_v1_00 - Assumptions for Correct Functionality</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>FB_EL1252ASM_v1_00 - Failure Modes</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>FB_EL1252ASM_v1_00 - Summary</h3>
+<ul>
+    <li>
+    </li>
+</ul>
