@@ -7489,3 +7489,1282 @@ Related:
 
 </body>
 </html>
+
+
+<h2 id="FB_TerminalError">FB_TerminalError</h2>
+<img src="graphs/FB_TerminalError.dot.png" />
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Line</th>
+            <th>Code</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td id="FB_TerminalError:1" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:1">1&nbsp;</a></td>
+            <td class="code">FUNCTION_BLOCK <a class="coderef" href="#FB_TerminalError">FB_TerminalError</a></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:2" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:2">2&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:3" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:3">3&nbsp;</a></td>
+            <td class="code">VAR_INPUT</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:4" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:4">4&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;En  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:5" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:5">5&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;iTerminal_ID  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: INT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:6" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:6">6&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bWcState  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:7" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:7">7&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;uiInfoData_State  &nbsp;&nbsp;: UINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:8" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:8">8&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;pErrorSystem  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: POINTER TO <a class="coderef" href="#ST_ErrorSystem">ST_ErrorSystem</a>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Pointer to the error system</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:9" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:9">9&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:10" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:10">10&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:11" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:11">11&nbsp;</a></td>
+            <td class="code">VAR_OUTPUT</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:12" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:12">12&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;EnO : BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:13" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:13">13&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bError : BOOL := FALSE;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:14" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:14">14&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:15" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:15">15&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:16" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:16">16&nbsp;</a></td>
+            <td class="code">VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:17" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:17">17&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;iStateError : UINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:18" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:18">18&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;iOtherError : UINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:19" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:19">19&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;ErrorData  &nbsp;&nbsp;: <a class="coderef" href="#DUT_TerminalError">DUT_TerminalError</a>;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:20" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:20">20&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nErrSysCNT  &nbsp;&nbsp;: UINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:21" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:21">21&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:22" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:22">22&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;//testing</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:23" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:23">23&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bStateChanged : BOOL;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Indicate if state change happened</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:24" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:24">24&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;uiInfoData_State_Prev : UINT := 16#8;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Previous value of Infodata.State</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:25" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:25">25&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bWcState_Prev : BOOL := FALSE;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Previous state of WcState</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:26" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:26">26&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:27" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:27">27&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;//FB-s</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:28" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:28">28&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:29" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:29">29&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:30" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:30">30&nbsp;</a></td>
+            <td class="code">(*</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:31" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:31">31&nbsp;</a></td>
+            <td class="code">Currently:</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:32" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:32">32&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:33" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:33">33&nbsp;</a></td>
+            <td class="code">Problem:</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:34" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:34">34&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:35" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:35">35&nbsp;</a></td>
+            <td class="code">TODO:</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:36" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:36">36&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:37" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:37">37&nbsp;</a></td>
+            <td class="code">*)</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:38" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:38">38&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:39" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:39">39&nbsp;</a></td>
+            <td class="code">//Connect EN to EnO</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:40" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:40">40&nbsp;</a></td>
+            <td class="code">EnO:=En;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:41" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:41">41&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:42" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:42">42&nbsp;</a></td>
+            <td class="code">//Check if pointer is OK</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:43" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:43">43&nbsp;</a></td>
+            <td class="code">IF pErrorSystem=0&nbsp;THEN RETURN;&nbsp;END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:44" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:44">44&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:45" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:45">45&nbsp;</a></td>
+            <td class="code">//Any difference from normal state creates an error</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:46" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:46">46&nbsp;</a></td>
+            <td class="code">IF En AND (bWcState OR uiInfoData_State<>16#8) THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:47" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:47">47&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bError:=TRUE;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:48" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:48">48&nbsp;</a></td>
+            <td class="code">ELSE</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:49" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:49">49&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bError:=FALSE;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:50" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:50">50&nbsp;</a></td>
+            <td class="code">END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:51" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:51">51&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:52" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:52">52&nbsp;</a></td>
+            <td class="code">//Change detection</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:53" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:53">53&nbsp;</a></td>
+            <td class="code">IF uiInfoData_State <>&nbsp;uiInfoData_State_Prev OR bWcState <>&nbsp;bWcState_Prev THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:54" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:54">54&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bStateChanged := TRUE;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:55" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:55">55&nbsp;</a></td>
+            <td class="code">ELSE</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:56" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:56">56&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bStateChanged := FALSE;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:57" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:57">57&nbsp;</a></td>
+            <td class="code">END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:58" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:58">58&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:59" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:59">59&nbsp;</a></td>
+            <td class="code">//Update previous values</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:60" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:60">60&nbsp;</a></td>
+            <td class="code">uiInfoData_State_Prev := uiInfoData_State;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:61" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:61">61&nbsp;</a></td>
+            <td class="code">bWcState_Prev := bWcState;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:62" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:62">62&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:63" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:63">63&nbsp;</a></td>
+            <td class="code">//Decision tree</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:64" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:64">64&nbsp;</a></td>
+            <td class="code">IF bStateChanged THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:65" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:65">65&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;IF bError THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:66" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:66">66&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF ErrorData.ErrorState =&nbsp;<a class="coderef" href="#DUT_ErrorState">DUT_ErrorState</a>.Active THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:67" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:67">67&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Close active error</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:68" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:68">68&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Read system time</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:69" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:69">69&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.nDateTimeOff := Tc2_EtherCAT.F_GetActualDcTime64();</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:70" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:70">70&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.sDateTimeOff := Tc2_EtherCat.DCTIME64_TO_STRING(ErrorData.nDateTimeOff);</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:71" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:71">71&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.ErrorState := <a class="coderef" href="#DUT_ErrorState">DUT_ErrorState</a>.Inactive;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:72" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:72">72&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Write Off-time to Error System</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:73" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:73">73&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR nErrSysCNT := 0&nbsp;TO <a class="coderef" href="#GVL_ErrorSystem">GVL_ErrorSystem</a>.cSizeOfErrorData -&nbsp;1&nbsp;DO</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:74" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:74">74&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF pErrorSystem^.aErrorData[nErrSysCNT].Error_ID =&nbsp;ErrorData.Error_ID THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:75" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:75">75&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pErrorSystem^.aErrorData[nErrSysCNT].nDateTimeOff := ErrorData.nDateTimeOff;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:76" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:76">76&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pErrorSystem^.aErrorData[nErrSysCNT].sDateTimeOff := ErrorData.sDateTimeOff;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:77" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:77">77&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pErrorSystem^.aErrorData[nErrSysCNT].ErrorState := <a class="coderef" href="#DUT_ErrorState">DUT_ErrorState</a>.Inactive;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:78" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:78">78&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:79" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:79">79&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:80" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:80">80&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END_FOR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:81" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:81">81&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:82" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:82">82&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Clear ErrorData</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:83" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:83">83&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEMSET(ADR(ErrorData), 0, SIZEOF(ErrorData));</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:84" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:84">84&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:85" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:85">85&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:86" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:86">86&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Open a new error</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:87" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:87">87&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.ErrorState := <a class="coderef" href="#DUT_ErrorState">DUT_ErrorState</a>.Active;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Set Error State</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:88" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:88">88&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.nDateTimeOn := Tc2_EtherCAT.F_GetActualDcTime64();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Get system time</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:89" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:89">89&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.sDateTimeOn := Tc2_EtherCat.DCTIME64_TO_STRING(ErrorData.nDateTimeOn);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Convert to string</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:90" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:90">90&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.iTerminalID := iTerminal_ID;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Terminal_ID</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:91" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:91">91&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.bWcState := bWcState;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//WcState bit</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:92" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:92">92&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.uiInfoDataState := uiInfoData_State;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//uiInfoData_State</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:93" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:93">93&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:94" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:94">94&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Error message according to uiInfoData_State and WcState</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:95" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:95">95&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iStateError := (uiInfoData_State AND 16#000F);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Mask for operation state </td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:96" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:96">96&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iOtherError := (uiInfoData_State AND 16#00F0);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Mask for the other 3&nbsp;kind of errors</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:97" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:97">97&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Error messages according to the least significant digit</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:98" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:98">98&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CASE iStateError OF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:99" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:99">99&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16#0001&nbsp;: ErrorData.sErrorMessage := 'Slave in INIT state;&nbsp;&nbsp;&nbsp;';</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:100" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:100">100&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16#0002&nbsp;: ErrorData.sErrorMessage := 'Slave in PREOP state;&nbsp;&nbsp;&nbsp;';</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:101" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:101">101&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16#0003&nbsp;: ErrorData.sErrorMessage := 'Slave in BOOT state;&nbsp;&nbsp;&nbsp;';</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:102" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:102">102&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16#0004&nbsp;: ErrorData.sErrorMessage := 'Slave in SAFEOP state;&nbsp;&nbsp;&nbsp;';</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:103" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:103">103&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16#0008&nbsp;:&nbsp;;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Normal operation state</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:104" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:104">104&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:105" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:105">105&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.sErrorMessage := 'Undefined State of operation;&nbsp;&nbsp;&nbsp;';&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//I hope we will never see this message</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:106" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:106">106&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.sErrorMessage := CONCAT (ErrorData.sErrorMessage, UINT_TO_STRING(iStateError));</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:107" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:107">107&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.sErrorMessage := CONCAT (ErrorData.sErrorMessage, '&nbsp;&nbsp;&nbsp;');</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:108" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:108">108&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END_CASE</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:109" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:109">109&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:110" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:110">110&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Error messages according to the second least significant digit</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:111" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:111">111&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CASE iOtherError OF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:112" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:112">112&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16#0000&nbsp;:&nbsp;;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//No error case</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:113" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:113">113&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16#0010&nbsp;: ErrorData.sErrorMessage := CONCAT (ErrorData.sErrorMessage, 'Slave signals error;&nbsp;&nbsp;&nbsp;');</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:114" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:114">114&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16#0020&nbsp;: ErrorData.sErrorMessage := CONCAT (ErrorData.sErrorMessage, 'Invalid vendorID/productCode read;&nbsp;&nbsp;&nbsp;');</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:115" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:115">115&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16#0040&nbsp;: ErrorData.sErrorMessage := CONCAT (ErrorData.sErrorMessage, 'Initialisation error occured;&nbsp;&nbsp;&nbsp;');</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:116" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:116">116&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:117" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:117">117&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.sErrorMessage := CONCAT (ErrorData.sErrorMessage, 'Undefined Error ID: ');</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:118" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:118">118&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.sErrorMessage := CONCAT (ErrorData.sErrorMessage, UINT_TO_STRING(iOtherError));</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:119" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:119">119&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.sErrorMessage := CONCAT (ErrorData.sErrorMessage, '&nbsp;&nbsp;&nbsp;');</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:120" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:120">120&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END_CASE</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:121" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:121">121&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:122" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:122">122&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Errormessage according to WcState bit</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:123" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:123">123&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF bWcState THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:124" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:124">124&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.sErrorMessage := CONCAT (ErrorData.sErrorMessage, 'Invalid Data;');</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:125" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:125">125&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:126" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:126">126&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:127" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:127">127&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Check for overflow</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:128" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:128">128&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF pErrorSystem^.nNoErrors =&nbsp;<a class="coderef" href="#GVL_ErrorSystem">GVL_ErrorSystem</a>.cSizeOfErrorData THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:129" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:129">129&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pErrorSystem^.nNoOverflows := pErrorSystem^.nNoOverflows+1;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:130" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:130">130&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:131" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:131">131&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:132" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:132">132&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Write Error Data into Error System</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:133" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:133">133&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.Error_ID := pErrorSystem^.lNextErrorID&nbsp;;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:134" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:134">134&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEMMOVE( ADR(pErrorSystem^.aErrorData[1]), ADR(pErrorSystem^.aErrorData[0]), (<a class="coderef" href="#GVL_ErrorSystem">GVL_ErrorSystem</a>.cSizeOfErrorData-1) *&nbsp;SIZEOF(<a class="coderef" href="#DUT_TerminalError">DUT_TerminalError</a>));</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:135" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:135">135&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pErrorSystem^.aErrorData[0] := ErrorData;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:136" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:136">136&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pErrorSystem^.lNextErrorID := pErrorSystem^.lNextErrorID+1;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:137" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:137">137&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:138" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:138">138&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;ELSE</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:139" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:139">139&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Close Active Error</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:140" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:140">140&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Read system time</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:141" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:141">141&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.nDateTimeOff := Tc2_EtherCAT.F_GetActualDcTime64();</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:142" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:142">142&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.sDateTimeOff := Tc2_EtherCat.DCTIME64_TO_STRING(ErrorData.nDateTimeOff);</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:143" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:143">143&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorData.ErrorState := <a class="coderef" href="#DUT_ErrorState">DUT_ErrorState</a>.Inactive;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:144" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:144">144&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:145" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:145">145&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Write Off time to Error System</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:146" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:146">146&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR nErrSysCNT := 0&nbsp;TO <a class="coderef" href="#GVL_ErrorSystem">GVL_ErrorSystem</a>.cSizeOfErrorData -&nbsp;1&nbsp;DO</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:147" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:147">147&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF pErrorSystem^.aErrorData[nErrSysCNT].Error_ID =&nbsp;ErrorData.Error_ID THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:148" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:148">148&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pErrorSystem^.aErrorData[nErrSysCNT].nDateTimeOff := ErrorData.nDateTimeOff;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:149" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:149">149&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pErrorSystem^.aErrorData[nErrSysCNT].sDateTimeOff := ErrorData.sDateTimeOff;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:150" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:150">150&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pErrorSystem^.aErrorData[nErrSysCNT].ErrorState := <a class="coderef" href="#DUT_ErrorState">DUT_ErrorState</a>.Inactive;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:151" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:151">151&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:152" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:152">152&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:153" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:153">153&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END_FOR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:154" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:154">154&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:155" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:155">155&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Clear ErrorData</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:156" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:156">156&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEMSET(ADR(ErrorData), 0, SIZEOF(ErrorData));</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:157" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:157">157&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:158" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:158">158&nbsp;</a></td>
+            <td class="code">END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:159" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:159">159&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_TerminalError:160" class="lineid"><a class="unassuming-link" href="#FB_TerminalError:160">160&nbsp;</a></td>
+            <td class="code">END_FUNCTION_BLOCK</td>
+            <td class="note"></td>
+        </tr>
+    </tbody>
+</table>
+
+<br/>
+Related:
+<br/>
+<ul>
+    <li><a href="#DUT_ErrorState">DUT_ErrorState</a></li>
+    <li><a href="#DUT_TerminalError">DUT_TerminalError</a></li>
+    <li><a href="#GVL_ErrorSystem">GVL_ErrorSystem</a></li>
+    <li><a href="#ST_ErrorSystem">ST_ErrorSystem</a></li>
+</ul>
+
+<h3>FB_TerminalError - API Usage Requirements</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>FB_TerminalError - Assumptions for Correct Functionality</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>FB_TerminalError - Failure Modes</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>FB_TerminalError - Summary</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+
+<h2 id="FB_ErrorList">FB_ErrorList</h2>
+<img src="graphs/FB_ErrorList.dot.png" />
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Line</th>
+            <th>Code</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td id="FB_ErrorList:1" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:1">1&nbsp;</a></td>
+            <td class="code">FUNCTION_BLOCK <a class="coderef" href="#FB_ErrorList">FB_ErrorList</a></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:2" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:2">2&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:3" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:3">3&nbsp;</a></td>
+            <td class="code">VAR_INPUT</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:4" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:4">4&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;En : BOOL;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Enable input</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:5" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:5">5&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bReset : BOOL;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Delete all Error entry</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:6" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:6">6&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;lErrorID : ULINT;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//ErrorID to be acknoledged</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:7" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:7">7&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bACK : BOOL;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Acknoledge the given error and delete it from the list</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:8" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:8">8&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:9" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:9">9&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:10" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:10">10&nbsp;</a></td>
+            <td class="code">VAR_OUTPUT</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:11" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:11">11&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;EnO : BOOL;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Enable output</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:12" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:12">12&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nNoError: UINT;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Number of Errors</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:13" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:13">13&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nNoOverflow : INT;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Number of Overflows</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:14" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:14">14&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;pErrorSystem : POINTER TO <a class="coderef" href="#ST_ErrorSystem">ST_ErrorSystem</a>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Pointer to ErrorSystem</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:15" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:15">15&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:16" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:16">16&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:17" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:17">17&nbsp;</a></td>
+            <td class="code">VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:18" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:18">18&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nFreePos : UINT;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Number of free position in the list</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:19" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:19">19&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nListCnt1&nbsp;: UINT;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//work variable</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:20" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:20">20&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;ErrorSystem : <a class="coderef" href="#ST_ErrorSystem">ST_ErrorSystem</a>;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//Data structure of the Error list</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:21" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:21">21&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:22" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:22">22&nbsp;</a></td>
+            <td class="code">(*</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:23" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:23">23&nbsp;</a></td>
+            <td class="code">* ================================================================================</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:24" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:24">24&nbsp;</a></td>
+            <td class="code">*  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DESCRIPTION</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:25" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:25">25&nbsp;</a></td>
+            <td class="code">* ================================================================================</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:26" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:26">26&nbsp;</a></td>
+            <td class="code">* This Function Block implements the core structure of the Error/Warning Handling</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:27" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:27">27&nbsp;</a></td>
+            <td class="code">* system. It realizes the datastructure containing every Error Entry, collect</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:28" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:28">28&nbsp;</a></td>
+            <td class="code">* statistics about the usage and manage the Error Entries.</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:29" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:29">29&nbsp;</a></td>
+            <td class="code">* Note: The system is under development, most of the functionalities are not</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:30" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:30">30&nbsp;</a></td>
+            <td class="code">* implemented or existing functionalities may change with time.</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:31" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:31">31&nbsp;</a></td>
+            <td class="code">* ================================================================================</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:32" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:32">32&nbsp;</a></td>
+            <td class="code">*)</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:33" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:33">33&nbsp;</a></td>
+            <td class="code">EnO := En;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:34" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:34">34&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:35" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:35">35&nbsp;</a></td>
+            <td class="code">//Ponter to ErrorSystem</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:36" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:36">36&nbsp;</a></td>
+            <td class="code">pErrorSystem := ADR(ErrorSystem);</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:37" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:37">37&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:38" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:38">38&nbsp;</a></td>
+            <td class="code">//Number of overflows</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:39" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:39">39&nbsp;</a></td>
+            <td class="code">nNoOverflow := ErrorSystem.nNoOverflows;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:40" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:40">40&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:41" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:41">41&nbsp;</a></td>
+            <td class="code">IF bReset THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:42" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:42">42&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;MEMSET ( ADR(ErrorSystem.aErrorData[0]), 0, <a class="coderef" href="#GVL_ErrorSystem">GVL_ErrorSystem</a>.cSizeOfErrorData *&nbsp;SIZEOF(<a class="coderef" href="#DUT_TerminalError">DUT_TerminalError</a>));</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:43" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:43">43&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;ErrorSystem.lNextErrorID := 1;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:44" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:44">44&nbsp;</a></td>
+            <td class="code">END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:45" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:45">45&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:46" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:46">46&nbsp;</a></td>
+            <td class="code">//Number of errors in the system</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:47" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:47">47&nbsp;</a></td>
+            <td class="code">nNoError := 0;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:48" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:48">48&nbsp;</a></td>
+            <td class="code">FOR nListCnt1&nbsp;:= 0&nbsp;TO <a class="coderef" href="#GVL_ErrorSystem">GVL_ErrorSystem</a>.cSizeOfErrorData -&nbsp;1&nbsp;DO</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:49" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:49">49&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;IF ErrorSystem.aErrorData[nListCnt1].Error_ID <>&nbsp;0&nbsp;&nbsp;THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:50" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:50">50&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nNoError := nNoError+1;&nbsp;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:51" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:51">51&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:52" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:52">52&nbsp;</a></td>
+            <td class="code">END_FOR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:53" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:53">53&nbsp;</a></td>
+            <td class="code">ErrorSystem.nNoErrors := nNoError;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:54" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:54">54&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:55" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:55">55&nbsp;</a></td>
+            <td class="code">//Number of free position in the list</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:56" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:56">56&nbsp;</a></td>
+            <td class="code">nFreePos := <a class="coderef" href="#GVL_ErrorSystem">GVL_ErrorSystem</a>.cSizeOfErrorData -&nbsp;nNoError;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:57" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:57">57&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:58" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:58">58&nbsp;</a></td>
+            <td class="code">//Acknoledge specified Error entry</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:59" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:59">59&nbsp;</a></td>
+            <td class="code">IF bACK THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:60" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:60">60&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;FOR nListCnt1&nbsp;:= 0&nbsp;TO <a class="coderef" href="#GVL_ErrorSystem">GVL_ErrorSystem</a>.cSizeOfErrorData -&nbsp;1&nbsp;DO</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:61" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:61">61&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF ErrorSystem.aErrorData[nListCnt1].Error_ID =&nbsp;lErrorID THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:62" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:62">62&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ErrorSystem.aErrorData[nListCnt1].ErrorState := <a class="coderef" href="#DUT_ErrorState">DUT_ErrorState</a>.Acknowledged;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:63" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:63">63&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:64" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:64">64&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;END_FOR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:65" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:65">65&nbsp;</a></td>
+            <td class="code">END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:66" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:66">66&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:67" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:67">67&nbsp;</a></td>
+            <td class="code">//Deleting acknoledged errors</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:68" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:68">68&nbsp;</a></td>
+            <td class="code">FOR nListCnt1&nbsp;:= 0&nbsp;TO <a class="coderef" href="#GVL_ErrorSystem">GVL_ErrorSystem</a>.cSizeOfErrorData -&nbsp;1&nbsp;DO</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:69" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:69">69&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;IF ErrorSystem.aErrorData[nListCnt1].ErrorState =&nbsp;<a class="coderef" href="#DUT_ErrorState">DUT_ErrorState</a>.Acknowledged THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:70" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:70">70&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEMMOVE (ADR(ErrorSystem.aErrorData[nListCnt1]), ADR(ErrorSystem.aErrorData[nListCnt1+1]), (<a class="coderef" href="#GVL_ErrorSystem">GVL_ErrorSystem</a>.cSizeOfErrorData -&nbsp;1&nbsp;- nListCnt1) *&nbsp;SIZEOF(<a class="coderef" href="#DUT_TerminalError">DUT_TerminalError</a>));</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:71" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:71">71&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEMSET(ADR(ErrorSystem.aErrorData[<a class="coderef" href="#GVL_ErrorSystem">GVL_ErrorSystem</a>.cSizeOfErrorData - 1]), 0, SIZEOF(<a class="coderef" href="#DUT_TerminalError">DUT_TerminalError</a>));</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:72" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:72">72&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:73" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:73">73&nbsp;</a></td>
+            <td class="code">END_FOR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:74" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:74">74&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_ErrorList:75" class="lineid"><a class="unassuming-link" href="#FB_ErrorList:75">75&nbsp;</a></td>
+            <td class="code">END_FUNCTION_BLOCK</td>
+            <td class="note"></td>
+        </tr>
+    </tbody>
+</table>
+
+<br/>
+Related:
+<br/>
+<ul>
+    <li><a href="#DUT_ErrorState">DUT_ErrorState</a></li>
+    <li><a href="#DUT_TerminalError">DUT_TerminalError</a></li>
+    <li><a href="#GVL_ErrorSystem">GVL_ErrorSystem</a></li>
+    <li><a href="#ST_ErrorSystem">ST_ErrorSystem</a></li>
+</ul>
+
+<h3>FB_ErrorList - API Usage Requirements</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>FB_ErrorList - Assumptions for Correct Functionality</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>FB_ErrorList - Failure Modes</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>FB_ErrorList - Summary</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+
