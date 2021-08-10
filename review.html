@@ -6282,7 +6282,7 @@ Related:
         <tr>
             <td id="FB_DriveVirtual:31" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:31">31&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nCommand: UINT;</td>
-            <td class="note">See also <a href="#ENUM_EpicsMotorCmd">/ENUM_EpicsMotorCmd</a><td>
+            <td class="note">See also <a href="#ENUM_EpicsMotorCmd">ENUM_EpicsMotorCmd</a><td>
         </tr>
         <tr>
             <td id="FB_DriveVirtual:32" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:32">32&nbsp;</a></td>
@@ -6322,22 +6322,32 @@ Related:
         <tr>
             <td id="FB_DriveVirtual:39" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:39">39&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bLimitFwd: BOOL;</td>
-            <td class="note"></td>
+            <td class="note">
+              Used for MC_Power if bPowerSelf.<br/>
+              Used for FB_HomeVirtual.
+            </td>
         </tr>
         <tr>
             <td id="FB_DriveVirtual:40" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:40">40&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bLimitBwd: BOOL;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td class="note"></td>
+            <td class="note">
+              Used for MC_Power if bPowerSelf.<br/>
+              Used for FB_HomeVirtual.
+            </td>
         </tr>
         <tr>
             <td id="FB_DriveVirtual:41" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:41">41&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fOverride: LREAL := 100;</td>
-            <td class="note"></td>
+            <td class="note"> 
+                Only used if bPowerSelf is TRUE.
+            </td>
         </tr>
         <tr>
             <td id="FB_DriveVirtual:42" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:42">42&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bHomeSensor: BOOL;</td>
-            <td class="note"></td>
+            <td class="note">
+              Used for FB_HomeVirtual and reporting axis status to EPICS.
+            </td>
         </tr>
         <tr>
             <td id="FB_DriveVirtual:43" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:43">43&nbsp;</a></td>
@@ -6392,7 +6402,10 @@ Related:
         <tr>
             <td id="FB_DriveVirtual:53" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:53">53&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bError: BOOL;</td>
-            <td class="note"></td>
+            <td class="note">
+              bError is set from the selected MC_* block last chosen by way of
+              nCommand.
+            </td>
         </tr>
         <tr>
             <td id="FB_DriveVirtual:54" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:54">54&nbsp;</a></td>
@@ -6402,7 +6415,10 @@ Related:
         <tr>
             <td id="FB_DriveVirtual:55" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:55">55&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nErrorId: UDINT;</td>
-            <td class="note"></td>
+            <td class="note">
+              nErrorId is set from the selected MC_* block last chosen by way of
+              nCommand.
+            </td>
         </tr>
         <tr>
             <td id="FB_DriveVirtual:56" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:56">56&nbsp;</a></td>
@@ -6436,7 +6452,10 @@ Related:
         <tr>
             <td id="FB_DriveVirtual:61" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:61">61&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;sErrorMessage:STRING;</td>
-            <td class="note"></td>
+            <td class="note">
+              This is only a string representation of the integer error code
+              nErrorID, not an actual message.
+            </td>
         </tr>
         <tr>
             <td id="FB_DriveVirtual:62" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:62">62&nbsp;</a></td>
@@ -6775,7 +6794,13 @@ Related:
         <tr>
             <td id="FB_DriveVirtual:123" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:123">123&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Execute:=NOT bExecute &nbsp;AND (((fbMoveVelocity.Busy OR fbPower.Busy) AND (nCommandLocal=1)) OR (fbMoveRelative.Busy AND (nCommandLocal=2)) OR (fbMoveAbsolute.Busy AND (nCommandLocal=3)) OR (fbMoveModulo.Busy AND (nCommandLocal=4)) OR (fbHomeVirtual.bBusy AND (nCommandLocal=10))),</td>
-            <td class="note"></td>
+            <td class="note">
+              This boils down to: 
+              <ol>
+                <li>bExecute is FALSE; and </li>
+                <li>Command requested when bExecute went high reports busy </li>
+              </ol>
+            </td>
         </tr>
         <tr>
             <td id="FB_DriveVirtual:124" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:124">124&nbsp;</a></td>
@@ -6870,7 +6895,7 @@ Related:
         <tr>
             <td id="FB_DriveVirtual:142" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:142">142&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Velocity:=fVelocity,</td>
-            <td class="note"></td>
+            <td class="note">(Issue) should be ABS(fVelocity)</td>
         </tr>
         <tr>
             <td id="FB_DriveVirtual:143" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:143">143&nbsp;</a></td>
@@ -6885,7 +6910,9 @@ Related:
         <tr>
             <td id="FB_DriveVirtual:145" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:145">145&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Jerk:=0,</td>
-            <td class="note"></td>
+            <td class="note">
+
+            </td>
         </tr>
         <tr>
             <td id="FB_DriveVirtual:146" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:146">146&nbsp;</a></td>
@@ -7610,7 +7637,7 @@ Related:
         <tr>
             <td id="FB_DriveVirtual:290" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:290">290&nbsp;</a></td>
             <td class="code">bEnabled:=fbPower.Status;</td>
-            <td class="note"></td>
+            <td class="note">(Issue) This does not take into account bPowerSelf; output AxisStatus.bEnabled may be undefined.</td>
         </tr>
         <tr>
             <td id="FB_DriveVirtual:291" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:291">291&nbsp;</a></td>
@@ -8040,12 +8067,18 @@ Related:
         <tr>
             <td id="FB_DriveVirtual:376" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:376">376&nbsp;</a></td>
             <td class="code">stAxisStatus.nCmdData:=nCmdData;&nbsp;&nbsp;//Or nCmdDataLocal</td>
-            <td class="note"></td>
+            <td class="note">
+              (Issue) nCmdDataLocal would be more accurate, as it would reflect
+              the command currently in process.
+            </td>
         </tr>
         <tr>
             <td id="FB_DriveVirtual:377" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:377">377&nbsp;</a></td>
             <td class="code">stAxisStatus.nCommand:=nCommand;&nbsp;&nbsp;//Or nCommandLocal</td>
-            <td class="note"></td>
+            <td class="note">
+              (Issue) nCommandLocal would be more accurate, as it would reflect
+              the command currently in process.
+            </td>
         </tr>
         <tr>
             <td id="FB_DriveVirtual:378" class="lineid"><a class="unassuming-link" href="#FB_DriveVirtual:378">378&nbsp;</a></td>
@@ -8147,8 +8180,6 @@ Related:
             <li>bPowerSelf</li>
             <li>Axis</li>
         </ul>
-
-
     </li>
     <li>
     </li>
@@ -8157,12 +8188,79 @@ Related:
 <h3>FB_DriveVirtual - Assumptions for Correct Functionality</h3>
 <ul>
     <li>
+      bPowerSelf must be set to TRUE if not using an external MC_Power block.
+    </li>
+    <li>
+      If bPowerSelf is TRUE, bEnable/bLimitFwd/bLimitBwd will be used to
+      configure allowed motion directions
+    </li>
+    <li>
+      Setting bReset only will cause MC_Reset to execute when the axis status
+      reports an error.
+    </li>
+    <li>
+      Jerk (derivative of acceleration) is never set in this block.  This means
+      that the standard jerk from the axis configuration in the System Manager
+      is applied (per Beckhoff documentation).
+    </li>
+    <li>
+      Jog (command 0): bJogFwd or bJogBwd (but not both) must be set.
+      fVelocity, fAcceleration, fDeceleration are used.  fVelocity must be
+      positive (issue; others use ABS to sanitize the input). 
+      <br/>
+      If a simultaneous signal edge occurs at the inputs "JogForward" and
+      "JogBackwards", "JogForward" has priority in MC_Jog. 
+    </li>
+    <li>
+      Move velocity (command 1): fVelocity, fAcceleration, and fDeceleration are used.
+      fVelocity sign used to determine motion direction.
+    </li>
+    <li>
+      Move relative (command 2): fPosition (relative distance), fVelocity,
+      fAcceleration, fDeceleration are used.  Velocity sign does not matter.
+    </li>
+    <li>
+      Move absolute (command 3): fPosition (absolute position), fVelocity,
+      fAcceleration, fDeceleration are used.  Velocity sign does not matter.
+    </li>
+    <li>
+      Move modulo (command 4): fPosition, fVelocity, fAcceleration,
+      fDeceleration are used.  Velocity sign does not matter.
+      nCmdData is used to determine the motion direction, unlike others which
+      use the sign of fVelocity. (Inconsistency)
+    </li>
+    <li>
+      Home (command 10): fHomePosition, bHomeSensor, bLimitBwd, bLimitFwd,
+      nCmdData, bReset, and nHomeRevOffset are used.
+      nCmdData indicates the homing method to be used (see <a href="#ENUM_EpicsHomeCmd">ENUM_EpicsHomeCmd</a>)
+      (Issue) FB_HomeVirtual.nHomeRevOffset is unused.
+    </li>
+    <li>
+      Gearing toggle (command 30): nCmdData, fAcceleration, fDeceleration, and
+      MasterAxis are used when coupling.  When decoupling, the stage must not
+      be in motion (and none of the above parameters are used).
+      <br/>
+      nCmdData chooses the gear ratio by way of the following:
+      <ol>
+        <li>If unsigned nCmdData is non-zero, a gear ratio of 1 will be used.</li>
+        <li>If nCmdData is zero, fVelocity will be used as the gearing ratio.</li>
+      </ol>
     </li>
 </ul>
 
 <h3>FB_DriveVirtual - Failure Modes</h3>
 <ul>
     <li>
+      Multiple conflicting requests to this POU would be unsupported and may
+      fight each other. However, FB_MotionRequest avoids potential failures by
+      way of keeping track of such moves.
+    </li>
+    <li>
+      nCommand must be set when executing. However, an unset nCommand (i.e., 0)
+      would be seen as a valid "jog" command, which could result in undesired
+      motion.  It may be advisable to adjust the ENUM values to avoid this.
+      (TODO) look into BufferMode, as it may be a Beckhoff-provided solution
+      to the same problem.
     </li>
 </ul>
 
