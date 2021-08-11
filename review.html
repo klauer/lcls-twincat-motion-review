@@ -9471,7 +9471,10 @@ Related:
 <ul>
     <li>
       This class is specifically designed for a two-axis gantry, each with 
-      a single absolute, BiSS-C Renishaw encoder.  
+      a single absolute, BiSS-C Renishaw encoder of identical resolution. 
+    </li>
+    <li>
+      Tolerance is assumed to be in raw encoder counts.
     </li>
     <li>
       <a href="#DUT_MotionStage">DUT_MotionStage</a> and 
@@ -9508,14 +9511,16 @@ Related:
 <h3>FB_GantryAutoCoupling - Assumptions for Correct Functionality</h3>
 <ul>
     <li>
-      A valid gantry configuration, of course.
-    </li>
-    <li>
-      Functional encoders.
+      A valid gantry configuration (of course!) with functional encoders of
+      identical resolution.
     </li>
     <li>
       Callers do not toggle important parameters externally (such as
       bGantryAxis).
+    </li>
+    <li>
+      Per <a href="#FB_GantryDiffVirtualLimitSwitch">FB_GantryDiffVirtualLimitSwitch</a>, 
+      the slave axis must be downstream of the master axis.
     </li>
 </ul>
 
@@ -9684,7 +9689,11 @@ Related:
         <tr>
             <td id="FB_GantryDiffVirtualLimitSwitch:27" class="lineid"><a class="unassuming-link" href="#FB_GantryDiffVirtualLimitSwitch:27">27&nbsp;</a></td>
             <td class="code">X2>X1</td>
-            <td class="note"></td>
+            <td class="note">
+              (Issue) The reasoning in this comment block is flawed and does
+              not represent the code below (which is correct).  See notes
+              below.
+            </td>
         </tr>
         <tr>
             <td id="FB_GantryDiffVirtualLimitSwitch:28" class="lineid"><a class="unassuming-link" href="#FB_GantryDiffVirtualLimitSwitch:28">28&nbsp;</a></td>
@@ -9865,27 +9874,71 @@ Related:
 <h3>FB_GantryDiffVirtualLimitSwitch - API Usage Requirements</h3>
 <ul>
     <li>
+      Properly configured primary and secondary encoders of identical
+      resolution.  Gantry difference tolerance passed in.
     </li>
 </ul>
 
 <h3>FB_GantryDiffVirtualLimitSwitch - Assumptions for Correct Functionality</h3>
 <ul>
     <li>
+      Primary axis must come first in the beamline coordinate system.
+    </li>
+    <li>
+      For a gantry with axis 1 at Z1 and axis 2 at Z2 such that Z2 &gt; Z1,
+      moving in the beamline coordinate system X:
+
+      <ol>
+        <li>
+        The GantryDiff position delta indicates the reference-corrected position
+        of master minus slave.
+        </li>
+        <li>
+          When the error is positive, this indicates downstream axis (slave) is
+          negative in X relative to the upstream (master) axis (a CCW rotation
+          around Y from the nominal position). (Primary positive limit,
+          secondary negative limit)
+        </li>
+        <li>
+          When the error is negative, this indicates downstream axis (slave) is
+          positive relative to the upstream (master) axis (a CW rotation around
+          Y). (Primary negative limit, secondary positive limit)
+        </li>
+      </ol>
+
+    <li>
+      For a gantry with axis 1 at X1 and axis 2 at X2 such that X2 &gt; X1,
+      moving in the beamline coordinate system Z:
+
+      <ol>
+        <li>
+        The GantryDiff position delta indicates the reference-corrected position
+        of master minus slave.
+        </li>
+        <li>
+          When the error is positive, this indicates the secondary axis is
+          negative in Z relative to the master axis (a CW rotation around Y
+          from the nominal position).  (Primary positive limit, secondary
+          negative limit).
+        </li>
+        <li>
+          When the error is negative, this indicates the secondary axis is
+          positive in Z relative to the upstream (master) axis (a CCW rotation
+          around Y). (Primary negative limit, secondary positive limit)
+        </li>
+      </ol>
+
     </li>
 </ul>
 
 <h3>FB_GantryDiffVirtualLimitSwitch - Failure Modes</h3>
 <ul>
     <li>
+      Assuming all parameters are set appropriately, I do not see a flaw in
+      the logic or potential for failure.  No floating point math is performed
+      here so no NaN-related exceptions could be raised.
     </li>
 </ul>
-
-<h3>FB_GantryDiffVirtualLimitSwitch - Summary</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
 
 <h2 id="FB_HomeDirect">FB_HomeDirect</h2>
 <img src="graphs/FB_HomeDirect.dot.png" />
