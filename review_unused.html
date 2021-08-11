@@ -6,6 +6,52 @@
 </head>
 <body>
 
+<div id="toc_container">
+    <p class="toc_title">Contents</p>
+    <ul class="toc_list">
+        <li>
+            <a href="#DUTs">DUTs</a>
+             <ol>
+                 <li><a href="#dutEL2521_Ctrl">dutEL2521_Ctrl</a></li>
+                 <li><a href="#dutEL2521_Status">dutEL2521_Status</a></li>
+             </ol>
+        </li>
+        <li>
+            <a href="#GVLs">GVLs</a>
+             <ol>
+                 <li><a href="#Global_Version">Global_Version</a></li>
+             </ol>
+        </li>
+        <li>
+            <a href="#POUs">POUs</a>
+             <ol>
+                 <li><a href="#CheckDivLInt">CheckDivLInt</a></li>
+                 <li><a href="#CheckDivLReal">CheckDivLReal</a></li>
+                 <li><a href="#CheckDivReal">CheckDivReal</a></li>
+                 <li><a href="#FB_CalculateFrequency_3702_v0_01">FB_CalculateFrequency_3702_v0_01</a></li>
+                 <li><a href="#FB_EL1252ASM_v1_00">FB_EL1252ASM_v1_00</a></li>
+                 <li><a href="#FB_EpicsInOut">FB_EpicsInOut</a></li>
+                 <li><a href="#FB_HomeDirect">FB_HomeDirect</a></li>
+                 <li><a href="#FB_HomeFinish">FB_HomeFinish</a></li>
+                 <li><a href="#FB_HomePrepare">FB_HomePrepare</a></li>
+                 <li><a href="#FB_HomeReadNcVelocities">FB_HomeReadNcVelocities</a></li>
+                 <li><a href="#FB_HomeReadSoftLimEnable">FB_HomeReadSoftLimEnable</a></li>
+                 <li><a href="#FB_HomeToSwitch">FB_HomeToSwitch</a></li>
+                 <li><a href="#FB_HomeVirtual">FB_HomeVirtual</a></li>
+                 <li><a href="#FB_HomeWriteNcVelocities">FB_HomeWriteNcVelocities</a></li>
+                 <li><a href="#FB_HomeWriteSoftLimEnable">FB_HomeWriteSoftLimEnable</a></li>
+                 <li><a href="#FB_MicroStepCountTest">FB_MicroStepCountTest</a></li>
+                 <li><a href="#FB_NcAxis">FB_NcAxis</a></li>
+                 <li><a href="#FB_PositionStateManager">FB_PositionStateManager</a></li>
+                 <li><a href="#FB_ReadParameterInNc_v1_00">FB_ReadParameterInNc_v1_00</a></li>
+                 <li><a href="#FB_StatePTPMove">FB_StatePTPMove</a></li>
+                 <li><a href="#FB_WriteFloatParameter">FB_WriteFloatParameter</a></li>
+                 <li><a href="#FB_WriteParameterInNc_v1_00">FB_WriteParameterInNc_v1_00</a></li>
+             </ol>
+        </li>
+    </ul>
+</div>
+
 <h1>lcls-twincat-motion extras - unreviewed items</h1>
 
 <h2 id="dutEL2521_Ctrl">dutEL2521_Ctrl</h2>
@@ -10110,6 +10156,479 @@ Related:
 </ul>
 
 <h3>FB_WriteParameterInNc_v1_00 - Summary</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+
+
+<h2 id="FB_MicroStepCountTest">FB_MicroStepCountTest</h2>
+<img src="graphs/FB_MicroStepCountTest.dot.png" />
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Line</th>
+            <th>Code</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td id="FB_MicroStepCountTest:1" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:1">1&nbsp;</a></td>
+            <td class="code">FUNCTION_BLOCK <a class="coderef" href="#FB_MicroStepCountTest">FB_MicroStepCountTest</a></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:2" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:2">2&nbsp;</a></td>
+            <td class="code">VAR_INPUT</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:3" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:3">3&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bExecute: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:4" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:4">4&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fStepSize: LREAL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:5" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:5">5&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nSteps: UINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:6" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:6">6&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fMicroStep: LREAL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:7" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:7">7&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fVelocity: LREAL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:8" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:8">8&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;tSettleTime: TIME;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:9" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:9">9&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:10" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:10">10&nbsp;</a></td>
+            <td class="code">VAR_IN_OUT</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:11" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:11">11&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Axis: AXIS_REF;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:12" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:12">12&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:13" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:13">13&nbsp;</a></td>
+            <td class="code">VAR_OUTPUT</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:14" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:14">14&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nStepsCounted: UINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:15" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:15">15&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nTheorySteps: UINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:16" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:16">16&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fPercent: LREAL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:17" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:17">17&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fEstMicroSize: LREAL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:18" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:18">18&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:19" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:19">19&nbsp;</a></td>
+            <td class="code">VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:20" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:20">20&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fbMoveRel: MC_MoveRelative;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:21" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:21">21&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fbSettleTimer: TON;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:22" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:22">22&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bDoMove: BOOL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:23" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:23">23&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nStepCounter: UINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:24" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:24">24&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:25" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:25">25&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;arrPosBuffer: ARRAY [0..99] OF LREAL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:26" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:26">26&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fAvgPos: LREAL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:27" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:27">27&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nArrIndex: UINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:28" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:28">28&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nLoopIndex: UINT;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:29" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:29">29&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:30" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:30">30&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fStartPos: LREAL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:31" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:31">31&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fPrevPos: LREAL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:32" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:32">32&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fStepChange: LREAL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:33" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:33">33&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:34" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:34">34&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fStepSum: LREAL;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:35" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:35">35&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:36" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:36">36&nbsp;</a></td>
+            <td class="code">// Motion FB</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:37" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:37">37&nbsp;</a></td>
+            <td class="code">fbMoveRel(Axis:=Axis,</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:38" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:38">38&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Execute:=bDoMove,</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:39" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:39">39&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Distance:=fStepSize,</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:40" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:40">40&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Velocity:=fVelocity);</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:41" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:41">41&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:42" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:42">42&nbsp;</a></td>
+            <td class="code">// Settle time</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:43" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:43">43&nbsp;</a></td>
+            <td class="code">fbSettleTimer(IN:=fbMoveRel.Done,</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:44" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:44">44&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;PT:=tSettleTime);</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:45" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:45">45&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:46" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:46">46&nbsp;</a></td>
+            <td class="code">// Re-enable the move for next cycle</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:47" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:47">47&nbsp;</a></td>
+            <td class="code">bDoMove := bExecute AND nStepCounter <&nbsp;nSteps;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:48" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:48">48&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:49" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:49">49&nbsp;</a></td>
+            <td class="code">// Calculate rolling average</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:50" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:50">50&nbsp;</a></td>
+            <td class="code">arrPosBuffer[nArrIndex] := Axis.NcToPlc.ActPos;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:51" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:51">51&nbsp;</a></td>
+            <td class="code">fAvgPos := 0;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:52" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:52">52&nbsp;</a></td>
+            <td class="code">FOR nLoopIndex := 0&nbsp;TO 99&nbsp;DO</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:53" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:53">53&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fAvgPos := fAvgPos +&nbsp;arrPosBuffer[nLoopIndex];</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:54" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:54">54&nbsp;</a></td>
+            <td class="code">END_FOR;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:55" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:55">55&nbsp;</a></td>
+            <td class="code">fAvgPos := fAvgPos /&nbsp;100;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:56" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:56">56&nbsp;</a></td>
+            <td class="code">nArrIndex := (nArrIndex +&nbsp;1) MOD 100;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:57" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:57">57&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:58" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:58">58&nbsp;</a></td>
+            <td class="code">// Initialize starting variables</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:59" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:59">59&nbsp;</a></td>
+            <td class="code">IF NOT bExecute THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:60" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:60">60&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fStartPos := fAvgPos;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:61" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:61">61&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fPrevPos := fAvgPos;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:62" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:62">62&nbsp;</a></td>
+            <td class="code">END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:63" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:63">63&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:64" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:64">64&nbsp;</a></td>
+            <td class="code">// Check results</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:65" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:65">65&nbsp;</a></td>
+            <td class="code">IF fbSettleTimer.Q THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:66" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:66">66&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fStepChange := fAvgPos -&nbsp;fPrevPos;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:67" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:67">67&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;// Invert fStepChange if we were doing negative steps</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:68" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:68">68&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;IF fStepSize <&nbsp;0&nbsp;THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:69" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:69">69&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fStepChange := fStepChange *&nbsp;-1;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:70" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:70">70&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:71" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:71">71&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;IF fStepChange >&nbsp;fMicroStep *&nbsp;0.5&nbsp;THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:72" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:72">72&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nStepsCounted := nStepsCounted +&nbsp;1;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:73" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:73">73&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fStepSum := fStepSum +&nbsp;fStepChange;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:74" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:74">74&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fEstMicroSize := fStepSum /&nbsp;nStepsCounted;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:75" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:75">75&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:76" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:76">76&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nTheorySteps := DINT_TO_UINT(TRUNC(ABS((fStartPos -&nbsp;fAvgPos) /&nbsp;fMicroStep)));</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:77" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:77">77&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;IF nTheorySteps >&nbsp;0&nbsp;THEN</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:78" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:78">78&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fPercent := 100&nbsp;* nStepsCounted /&nbsp;nTheorySteps;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:79" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:79">79&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:80" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:80">80&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fPrevPos := fAvgPos;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:81" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:81">81&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nStepCounter := nStepCounter +&nbsp;1;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:82" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:82">82&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;// Reset the move block</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:83" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:83">83&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bDoMove := FALSE;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:84" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:84">84&nbsp;</a></td>
+            <td class="code">END_IF</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:85" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:85">85&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_MicroStepCountTest:86" class="lineid"><a class="unassuming-link" href="#FB_MicroStepCountTest:86">86&nbsp;</a></td>
+            <td class="code">END_FUNCTION_BLOCK</td>
+            <td class="note"></td>
+        </tr>
+    </tbody>
+</table>
+
+
+<h3>FB_MicroStepCountTest - API Usage Requirements</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>FB_MicroStepCountTest - Assumptions for Correct Functionality</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>FB_MicroStepCountTest - Failure Modes</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>FB_MicroStepCountTest - Summary</h3>
 <ul>
     <li>
     </li>
