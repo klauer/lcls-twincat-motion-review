@@ -1,0 +1,110 @@
+digraph FB_MotionRequest_StateMachine {
+    node [style=filled, shape=record]
+    START [ shape=diamond ];
+
+    INIT [ label="INIT\n
+        bError := FALSE\n
+        sErrorMessage := ''\n
+        bDone := FALSE\n
+        bCausedError := FALSE\n
+        bBusy := FALSE\n
+        "
+    ];
+
+    WAIT_EXEC [ label="
+        WAIT_EXEC\n
+        bMyMove := FALSE\n
+        bBusy := FALSE\n
+        "
+    ];
+
+    START_MOVE [ label="
+        START_MOVE\n
+        bMyMove := TRUE\n
+        stMotionStage.bExecute := TRUE\n
+        stMotionStage.nCommand := MOVE_ABSOLUTE\n
+        stMotionStage.fPosition := fPos\n
+        stMotionStage.fVelocity := fVel\n
+        stMotionStage.fAcceleration := fAcc\n
+        stMotionStage.fDeceleration := fDec\n
+        bBusy := TRUE\n
+        "
+    ];
+
+    WAIT_MY_MOVE [ label="
+        WAIT_MY_MOVE\n
+        bBusy := TRUE\n
+        "
+    ];
+    STOP_OTHER_MOVE [ label="
+        STOP_OTHER_MOVE\n
+        stMotionStage.bExecute := FALSE\n
+        bBusy := TRUE\n
+        "
+    ];
+    PICK_REQUEST [ label="
+        PICK_REQUEST\n
+        bBusy := TRUE\n
+        "
+    ];
+
+    STOP_MY_MOVE [ label="
+        STOP_MY_MOVE\n
+        stMotionStage.bExecute := FALSE\n
+        bBusy := TRUE\n
+        "
+    ];
+
+    DONE_MOVING [ label="
+        DONE_MOVING\n
+        bDone := stMotionStage.bDone\n
+        bBusy := TRUE\n
+        "
+    ];
+
+    WAIT_OTHER_MOVE [ label="
+        WAIT_OTHER_MOVE\n
+        bBusy := TRUE\n
+        "
+    ];
+
+    ERROR [ label="
+        ERROR\n
+        bMyMove := FALSE\n
+        bBusy := FALSE\n
+        "
+    ];
+
+    ERROR_SET [ label="
+        ERROR_SET\n
+        (Internal diagram state)\n
+        nErrorId := stMotionStage.nErrorId\n
+        bCausedError := TRUE;
+        Set sErrorMessage
+        "
+    ];
+    START -> INIT;
+    INIT -> WAIT_EXEC [label=""];
+    WAIT_EXEC -> PICK_REQUEST [label="bExecute rising\nbDone := FALSE;"];
+    PICK_REQUEST -> WAIT_OTHER_MOVE [label="stMotionStage.bBusy &&\n enumMotionRequest = WAIT"];
+    PICK_REQUEST -> STOP_OTHER_MOVE [label="stMotionStage.bBusy &&\n enumMotionRequest = INTERRUPT"];
+    PICK_REQUEST -> ERROR [label="stMotionStage.bBusy &&\nenumMotionRequest = ABORT\nbError := TRUE\n nErrorId := 0x7900" fontcolor=red];
+    PICK_REQUEST -> START_MOVE [label="NOT stMotionStage.bBusy"];
+    WAIT_OTHER_MOVE -> PICK_REQUEST [label="NOT stMotionStage.bBusy"];
+    STOP_OTHER_MOVE -> START_MOVE [label="NOT stMotionStage.bBusy"];
+    START_MOVE -> WAIT_MY_MOVE [label=""];
+    WAIT_MY_MOVE -> DONE_MOVING [label="stMotionStage.bBusy falling trigger"];
+    WAIT_MY_MOVE -> STOP_MY_MOVE [label="bExecute falling"];
+    STOP_MY_MOVE -> DONE_MOVING [label="NOT stMotionStage.bBusy"];
+    DONE_MOVING -> WAIT_EXEC [label=""];
+
+    WAIT_EXEC -> ERROR_SET [label="bMyMove && stMotionStage.bError", color=red fontcolor=red];
+    PICK_REQUEST -> ERROR_SET [label="bMyMove && stMotionStage.bError", color=red fontcolor=red];
+    WAIT_OTHER_MOVE -> ERROR_SET [label="bMyMove && stMotionStage.bError", color=red fontcolor=red];
+    STOP_OTHER_MOVE -> ERROR_SET [label="bMyMove && stMotionStage.bError", color=red fontcolor=red];
+    START_MOVE -> ERROR_SET [label="bMyMove && stMotionStage.bError", color=red fontcolor=red];
+    WAIT_MY_MOVE -> ERROR_SET [label="bMyMove && stMotionStage.bError", color=red fontcolor=red];
+    STOP_MY_MOVE -> ERROR_SET [label="bMyMove && stMotionStage.bError", color=red fontcolor=red];
+    DONE_MOVING -> ERROR_SET [label="bMyMove && stMotionStage.bError", color=red fontcolor=red];
+    ERROR_SET -> ERROR [color=red];
+}

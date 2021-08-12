@@ -1,0 +1,70 @@
+digraph FB_MotionHoming_StateMachine{
+    node [style=filled, shape=record]
+    START;
+
+    IDLE [
+        label="
+        IDLE\n
+        bBusy = FALSE\n
+        nErrCount = 0\n
+        fbSetPos, fbJog off.\n
+        "
+    ];
+    NEXT_MOVE [
+        label="
+        NEXT_MOVE\n
+        fbSetPos, fbJog off\n
+        (nMoves, bFirstDirection) in:\n
+        (0, TRUE), (1, FALSE): nStateAfterStop := CHECK_FWD\n
+        (0, FALSE), (1, TRUE): nStateAfterStop := CHECK_BWD\n
+        (2+, any): nStateAfterStop := ERROR\n
+        \n
+        Or, if bAtHome, nStateAfterStop := FINAL_MOVE
+        "
+    ];
+    CHECK_FWD [label="
+        CHECK_FWD\n
+        Set readback position to -99999999 (avoid soft limit)\n
+        Jog forward if bLimitForwardEnable and NOT bAtHome\n
+        "];
+    CHECK_BWD [label="
+        CHECK_BWD\n
+        Set readback position to 99999999 (avoid soft limit)\n
+        Jog backward if bLimitBackwardEnable and NOT bAtHome
+        "];
+    FINAL_MOVE [label="
+        FINAL_MOVE\n
+        fbSetPos to fHomePosition!\n
+        If bAtHome jog opposite first direction at fRefVeloSearch\n
+
+    "];
+    FINAL_SETPOS;
+    ERROR [label="
+        ERROR\n
+        bError:=TRUE;\n
+        nErrorId := fbJog.ErrorID\n
+    "
+    ];
+    WAIT_STOP;
+
+    START -> IDLE [label="FB Initialization"];
+    IDLE -> NEXT_MOVE [label="bExecute rising trigger"];
+    NEXT_MOVE -> WAIT_STOP;
+
+    CHECK_FWD -> NEXT_MOVE [label="NOT fbJog.JogForward"];
+    CHECK_FWD -> ERROR [label="fbJog.JogForward &&\n fbJog.Error &&\n nErrCount >= 3" color="red"];
+
+    CHECK_BWD -> NEXT_MOVE [label="NOT fbJog.JogBackward"];
+    CHECK_BWD -> ERROR [label="fbJog.JogBackward &&\n fbJog.Error &&\n nErrCount >= 3" color="red"];
+
+    FINAL_MOVE -> ERROR [label="fbJog.Error && nErrCount >= 3" color="red"];
+    FINAL_MOVE -> WAIT_STOP [label="NOT bAtHome && NOT fbJog.Error; \nnStateAfterStop := FINAL_SETPOS"];
+
+    WAIT_STOP -> CHECK_FWD [label="NotMoving && \nnStateAfterStop == CHECK_FWD"];
+    WAIT_STOP -> CHECK_BWD [label="NotMoving && \nnStateAfterStop == CHECK_BWD"];
+    WAIT_STOP -> ERROR [label="NotMoving && \nnStateAfterStop == ERROR" color="red"];
+    WAIT_STOP -> FINAL_MOVE [label="NotMoving && \nnStateAfterStop == FINAL_MOVE"];
+    WAIT_STOP -> FINAL_SETPOS [label="NotMoving && \nnStateAfterStop == FINAL_SETPOS" color=green];
+    
+    FINAL_SETPOS -> IDLE [label="bBusy := FALSE;\nbDone := TRUE;"];
+}

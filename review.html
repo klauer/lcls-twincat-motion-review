@@ -11239,27 +11239,65 @@ Related:
     <li><a href="#ENUM_EpicsHomeCmd">ENUM_EpicsHomeCmd</a></li>
 </ul>
 
-<h3>FB_MotionHoming - API Usage Requirements</h3>
+<h3>FB_MotionHoming - State Machine</h3>
+
+<img src="fb_motionhoming_state.dot.png" />
+
+<h3>FB_MotionHoming - API Usage Requirements and Notes</h3>
+
 <ul>
     <li>
+      A valid, configured <a href="DUT_MotionStage#"DUT_MotionStage></a> and 
+      bExecute flag are all that is required.
+    </li>
+    <li>
+      Position lag is implicitly cleared when setting the new position.
+    </li>
+    <li>
+      Error information is cleared when bExecute is FALSE.
+    </li>
+    <li>
+      Per-axis <a href="#ENUM_EpicsHomeCmd">ENUM_EpicsHomeCmd</a> homing modes
+      are respected as set on the 
+      <a href="#DUT_MotionStage">DUT_MotionStage</a>.
     </li>
 </ul>
 
 <h3>FB_MotionHoming - Assumptions for Correct Functionality</h3>
 <ul>
     <li>
+      For LOW_LIMIT, DUT_MotionStage.bLimitBackwardEnable must be set or linked
+      appropriately.
     </li>
-</ul>
-
-<h3>FB_MotionHoming - Failure Modes</h3>
-<ul>
     <li>
+      For HIGH_LIMIT, DUT_MotionStage.bLimitForwardEnable must be set or linked
+      appropriately.
+    </li>
+    <li>
+      For HOME_VIA_LOW and HOME_VIA_HIGH, DUT_MotionStage.bHome
+      must be set or linked appropriately.
+    </li>
+    <li>
+      For ABSOLUTE_SET, an absolute encoder is assumed and will be used as-is
+      for setting the current position.
+    </li>
+    <li>
+      For NONE or other invalid settings, the block will be a no-operation.
     </li>
 </ul>
 
 <h3>FB_MotionHoming - Summary</h3>
 <ul>
     <li>
+      This is PCDS's custom homing implementation, replacing that supplied
+      by tc_mca_std_lib.
+    </li>
+    <li>
+      This includes a state machine to keep track of homing progress.
+    </li>
+    <li>
+      An analysis of the state machine indicates that it does not have any
+      logic errors.
     </li>
 </ul>
 
@@ -12266,24 +12304,79 @@ Related:
 <h3>FB_MotionPneumaticActuator - API Usage Requirements</h3>
 <ul>
     <li>
+      This wraps <a href="#DUT_MotionPneumaticActuator">DUT_MotionPneumaticActuator</a>
+      and associates a fast-fault output (FB_HardwareFFOutput) as io_fbFFHWO.
+    </li>
+    <li>
+      It requires the following to be set as inputs:
+      <ul>
+        <li>ibInsertOK: TRUE if the actuator can be inserted</li>
+        <li>ibRetractOK: TRUE if the actuator can be retracted</li>
+        <li>ibPMPS_OK: TRUE if PMPS says motion is OK (link to Arbiter bit)</li>
+        <li>ibSingleCntrl: TRUE if a single-acting (single output) actuator or FALSE if double-acting (two output)</li>
+        <li>ibCntrlHold: control signal should be held in place (required to be TRUE for single-acting)</li>
+        <li>ibOverrideInterlock: TRUE if interlocks are to be ignored</li>
+        <li>i_xReset: TRUE if the block should be reset</li>
+      </ul>
+    </li>
+    <li>
+      It requires the following to be linked appropriately:
+      <ul>
+        <li>i_xInsertedLS: inserted limit switch (TRUE if hit)</li>
+        <li>i_xRetractedLS: retracted limit switch (TRUE if hit)</li>
+        <li>q_xInsert_DO: digital output to insert axis (TRUE if to be inserted; active high)</li>
+        <li>q_xRetract_DO: digital output to retract axis (TRUE if to be retracted; active high)</li>
+      </ul>
+    </li>
+    <li>
+      This block should have a pytmc pragma to expose its FF_Reset to EPICS and
+      its provided DUT_MotionPneumaticActuator information.
     </li>
 </ul>
 
 <h3>FB_MotionPneumaticActuator - Assumptions for Correct Functionality</h3>
 <ul>
     <li>
+      API requirements are followed as above.
+    </li>
+    <li>
+      Logging system is pre-configured appropriately for messages to propagate
+      to central logger.  Each state change will result in a log message
+      of appropriate severity.  An expected state change not happening with in
+      a timeout (tTimeOutDuration, 10 seconds) will similarly be flagged with a
+      warning.
+    </li>
+    <li>
+      The registered type code 0x1010 is known globally as "device is moving".
+    </li>
+    <li>
+      At the start, stPneumaticActuator will be at an INVALID state.
+    </li>
+    <li>
+      The internal DUT_MotionPneumaticActuator will be used to send data back
+      and forth from EPICS to the pneumatic control/readback.  This is
+      performed in the ACT_IO action.  Clients should modify this structure
+      in order to actuate a change of state.
     </li>
 </ul>
 
 <h3>FB_MotionPneumaticActuator - Failure Modes</h3>
 <ul>
     <li>
+      There are sufficient checks on bRetract_SW and bInsert_SW (to a degree
+      of redundancy indicated by comments in the code) that incorrect user
+      input should not be able to cause a failure here.  The MPS indicator
+      is restrictive enough to only indicate an OK status when at a limit
+      switch.
     </li>
 </ul>
 
 <h3>FB_MotionPneumaticActuator - Summary</h3>
 <ul>
     <li>
+      This function block is a self-contained and easy-to-use pneumatic
+      actuator interface - at least with some knowledge of pragmas, linking,
+      and pneumatic devices, that is.
     </li>
 </ul>
 
@@ -13165,27 +13258,48 @@ Related:
     <li><a href="#F_MotionErrorCodeLookup">F_MotionErrorCodeLookup</a></li>
 </ul>
 
+<h3>FB_MotionRequest - State Machine</h3>
+
+<img src="fb_motion_request.dot.png" />
+
 <h3>FB_MotionRequest - API Usage Requirements</h3>
-<ul>
-    <li>
-    </li>
-</ul>
 
-<h3>FB_MotionRequest - Assumptions for Correct Functionality</h3>
 <ul>
     <li>
+      A valid, configured <a href="DUT_MotionStage#"DUT_MotionStage></a> is
+      the primary requirement.  Motion requests should be specified in
+      <span class="code">enumMotionRequest</span>, with relevant motion
+      details set in fPos (the target position), fVel (motion velocity),
+      fAcc (acceleration), and fDec (deceleration).
     </li>
-</ul>
-
-<h3>FB_MotionRequest - Failure Modes</h3>
-<ul>
     <li>
+      An edge-sensitive <span class="code">bExecute</span> will cause motion on
+      a rising edge, and stop motion on a falling edge.
+    </li>
+    <li>
+      fAcc and fDec are optional, with the NC-defined acceleration parameters
+      used otherwise.
+    </li>
+    <li>
+      Outputs to monitor include: <span class="code">bError</span> (TRUE if
+      errored) with a corresponding error identifier 
+      <span class="code">nErrorId</span> and message 
+      <span class="code">sErrorMessage</span>; bBusy and bDone, the latter
+      indicating a successfully completed motion request (ony set in the
+      DONE_MOVING state).
+    </li>
+    <li>
+      At any point, bReset can reset the state machine to INIT, and reset the
+      stMotionStage as well.
     </li>
 </ul>
 
 <h3>FB_MotionRequest - Summary</h3>
 <ul>
     <li>
+      The outer FB_MotionStage does the heavy lifting. This block only needs
+      to coordinate requests sent through it, which it does effectively
+      through its state machine.
     </li>
 </ul>
 
@@ -13381,7 +13495,7 @@ Related:
         <tr>
             <td id="FB_MotionStage:36" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:36">36&nbsp;</a></td>
             <td class="code">stMotionStage.Axis.ReadStatus();</td>
-            <td class="note"></td>
+            <td class="note">See also <a href="https://infosys.beckhoff.com/english.php?content=../content/1033/tcplclib_tc2_mc2/70132363.html">NC axis documentation</a></td>
         </tr>
         <tr>
             <td id="FB_MotionStage:37" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:37">37&nbsp;</a></td>
@@ -13396,7 +13510,7 @@ Related:
         <tr>
             <td id="FB_MotionStage:39" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:39">39&nbsp;</a></td>
             <td class="code">// Used for testing or to circumvent motor record issues</td>
-            <td class="note"></td>
+            <td class="note">These are accessible from EPICS (PLC:bMoveCmd, PLC:bHomeCmd})</td>
         </tr>
         <tr>
             <td id="FB_MotionStage:40" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:40">40&nbsp;</a></td>
@@ -13491,7 +13605,7 @@ Related:
         <tr>
             <td id="FB_MotionStage:58" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:58">58&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stMotionStage.nCmdData := stMotionStage.nHomingMode;</td>
-            <td class="note"></td>
+            <td class="note">This is a requirement of FB_DriveVirtual to set the homing mode; which we intercept here now.</td>
         </tr>
         <tr>
             <td id="FB_MotionStage:59" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:59">59&nbsp;</a></td>
@@ -13511,7 +13625,12 @@ Related:
         <tr>
             <td id="FB_MotionStage:62" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:62">62&nbsp;</a></td>
             <td class="code">bMoveCmd R= stMotionStage.nCmdData =&nbsp;<a class="coderef" href="#ENUM_EpicsHomeCmd">ENUM_EpicsHomeCmd</a>.ABSOLUTE_SET;</td>
-            <td class="note"></td>
+            <td class="note">
+              nCmdData is used for other purposes in FB_DriveVirtual, such as
+              for fbGearInDyn to set the gear ratio.  ABSOLUTE_SET and NONE
+              could overlap with values used for that.  However, the set line
+              below removes this possibility.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:63" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:63">63&nbsp;</a></td>
@@ -13521,7 +13640,11 @@ Related:
         <tr>
             <td id="FB_MotionStage:64" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:64">64&nbsp;</a></td>
             <td class="code">bMoveCmd S= stMotionStage.nCommand <>&nbsp;<a class="coderef" href="#ENUM_EpicsMotorCmd">ENUM_EpicsMotorCmd</a>.HOME;</td>
-            <td class="note"></td>
+            <td class="note">
+              The intent here is:<br/>
+              Reset bMoveCmd if nCmdData is ABSOLUTE_SET/NONE<br/>
+              Set bMoveCmd if the requested command is not HOME.<br/>
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:65" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:65">65&nbsp;</a></td>
@@ -13541,12 +13664,17 @@ Related:
         <tr>
             <td id="FB_MotionStage:68" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:68">68&nbsp;</a></td>
             <td class="code">bNewMoveReq S= rtUserExec.Q AND bMoveCmd;</td>
-            <td class="note"></td>
+            <td class="note">
+              A new move request if the user requested a motion and we have an
+              actionable move command.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:69" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:69">69&nbsp;</a></td>
             <td class="code">bNewMoveReq R= NOT stMotionStage.bExecute;</td>
-            <td class="note"></td>
+            <td class="note">
+              If the motion stage isn't executing, clear the new move request.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:70" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:70">70&nbsp;</a></td>
@@ -13561,11 +13689,11 @@ Related:
         <tr>
             <td id="FB_MotionStage:72" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:72">72&nbsp;</a></td>
             <td class="code">bPosGoal := stMotionStage.stAxisStatus.fActPosition <&nbsp;stMotionStage.fPosition;</td>
-            <td class="note"></td>
+            <td class="note">Determine the direction of the goal (positive or negative). (NaN)</td>
         </tr>
         <tr>
             <td id="FB_MotionStage:73" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:73">73&nbsp;</a></td>
-            <td class="code">bNegGoal := stMotionStage.stAxisStatus.fActPosition >&nbsp;stMotionStage.fPosition;</td>
+            <td class="code">bNegGoal := stMotionStage.stAxisStatus.fActPosition &gt;&nbsp;stMotionStage.fPosition;</td>
             <td class="note"></td>
         </tr>
         <tr>
@@ -13581,7 +13709,10 @@ Related:
         <tr>
             <td id="FB_MotionStage:76" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:76">76&nbsp;</a></td>
             <td class="code">stMotionStage.bSafetyReady S= stMotionStage.bPowerSelf;</td>
-            <td class="note"></td>
+            <td class="note">
+              If the motion stage is to use its internal MC_Power, set bSafetyReady,
+              otherwise rely on external means.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:77" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:77">77&nbsp;</a></td>
@@ -13606,7 +13737,9 @@ Related:
         <tr>
             <td id="FB_MotionStage:81" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:81">81&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stMotionStage.bEnable := TRUE;</td>
-            <td class="note"></td>
+            <td class="note">
+              (TODO) Why not bSafetyReady like the others?
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:82" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:82">82&nbsp;</a></td>
@@ -13736,7 +13869,10 @@ Related:
         <tr>
             <td id="FB_MotionStage:107" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:107">107&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bNewMoveReq := FALSE;</td>
-            <td class="note"></td>
+            <td class="note">
+              Clear the "new move request" if we successfully enabled the
+              motion stage above, or if it errored out otherwise.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:108" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:108">108&nbsp;</a></td>
@@ -13766,7 +13902,16 @@ Related:
         <tr>
             <td id="FB_MotionStage:113" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:113">113&nbsp;</a></td>
             <td class="code">fbSetEnables(stMotionStage:=stMotionStage);</td>
-            <td class="note"></td>
+            <td class="note">
+              Sets <span class="code">bAllForwardEnable</span>, 
+              <span class="code">bAllBackwardEnable</span>,
+              <span class="code">bAllEnable</span> based on
+              <span class="code">bLimit*Enable</span>, 
+              <span class="code">bGantry*Enable</span>,
+              <span class="code">bEnable</span>, 
+              <span class="code">bHardwareEnable</span>, and 
+              <span class="code">bUserEnable</span>.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:114" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:114">114&nbsp;</a></td>
@@ -13786,7 +13931,11 @@ Related:
         <tr>
             <td id="FB_MotionStage:117" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:117">117&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bExecute := FALSE;</td>
-            <td class="note"></td>
+            <td class="note">
+              (Issue - to inquire) This is redundant and unnecessary - unless
+              the above line was meant to read 
+              <span class="code">IF stMotionStage.stAxisStatus.bBusy AND bExecute THEN</span>?
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:118" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:118">118&nbsp;</a></td>
@@ -13801,17 +13950,23 @@ Related:
         <tr>
             <td id="FB_MotionStage:120" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:120">120&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bExecute := stMotionStage.bExecute AND stMotionStage.bAllEnable AND stMotionStage.bEnableDone AND stMotionStage.bSafetyReady;</td>
-            <td class="note"></td>
+            <td class="note">
+              
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:121" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:121">121&nbsp;</a></td>
             <td class="code">ELSE</td>
-            <td class="note"></td>
+            <td class="note">
+              Otherwise reflect the old status.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:122" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:122">122&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bExecute := stMotionStage.bExecute;</td>
-            <td class="note"></td>
+            <td class="note">
+              Otherwise reflect the old status.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:123" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:123">123&nbsp;</a></td>
@@ -13881,7 +14036,10 @@ Related:
         <tr>
             <td id="FB_MotionStage:136" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:136">136&nbsp;</a></td>
             <td class="code">bExecHome := bExecute AND stMotionStage.nCommand =&nbsp;10;</td>
-            <td class="note"></td>
+            <td class="note">
+              These two lines intercept home requests for fbMotionHome,
+              not allowing fbDriveVirtual to handle them.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:137" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:137">137&nbsp;</a></td>
@@ -14036,7 +14194,9 @@ Related:
         <tr>
             <td id="FB_MotionStage:167" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:167">167&nbsp;</a></td>
             <td class="code">IF NOT stMotionStage.bError THEN</td>
-            <td class="note"></td>
+            <td class="note">
+              Latch new errors (do not overwrite old bError/nErrorId).
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:168" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:168">168&nbsp;</a></td>
@@ -14056,7 +14216,11 @@ Related:
         <tr>
             <td id="FB_MotionStage:171" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:171">171&nbsp;</a></td>
             <td class="code">IF NOT stMotionStage.bError THEN</td>
-            <td class="note"></td>
+            <td class="note">
+              Latch new errors (do not overwrite old bError/nErrorId).
+              This condition is the same as the one above; but bError should
+              not be set in fbDriveVirtual, allowing this to work. (minor)
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:172" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:172">172&nbsp;</a></td>
@@ -14076,7 +14240,10 @@ Related:
         <tr>
             <td id="FB_MotionStage:175" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:175">175&nbsp;</a></td>
             <td class="code">IF NOT stMotionStage.bError AND stMotionStage.bExecute AND NOT stMotionStage.bUserEnable THEN</td>
-            <td class="note"></td>
+            <td class="note">
+              This captures move/home requests (stMotionStage.bExecute instead
+              of bExecMove)
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:176" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:176">176&nbsp;</a></td>
@@ -14246,7 +14413,10 @@ Related:
         <tr>
             <td id="FB_MotionStage:209" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:209">209&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stMotionStage.bExecute := FALSE;</td>
-            <td class="note"></td>
+            <td class="note">
+              If a limit is hit in a normal move (not a homing procedure), stop
+              executing the move.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:210" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:210">210&nbsp;</a></td>
@@ -14266,17 +14436,23 @@ Related:
         <tr>
             <td id="FB_MotionStage:213" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:213">213&nbsp;</a></td>
             <td class="code">ftExec(CLK:=stMotionStage.bExecute);</td>
-            <td class="note"></td>
+            <td class="note">
+              A stop was requested.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:214" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:214">214&nbsp;</a></td>
             <td class="code">rtTarget(CLK:=(stMotionStage.Axis.Status.InTargetPosition AND fbDriveVirtual.bDone AND bExecMove));</td>
-            <td class="note"></td>
+            <td class="note">
+              Axis at position, fbDriveVirtual is done, and we requested a move.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:215" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:215">215&nbsp;</a></td>
             <td class="code">rtHomed(CLK:=fbMotionHome.bDone AND bExecHome);</td>
-            <td class="note"></td>
+            <td class="note">
+              Homing is done and we requested a home.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:216" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:216">216&nbsp;</a></td>
@@ -14341,7 +14517,10 @@ Related:
         <tr>
             <td id="FB_MotionStage:228" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:228">228&nbsp;</a></td>
             <td class="code">bPrepareDisable S= stMotionStage.nEnableMode =&nbsp;<a class="coderef" href="#ENUM_StageEnableMode">ENUM_StageEnableMode</a>.DURING_MOTION AND ftExec.Q;</td>
-            <td class="note"></td>
+            <td class="note">
+              Prepare to disable after reachiing standstill, based on the
+              enable mode settings.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:229" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:229">229&nbsp;</a></td>
@@ -14391,7 +14570,9 @@ Related:
         <tr>
             <td id="FB_MotionStage:238" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:238">238&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;MC_AXISSTATE_UNDEFINED, MC_AXISSTATE_DISABLED, MC_AXISSTATE_ERRORSTOP:</td>
-            <td class="note"></td>
+            <td class="note">
+                (TODO)
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:239" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:239">239&nbsp;</a></td>
@@ -14714,19 +14895,37 @@ Related:
     <li><a href="#F_MotionErrorCodeLookup">F_MotionErrorCodeLookup</a></li>
 </ul>
 
+<h3>FB_MotionStage - Tc2_Mc2 State Diagram</h3>
+
+<img src="https://infosys.beckhoff.com/content/1033/tcplclib_tc2_mc2/Images/gif/70182411__en-US__Web.gif" />
+
 <h3>FB_MotionStage - API Usage Requirements</h3>
 <ul>
     <li>
+      A valid, configured <a href="DUT_MotionStage#"DUT_MotionStage></a> is
+      the sole requirement.
+    </li>
+    <li>
+      Shortcut commands include:
+      <ul>
+        <li>MOVE_ABSOLUTE when stMotionStage.bMoveCmd transitions to high.</li>
+        <li>HOME when stMotionStage.bHomeCmd transitions to high.</li>
+      </ul>
+      These shortcut commands are reset automatically for convenience.
     </li>
 </ul>
 
 <h3>FB_MotionStage - Assumptions for Correct Functionality</h3>
 <ul>
     <li>
+      This block allocates the necessary <a href="FB_DriveVirtual#"FB_DriveVirtual></a>,
+      <a href="FB_MotionHoming#"FB_MotionHoming></a>, and <a
+      href="FB_EncSaveRestore#"FB_EncSaveRestore></a> blocks so that the user
+    does not need to.
     </li>
 </ul>
 
-<h3>FB_MotionStage - Failure Modes</h3>
+<h3>FB_MotionStage - Notes</h3>
 <ul>
     <li>
     </li>
