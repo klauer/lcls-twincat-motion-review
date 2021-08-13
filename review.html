@@ -14571,7 +14571,7 @@ Related:
             <td id="FB_MotionStage:238" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:238">238&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;MC_AXISSTATE_UNDEFINED, MC_AXISSTATE_DISABLED, MC_AXISSTATE_ERRORSTOP:</td>
             <td class="note">
-                (TODO)
+                See below for full list of states.
             </td>
         </tr>
         <tr>
@@ -14582,7 +14582,16 @@ Related:
         <tr>
             <td id="FB_MotionStage:240" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:240">240&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;ELSE</td>
-            <td class="note"></td>
+            <td class="note">
+              This ELSE clause catches:
+              <span class="code">MC_AXISSTATE_STANDSTILL</span>,
+              <span class="code">MC_AXISSTATE_STOPPING</span>,
+              <span class="code">MC_AXISSTATE_HOMING</span>,
+              <span class="code">MC_AXISSTATE_DISCRETEMOTION</span>,
+              <span class="code">MC_AXISSTATE_CONTINOUSMOTION</span>, and
+              <span class="code">MC_AXISSTATE_SYNCHRONIZEDMOTION</span>.
+
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:241" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:241">241&nbsp;</a></td>
@@ -14667,7 +14676,14 @@ Related:
         <tr>
             <td id="FB_MotionStage:257" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:257">257&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE</td>
-            <td class="note"></td>
+            <td class="note">
+              This ELSE clause catches
+              <span class="code">MC_AXISSTATE_STOPPING</span>,
+              <span class="code">MC_AXISSTATE_HOMING</span>,
+              <span class="code">MC_AXISSTATE_DISCRETEMOTION</span>,
+              <span class="code">MC_AXISSTATE_CONTINOUSMOTION</span>, and
+              <span class="code">MC_AXISSTATE_SYNCHRONIZEDMOTION</span>.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:258" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:258">258&nbsp;</a></td>
@@ -14702,7 +14718,10 @@ Related:
         <tr>
             <td id="FB_MotionStage:264" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:264">264&nbsp;</a></td>
             <td class="code">stMotionStage.stAxisStatus.bEnabled := stMotionStage.bEnableDone;</td>
-            <td class="note"></td>
+            <td class="note">
+              This overrides FB_DriveVirtual's interpretation of bEnabled with
+              our error-sensitive bEnableDone.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:265" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:265">265&nbsp;</a></td>
@@ -14717,7 +14736,9 @@ Related:
         <tr>
             <td id="FB_MotionStage:267" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:267">267&nbsp;</a></td>
             <td class="code">stMotionStage.bHomed := fbMotionHome.bDone AND NOT fbMotionHome.bError;</td>
-            <td class="note"></td>
+            <td class="note">
+              This is necessary due to our custom homing setup.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:268" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:268">268&nbsp;</a></td>
@@ -14732,7 +14753,9 @@ Related:
         <tr>
             <td id="FB_MotionStage:270" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:270">270&nbsp;</a></td>
             <td class="code">stMotionStage.stAxisStatus.nCommand := 3;&nbsp;// If this is not 3, the IOC stops updating positions during homing</td>
-            <td class="note"></td>
+            <td class="note">
+              (Issue) This should be reviewed in the IOC code.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:271" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:271">271&nbsp;</a></td>
@@ -14747,7 +14770,10 @@ Related:
         <tr>
             <td id="FB_MotionStage:273" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:273">273&nbsp;</a></td>
             <td class="code">stMotionStage.fPosDiff := stMotionStage.Axis.NcToPlc.PosDiff;</td>
-            <td class="note"></td>
+            <td class="note">
+              (Minor refactor) This is already present in the status structure as fActDiff
+              from FB_DriveVirtual (<span class="code">fActDiff:=Axis.NcToPlc.PosDiff;</span>)
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:274" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:274">274&nbsp;</a></td>
@@ -14822,7 +14848,11 @@ Related:
         <tr>
             <td id="FB_MotionStage:288" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:288">288&nbsp;</a></td>
             <td class="code">fbNCParams(</td>
-            <td class="note"></td>
+            <td class="note">
+              NC params are updated at 1 second intervals.  These are reflected
+              in auxiliary EPICS records which may push to EPICS motor fields
+              as well.
+            </td>
         </tr>
         <tr>
             <td id="FB_MotionStage:289" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:289">289&nbsp;</a></td>
@@ -14895,9 +14925,31 @@ Related:
     <li><a href="#F_MotionErrorCodeLookup">F_MotionErrorCodeLookup</a></li>
 </ul>
 
-<h3>FB_MotionStage - Tc2_Mc2 State Diagram</h3>
+<h3>FB_MotionStage - Tc2_Mc2 State Reference Diagram</h3>
 
 <img src="https://infosys.beckhoff.com/content/1033/tcplclib_tc2_mc2/Images/gif/70182411__en-US__Web.gif" />
+
+<h3>FB_MotionStage - MC_AxisStates reference</h3>
+
+<a href="https://infosys.beckhoff.com/english.php?content=../content/1033/tcplclibmc2/458483851.html">
+Beckhoff Documentation
+</a>
+
+<pre>
+TYPE MC_AxisStates :
+(
+   MC_AXISSTATE_UNDEFINED,
+   MC_AXISSTATE_DISABLED,
+   MC_AXISSTATE_STANDSTILL,
+   MC_AXISSTATE_ERRORSTOP,
+   MC_AXISSTATE_STOPPING,
+   MC_AXISSTATE_HOMING,
+   MC_AXISSTATE_DISCRETEMOTION,
+   MC_AXISSTATE_CONTINOUSMOTION,
+   MC_AXISSTATE_SYNCHRONIZEDMOTION
+);
+END_TYPE
+</pre>
 
 <h3>FB_MotionStage - API Usage Requirements</h3>
 <ul>
@@ -14917,24 +14969,31 @@ Related:
 
 <h3>FB_MotionStage - Assumptions for Correct Functionality</h3>
 <ul>
+    
     <li>
-      This block allocates the necessary <a href="FB_DriveVirtual#"FB_DriveVirtual></a>,
-      <a href="FB_MotionHoming#"FB_MotionHoming></a>, and <a
-      href="FB_EncSaveRestore#"FB_EncSaveRestore></a> blocks so that the user
-    does not need to.
+      Position saving is only enabled if the stage homing mode is set.
     </li>
 </ul>
 
 <h3>FB_MotionStage - Notes</h3>
 <ul>
-    <li>
-    </li>
+  <li>NC parameters are updated at a rate of 1Hz.</li>
 </ul>
 
 <h3>FB_MotionStage - Summary</h3>
 <ul>
-    <li>
-    </li>
+   <li>
+     This block significantly simplifies the process of integrating NC axes
+     with EPICS in a standardized way.  It handles brake releasing,
+     motion requests, homing, encoder position saving, NC parameter reading,
+     and reports status by way of updating the DUT_MotionStage.
+   </li>
+   <li>
+      This block allocates the necessary <a href="FB_DriveVirtual#"FB_DriveVirtual></a>,
+      <a href="FB_MotionHoming#"FB_MotionHoming></a>, and <a
+      href="FB_EncSaveRestore#"FB_EncSaveRestore></a> blocks so that the user
+    does not need to.
+    </li> 
 </ul>
 
 
