@@ -194,7 +194,7 @@ Omitted items:
                  <li><a href="#FB_PositionStateMove">FB_PositionStateMove</a></li>
                  <li><a href="#FB_PositionStatePMPS">FB_PositionStatePMPS</a></li>
                  <li><a href="#FB_PositionStatePMPS_Base">FB_PositionStatePMPS_Base</a></li>
-                 <li><a href="#FB_PositionStatePMPS_Test">FB_PositionStatePMPS_Test</a></li>
+                 <li><a href="review_unused.html#FB_PositionStatePMPS_Test">FB_PositionStatePMPS_Test</a></li>
                  <li><a href="#FB_RawCountConverter">FB_RawCountConverter</a></li>
                  <li><a href="#FB_ReadFloatParameter">FB_ReadFloatParameter</a></li>
                  <li><a href="review_unused.html#FB_ReadParameterInNc_v1_00">FB_ReadParameterInNc_v1_00</a></li>
@@ -203,7 +203,6 @@ Omitted items:
                  <li><a href="review_error_system.html#FB_TerminalError">FB_TerminalError</a></li>
                  <li><a href="review_unused.html#FB_WriteFloatParameter">FB_WriteFloatParameter</a></li>
                  <li><a href="review_unused.html#FB_WriteParameterInNc_v1_00">FB_WriteParameterInNc_v1_00</a></li>
-                 <li><a href="#Interactive">Interactive</a></li>
              </ol>
         </li>
     </ul>
@@ -16191,7 +16190,10 @@ Related:
         <tr>
             <td id="FB_PositionStateBase:62" class="lineid"><a class="unassuming-link" href="#FB_PositionStateBase:62">62&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;// Pre-allocated array of states</td>
-            <td class="note"></td>
+            <td class="note">
+              The pragma indicates that the index format will be %.2d, or,
+              e.g., "00", "01", ... "15".
+            </td>
         </tr>
         <tr>
             <td id="FB_PositionStateBase:63" class="lineid"><a class="unassuming-link" href="#FB_PositionStateBase:63">63&nbsp;</a></td>
@@ -16236,7 +16238,9 @@ Related:
         <tr>
             <td id="FB_PositionStateBase:71" class="lineid"><a class="unassuming-link" href="#FB_PositionStateBase:71">71&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;setState: INT;</td>
-            <td class="note"></td>
+            <td class="note">
+              This is the setpoint position, to be pragma'd in the subclass.
+            </td>
         </tr>
         <tr>
             <td id="FB_PositionStateBase:72" class="lineid"><a class="unassuming-link" href="#FB_PositionStateBase:72">72&nbsp;</a></td>
@@ -16256,7 +16260,9 @@ Related:
         <tr>
             <td id="FB_PositionStateBase:75" class="lineid"><a class="unassuming-link" href="#FB_PositionStateBase:75">75&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;getState: INT;</td>
-            <td class="note"></td>
+            <td class="note">
+              This is the readback position, to be pragma'd in the subclass.
+            </td>
         </tr>
         <tr>
             <td id="FB_PositionStateBase:76" class="lineid"><a class="unassuming-link" href="#FB_PositionStateBase:76">76&nbsp;</a></td>
@@ -16391,12 +16397,12 @@ Related:
         <tr>
             <td id="FB_PositionStateBase:102" class="lineid"><a class="unassuming-link" href="#FB_PositionStateBase:102">102&nbsp;</a></td>
             <td class="code">ACTION Exec:</td>
-            <td class="note"></td>
+            <td class="note">This must be called by the subclass.</td>
         </tr>
         <tr>
             <td id="FB_PositionStateBase:103" class="lineid"><a class="unassuming-link" href="#FB_PositionStateBase:103">103&nbsp;</a></td>
             <td class="code">StateHandler();</td>
-            <td class="note"></td>
+            <td class="note">This is another action, defined just below.</td>
         </tr>
         <tr>
             <td id="FB_PositionStateBase:104" class="lineid"><a class="unassuming-link" href="#FB_PositionStateBase:104">104&nbsp;</a></td>
@@ -16953,24 +16959,57 @@ Related:
 <h3>FB_PositionStateBase - API Usage Requirements</h3>
 <ul>
     <li>
+      Must be subclassed for a specific enumSet and enumGet, which should have
+      pytmc pragmas included (examples include copy-pastable versions).
+    </li>
+    <li>
+      Secondarily, a valid, configured <a
+        href="DUT_MotionStage#"DUT_MotionStage></a> is required.
+    </li>
+    <li>
+      The inline code documentation indicates that this block should be
+      subclassed and used as follows:
+      <pre>
+setState := enumSet;	
+Exec();	
+enumGet := getState;	
+enumSet := setState;
+      <pre>
     </li>
 </ul>
 
 <h3>FB_PositionStateBase - Assumptions for Correct Functionality</h3>
 <ul>
     <li>
+      The usage requirements must be followed exactly, and there is room
+      for user error.
+    </li>
+    <li>
+      State 0 must be the "moving" or Unknown state.
     </li>
 </ul>
 
 <h3>FB_PositionStateBase - Failure Modes</h3>
 <ul>
     <li>
+      State position overlap is not checked. Position validity and appropriate
+      values are up to the user.
+    </li>
+    <li>
+      In the case of overlapping position states, the last valid state has
+      precedence.
     </li>
 </ul>
 
 <h3>FB_PositionStateBase - Summary</h3>
 <ul>
     <li>
+        This handles EPICS moves between multiple pre-defined.states for a
+        single axis.
+    </li>
+    <li>
+    Despite the extensive requirements to configure this, in the context of the
+    library, this is about as simple as an implementation could be.
     </li>
 </ul>
 
@@ -17339,24 +17378,59 @@ Related:
 <h3>FB_PositionStateBase_WithPMPS - API Usage Requirements</h3>
 <ul>
     <li>
+      All requirements from FB_PositionStateBase apply. The following are
+      PMPS-specific.
     </li>
-</ul>
-
-<h3>FB_PositionStateBase_WithPMPS - Assumptions for Correct Functionality</h3>
-<ul>
     <li>
+      fbArbiter instance is required, shared among the PLC project with a
+      unique identifier 
+      (see <a href="https://confluence.slac.stanford.edu/display/L2SI/PMPS+Preemptive+Logic+Tutorial">here</a>
+      for further details).
+    </li>
+    <li>
+      fbFFHWO, a hardware fast fault output instance is required.
+    </li>
+    <li>
+      stTransitionBeam is the set of beam parameters to use when transitioning,
+      defaulting to 0 rate beam.
+    </li>
+    <li>
+      nTransitionAssertionID is the assertion ID to use when transitioning
+      (&gt; 0 and not EXCLUDED_ID)
+    </li>
+    <li>
+      bArbiterEnabled is whether the arbiter should be required for motion,
+      defaulting to TRUE.
+    </li>
+    <li>
+      tArbiterTimeout, the timeout period for the beam parameter transition
+      manager to acknowledge.
+    </li>
+    <li>
+      bMoveOnArbiterTimeout indicates that the axis should continue to move
+      if the arbiter times out (default is TRUE).
+    </li>
+    <li>
+      fStateBoundaryDeadband (default 0) indicates the amount of wiggle room,
+      in EGU, around the state in which another request to PMPS would be
+      unnecessary.
     </li>
 </ul>
 
 <h3>FB_PositionStateBase_WithPMPS - Failure Modes</h3>
 <ul>
     <li>
+      The beam parameter transition manager can timeout, leading to optional
+      motion depending on bMoveOnArbiterTimeout. (TODO)
     </li>
 </ul>
 
 <h3>FB_PositionStateBase_WithPMPS - Summary</h3>
 <ul>
     <li>
+      This wraps PMPS-interacting FB_PositionStatePMPS and encoder-error
+      monitoring FB_EncErrorFFO into a single, relatively easy-to-use
+      replacement for FB_PositionStateBase.
     </li>
 </ul>
 
@@ -17586,27 +17660,12 @@ Related:
     <li><a href="#FB_PositionStatePMPS_Test">FB_PositionStatePMPS_Test</a></li>
 </ul>
 
-<h3>FB_PositionStateBase_WithPMPS_Test - API Usage Requirements</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>FB_PositionStateBase_WithPMPS_Test - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>FB_PositionStateBase_WithPMPS_Test - Failure Modes</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
 <h3>FB_PositionStateBase_WithPMPS_Test - Summary</h3>
 <ul>
     <li>
+      This is a block for testing 
+      <a href="#FB_PositionStateBase_WithPMPS">FB_PositionStateBase_WithPMPS</a>.
+      It is not critical to the library and will be skipped in this review.
     </li>
 </ul>
 
@@ -17839,24 +17898,17 @@ Related:
 <h3>FB_PositionStateInOut - API Usage Requirements</h3>
 <ul>
     <li>
-    </li>
-</ul>
-
-<h3>FB_PositionStateInOut - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>FB_PositionStateInOut - Failure Modes</h3>
-<ul>
-    <li>
+      An in and out state (stIn, stOut, of type <a
+      href="#DUT_PositionState">DUT_PositionState</a>) are required.
+      With this, this does not require subclassing to add states.
     </li>
 </ul>
 
 <h3>FB_PositionStateInOut - Summary</h3>
 <ul>
     <li>
+      This is a simplified block for state positioners, making the most common
+      case (in/out/moving) even easier.
     </li>
 </ul>
 
@@ -18099,24 +18151,18 @@ Related:
 <h3>FB_PositionStateInOut_WithPMPS - API Usage Requirements</h3>
 <ul>
     <li>
-    </li>
-</ul>
-
-<h3>FB_PositionStateInOut_WithPMPS - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>FB_PositionStateInOut_WithPMPS - Failure Modes</h3>
-<ul>
-    <li>
+      An in and out state (stIn, stOut, of type <a
+      href="#DUT_PositionState">DUT_PositionState</a>) are required.
+      With this, this does not require subclassing to add states.
     </li>
 </ul>
 
 <h3>FB_PositionStateInOut_WithPMPS - Summary</h3>
 <ul>
     <li>
+      This is a simplified block for state positioners, making the most common
+      case (in/out/moving) even easier.  This is the PMPS variant of 
+      <a href="#FB_PositionStateInOut">FB_PositionStateInOut</a>.
     </li>
 </ul>
 
@@ -18356,29 +18402,15 @@ Related:
     <li><a href="#FB_PositionStateBase_WithPMPS_Test">FB_PositionStateBase_WithPMPS_Test</a></li>
 </ul>
 
-<h3>FB_PositionStateInOut_WithPMPS_Test - API Usage Requirements</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>FB_PositionStateInOut_WithPMPS_Test - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>FB_PositionStateInOut_WithPMPS_Test - Failure Modes</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
 <h3>FB_PositionStateInOut_WithPMPS_Test - Summary</h3>
 <ul>
     <li>
+      This is a block for testing 
+      <a href="#FB_PositionStateInOut_WithPMPS">FB_PositionStateInOut_WithPMPS</a>.
+      It is not critical to the library and will be skipped in this review.
     </li>
 </ul>
+
 
 
 <h2 id="FB_PositionStateInternal">FB_PositionStateInternal</h2>
@@ -18590,24 +18622,27 @@ Related:
 <h3>FB_PositionStateInternal - API Usage Requirements</h3>
 <ul>
     <li>
+      This is handled internally by <a
+      href="#FB_PositionStateBase">FB_PositionStateBase</a>, and is not
+      required to be interfaced with externally.
     </li>
-</ul>
-
-<h3>FB_PositionStateInternal - Assumptions for Correct Functionality</h3>
-<ul>
     <li>
+      This handles position conversion of states, if necessary.
     </li>
-</ul>
-
-<h3>FB_PositionStateInternal - Failure Modes</h3>
-<ul>
     <li>
+      This handles locking state parameters by way of 
+      <a href="#FB_PositionStateLock">FB_PositionStateLock</a> if configured,
+      as well.
     </li>
 </ul>
 
 <h3>FB_PositionStateInternal - Summary</h3>
 <ul>
     <li>
+      This is applied to every DUT_PositionState by FB_PositionStateBase.
+      Once the axis parameters have been initialized (by a read from NC in
+      <a href="#FB_MotionStage">FB_MotionStage</a>), encoder positions get
+      converted for the state.
     </li>
 </ul>
 
@@ -19513,27 +19548,44 @@ Related:
 <h3>FB_PositionStateMove - API Usage Requirements</h3>
 <ul>
     <li>
+      A valid, configured <a href="DUT_MotionStage#"DUT_MotionStage></a> and 
+      a target <a href="DUT_PositionState#"DUT_PositionState></a>, and the
+      usual bExecute/bReset are required.  enumMotionRequest defines what
+      happens when a new move is requested when one is already in progress.
+    </li>
+    <li>
+      This wraps <a href="FB_MotionRequest#"FB_MotionRequest></a> to cause the
+      <a href="DUT_MotionStage#"DUT_MotionStage></a> to move to the position
+      defined by the state in <a href="#DUT_PositionState">DUT_PositionState</a>
+      when bExecute and bAllowMove are set.
+    </li>
+    <li>
+      Status and errors are reported through bBusy, bDone, nErrorId, bError,
+      and sErrorMessage. An error generated for this block is 0x7901 (position
+      state valid, but motion not allowed) and 0x7902 (position state invalid).
+    </li>
+    <li>
+      Finally, an output for bAtState indicates if the stage is at the position
+      state for this block.  This is only used in the interactive tests here.
     </li>
 </ul>
 
 <h3>FB_PositionStateMove - Assumptions for Correct Functionality</h3>
 <ul>
     <li>
+      bAllowMove assumes that the following are valid (and TRUE) on the
+      position state: bMoveOk, bValid, bUpdated.
     </li>
 </ul>
 
 <h3>FB_PositionStateMove - Failure Modes</h3>
 <ul>
     <li>
+      <a href="FB_PositionStateMove#"FB_PositionStateMove></a> does not
+      appear to have much of its own potential failure modes, as it mostly
+      integrates other function blocks.
     </li>
 </ul>
-
-<h3>FB_PositionStateMove - Summary</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
 
 <h2 id="FB_PositionStatePMPS">FB_PositionStatePMPS</h2>
 <img src="graphs/FB_PositionStatePMPS.dot.png" />
@@ -20223,11 +20275,21 @@ Related:
 </ul>
 
 <h3>FB_PositionStatePMPS - Summary</h3>
+This is a position state handler tied in with the PMPS subsystem. Per the code,
+this function block:
 <ul>
+    <li>Hooks up a position state to an arbiter and a fast-fault output.</li>
+    <li>Uses BeamParameterTransitionManager to manage transition requests between
+      states.</li>
+    <li>Hooks up to the inputs/outputs of the state function block.</li>
     <li>
+      Raises a fast-fault output if beam parameters are worse than required for
+        current state.
     </li>
+
 </ul>
 
+TODO **
 
 <h2 id="FB_PositionStatePMPS_Base">FB_PositionStatePMPS_Base</h2>
 <img src="graphs/FB_PositionStatePMPS_Base.dot.png" />
@@ -21259,176 +21321,10 @@ Related:
 <h3>FB_PositionStatePMPS_Base - Summary</h3>
 <ul>
     <li>
+    TODO**
     </li>
 </ul>
 
-
-<h2 id="FB_PositionStatePMPS_Test">FB_PositionStatePMPS_Test</h2>
-<img src="graphs/FB_PositionStatePMPS_Test.dot.png" />
-
-
-<table>
-    <thead>
-        <tr>
-            <th>Line</th>
-            <th>Code</th>
-            <th>Notes</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:1" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:1">1&nbsp;</a></td>
-            <td class="code">FUNCTION_BLOCK <a class="coderef" href="#FB_PositionStatePMPS_Test">FB_PositionStatePMPS_Test</a>&nbsp;EXTENDS <a class="coderef" href="#FB_PositionStatePMPS_Base">FB_PositionStatePMPS_Base</a></td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:2" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:2">2&nbsp;</a></td>
-            <td class="code">(*</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:3" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:3">3&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Implement position state pmps with no FFO and auto-accept transition after 3s</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:4" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:4">4&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Use for offline testing of everything except the explicit interface</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:5" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:5">5&nbsp;</a></td>
-            <td class="code">*)</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:6" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:6">6&nbsp;</a></td>
-            <td class="code">VAR</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:7" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:7">7&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;tonReq: TON;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:8" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:8">8&nbsp;</a></td>
-            <td class="code">END_VAR</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:9" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:9">9&nbsp;</a></td>
-            <td class="code">Exec();</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:10" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:10">10&nbsp;</a></td>
-            <td class="code"></td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:11" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:11">11&nbsp;</a></td>
-            <td class="code">END_FUNCTION_BLOCK</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:12" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:12">12&nbsp;</a></td>
-            <td class="code">ACTION HandleBPTM:</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:13" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:13">13&nbsp;</a></td>
-            <td class="code">// Send the fake BPTM our assertion request by changing stStateReq.stBeamParams</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:14" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:14">14&nbsp;</a></td>
-            <td class="code">// We expect to recieve bTransitionAuthorized TRUE after some delta T</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:15" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:15">15&nbsp;</a></td>
-            <td class="code">// We expect bTransitionAuthorized to go FALSE after stMotionStage.bBusy goes FALSE</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:16" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:16">16&nbsp;</a></td>
-            <td class="code">tonReq(</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:17" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:17">17&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;IN:=bInTransition,</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:18" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:18">18&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;PT:=T#3s);</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:19" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:19">19&nbsp;</a></td>
-            <td class="code">bTransitionAuthorized := tonReq.Q AND stMotionStage.bExecute;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:20" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:20">20&nbsp;</a></td>
-            <td class="code">END_ACTION</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:21" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:21">21&nbsp;</a></td>
-            <td class="code">ACTION HandleFFO:</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:22" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:22">22&nbsp;</a></td>
-            <td class="code">// Skip implementing this for offline testing</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:23" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:23">23&nbsp;</a></td>
-            <td class="code">// We won't be able to tell if it worked anyway</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="FB_PositionStatePMPS_Test:24" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:24">24&nbsp;</a></td>
-            <td class="code">END_ACTION</td>
-            <td class="note"></td>
-        </tr>
-    </tbody>
-</table>
-
-<br/>
-Related:
-<br/>
-<ul>
-    <li><a href="#FB_PositionStatePMPS_Base">FB_PositionStatePMPS_Base</a></li>
-</ul>
-
-<h3>FB_PositionStatePMPS_Test - API Usage Requirements</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>FB_PositionStatePMPS_Test - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>FB_PositionStatePMPS_Test - Failure Modes</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>FB_PositionStatePMPS_Test - Summary</h3>
-<ul>
-    <li>
-    </li>
-</ul>
 
 
 <h2 id="FB_RawCountConverter">FB_RawCountConverter</h2>
@@ -21598,27 +21494,31 @@ Related:
 </table>
 
 
-<h3>FB_RawCountConverter - API Usage Requirements</h3>
+<h3>FB_RawCountConverter - API Usage Requirements / Notes</h3>
 <ul>
     <li>
+      <a href="#ST_AxisParameterSet">ST_AxisParameterSet</a> from the
+      <a href="DUT_MotionStage#"DUT_MotionStage></a> which has been
+      initialized.
+    </li>
+    <li>
+      fPosCheck will be converted to nCountGet (EGU to counts).
+    </li>
+    <li>
+      nCountCheck will be converted to fPosGet (counts to EGU).
+    </li>
+    <li>
+      These conversions include the encoder scale and offset
+      (<span class="code">fEncScaleFactorInternal</span>, 
+      <span class="code">fEncOffset</span>).
     </li>
 </ul>
 
 <h3>FB_RawCountConverter - Assumptions for Correct Functionality</h3>
 <ul>
     <li>
-    </li>
-</ul>
-
-<h3>FB_RawCountConverter - Failure Modes</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>FB_RawCountConverter - Summary</h3>
-<ul>
-    <li>
+      The encoder scale factor needs to be non-zero.  This block
+      avoids divide-by-zero by checking for this.
     </li>
 </ul>
 
@@ -21995,34 +21895,34 @@ Related:
 </table>
 
 
-<h3>FB_ReadFloatParameter - API Usage Requirements</h3>
+<h3>FB_ReadFloatParameter - API Usage Requirements / Notes</h3>
 <ul>
-    <li>
-    </li>
+  <li>
+    An AXIS_REF (not DUT_MotionStage) must be provided, along with a group and
+    offset, as enumerated in Beckhoff documentation.  The rough categories, as
+    the code shows, are: axis data, encoder data, control data, and drive data.
+  </li>
+  <li>
+    This uses a small state machine to read parameters from an NC axis
+    by way of the ADS protocol 
+    (function block
+    <a href=""https://infosys.beckhoff.com/english.php?content=../content/1033/tcplclibsystem/html/tcplclibsys_adsread.htm">ADSREAD</a>)
+  </li>
 </ul>
 
 <h3>FB_ReadFloatParameter - Assumptions for Correct Functionality</h3>
 <ul>
     <li>
+      The parameter group and offset should be correct.
+      The index group is calculated as nDeviceGroup plus the axis ID.
     </li>
-</ul>
-
-<h3>FB_ReadFloatParameter - Failure Modes</h3>
-<ul>
     <li>
+      This may take multiple cycles.
     </li>
 </ul>
-
-<h3>FB_ReadFloatParameter - Summary</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
 
 <h2 id="FB_SetEnables">FB_SetEnables</h2>
 <img src="graphs/FB_SetEnables.dot.png" />
-
 
 <table>
     <thead>
@@ -22106,426 +22006,27 @@ Related:
 <h3>FB_SetEnables - API Usage Requirements</h3>
 <ul>
     <li>
-    </li>
-</ul>
-
-<h3>FB_SetEnables - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>FB_SetEnables - Failure Modes</h3>
-<ul>
-    <li>
+      A valid, configured <a href="DUT_MotionStage#"DUT_MotionStage></a> is
+      required.  (No bEnable flag is used or required.)
     </li>
 </ul>
 
 <h3>FB_SetEnables - Summary</h3>
 <ul>
     <li>
+      For a normal axis:
+      <pre>bAllForwardEnable = bLimitForwardEnable</pre>
+      <pre>bAllBackwardEnable = bLimitBackwardEnable</pre>
     </li>
-</ul>
-
-
-<h2 id="Interactive">Interactive</h2>
-<img src="graphs/Interactive.dot.png" />
-
-
-<table>
-    <thead>
-        <tr>
-            <th>Line</th>
-            <th>Code</th>
-            <th>Notes</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td id="Interactive:1" class="lineid"><a class="unassuming-link" href="#Interactive:1">1&nbsp;</a></td>
-            <td class="code">PROGRAM <a class="coderef" href="#Interactive">Interactive</a></td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:2" class="lineid"><a class="unassuming-link" href="#Interactive:2">2&nbsp;</a></td>
-            <td class="code">VAR</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:3" class="lineid"><a class="unassuming-link" href="#Interactive:3">3&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bInit: BOOL := FALSE;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:4" class="lineid"><a class="unassuming-link" href="#Interactive:4">4&nbsp;</a></td>
-            <td class="code"></td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:5" class="lineid"><a class="unassuming-link" href="#Interactive:5">5&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;M1: <a class="coderef" href="#DUT_MotionStage">DUT_MotionStage</a>;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:6" class="lineid"><a class="unassuming-link" href="#Interactive:6">6&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fbMotionStageSim: <a class="coderef" href="#FB_MotionStageSim">FB_MotionStageSim</a>;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:7" class="lineid"><a class="unassuming-link" href="#Interactive:7">7&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;nCounter: UINT;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:8" class="lineid"><a class="unassuming-link" href="#Interactive:8">8&nbsp;</a></td>
-            <td class="code"></td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:9" class="lineid"><a class="unassuming-link" href="#Interactive:9">9&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stOut: <a class="coderef" href="#DUT_PositionState">DUT_PositionState</a>;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:10" class="lineid"><a class="unassuming-link" href="#Interactive:10">10&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fbGoOut: <a class="coderef" href="#FB_PositionStateMove">FB_PositionStateMove</a>;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:11" class="lineid"><a class="unassuming-link" href="#Interactive:11">11&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bOut: BOOL;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:12" class="lineid"><a class="unassuming-link" href="#Interactive:12">12&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bGoOut: BOOL;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:13" class="lineid"><a class="unassuming-link" href="#Interactive:13">13&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stIn: <a class="coderef" href="#DUT_PositionState">DUT_PositionState</a>;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:14" class="lineid"><a class="unassuming-link" href="#Interactive:14">14&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fbGoIn: <a class="coderef" href="#FB_PositionStateMove">FB_PositionStateMove</a>;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:15" class="lineid"><a class="unassuming-link" href="#Interactive:15">15&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bIn: BOOL;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:16" class="lineid"><a class="unassuming-link" href="#Interactive:16">16&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bGoIn: BOOL;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:17" class="lineid"><a class="unassuming-link" href="#Interactive:17">17&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stUnsafe: <a class="coderef" href="#DUT_PositionState">DUT_PositionState</a>;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:18" class="lineid"><a class="unassuming-link" href="#Interactive:18">18&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;fbGoBad: <a class="coderef" href="#FB_PositionStateMove">FB_PositionStateMove</a>;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:19" class="lineid"><a class="unassuming-link" href="#Interactive:19">19&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bHCF: BOOL;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:20" class="lineid"><a class="unassuming-link" href="#Interactive:20">20&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bGoHCF: BOOL;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:21" class="lineid"><a class="unassuming-link" href="#Interactive:21">21&nbsp;</a></td>
-            <td class="code">END_VAR</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:22" class="lineid"><a class="unassuming-link" href="#Interactive:22">22&nbsp;</a></td>
-            <td class="code"><a class="coderef" href="#BasicTests">BasicTests</a>();</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:23" class="lineid"><a class="unassuming-link" href="#Interactive:23">23&nbsp;</a></td>
-            <td class="code"></td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:24" class="lineid"><a class="unassuming-link" href="#Interactive:24">24&nbsp;</a></td>
-            <td class="code">fbMotionStageSim(stMotionStage:=M1,</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:25" class="lineid"><a class="unassuming-link" href="#Interactive:25">25&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nEnableMode:=<a class="coderef" href="#ENUM_StageEnableMode">ENUM_StageEnableMode</a>.DURING_MOTION);</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:26" class="lineid"><a class="unassuming-link" href="#Interactive:26">26&nbsp;</a></td>
-            <td class="code">nCounter := nCounter +&nbsp;1;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:27" class="lineid"><a class="unassuming-link" href="#Interactive:27">27&nbsp;</a></td>
-            <td class="code"></td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:28" class="lineid"><a class="unassuming-link" href="#Interactive:28">28&nbsp;</a></td>
-            <td class="code">IF NOT bInit THEN</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:29" class="lineid"><a class="unassuming-link" href="#Interactive:29">29&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bInit := TRUE;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:30" class="lineid"><a class="unassuming-link" href="#Interactive:30">30&nbsp;</a></td>
-            <td class="code"></td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:31" class="lineid"><a class="unassuming-link" href="#Interactive:31">31&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stOut.sName := 'Out';</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:32" class="lineid"><a class="unassuming-link" href="#Interactive:32">32&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stOut.fPosition := 100;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:33" class="lineid"><a class="unassuming-link" href="#Interactive:33">33&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stOut.fDelta := 20;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:34" class="lineid"><a class="unassuming-link" href="#Interactive:34">34&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stOut.fVelocity := 10;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:35" class="lineid"><a class="unassuming-link" href="#Interactive:35">35&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stOut.bValid := TRUE;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:36" class="lineid"><a class="unassuming-link" href="#Interactive:36">36&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stOut.bMoveOk := TRUE;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:37" class="lineid"><a class="unassuming-link" href="#Interactive:37">37&nbsp;</a></td>
-            <td class="code"></td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:38" class="lineid"><a class="unassuming-link" href="#Interactive:38">38&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stIn.sName := 'In';</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:39" class="lineid"><a class="unassuming-link" href="#Interactive:39">39&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stIn.fPosition := 0;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:40" class="lineid"><a class="unassuming-link" href="#Interactive:40">40&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stIn.fDelta := 0.1;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:41" class="lineid"><a class="unassuming-link" href="#Interactive:41">41&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stIn.fVelocity := 5;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:42" class="lineid"><a class="unassuming-link" href="#Interactive:42">42&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stIn.bValid := TRUE;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:43" class="lineid"><a class="unassuming-link" href="#Interactive:43">43&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stIn.bMoveOk := TRUE;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:44" class="lineid"><a class="unassuming-link" href="#Interactive:44">44&nbsp;</a></td>
-            <td class="code"></td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:45" class="lineid"><a class="unassuming-link" href="#Interactive:45">45&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stUnsafe.sName := 'HCF';</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:46" class="lineid"><a class="unassuming-link" href="#Interactive:46">46&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stUnsafe.fPosition := -999;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:47" class="lineid"><a class="unassuming-link" href="#Interactive:47">47&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stUnsafe.fDelta := 6;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:48" class="lineid"><a class="unassuming-link" href="#Interactive:48">48&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stUnsafe.fVelocity := 42;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:49" class="lineid"><a class="unassuming-link" href="#Interactive:49">49&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stUnsafe.bValid := TRUE;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:50" class="lineid"><a class="unassuming-link" href="#Interactive:50">50&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stUnsafe.bMoveOk := FALSE;</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:51" class="lineid"><a class="unassuming-link" href="#Interactive:51">51&nbsp;</a></td>
-            <td class="code">END_IF</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:52" class="lineid"><a class="unassuming-link" href="#Interactive:52">52&nbsp;</a></td>
-            <td class="code"></td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:53" class="lineid"><a class="unassuming-link" href="#Interactive:53">53&nbsp;</a></td>
-            <td class="code">fbGoOut(</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:54" class="lineid"><a class="unassuming-link" href="#Interactive:54">54&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bExecute:=bGoOut,</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:55" class="lineid"><a class="unassuming-link" href="#Interactive:55">55&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stMotionStage:=M1,</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:56" class="lineid"><a class="unassuming-link" href="#Interactive:56">56&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stPositionState:=stOut,</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:57" class="lineid"><a class="unassuming-link" href="#Interactive:57">57&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bAtState=>bOut);</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:58" class="lineid"><a class="unassuming-link" href="#Interactive:58">58&nbsp;</a></td>
-            <td class="code">fbGoIn(</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:59" class="lineid"><a class="unassuming-link" href="#Interactive:59">59&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bExecute:=bGoIn,</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:60" class="lineid"><a class="unassuming-link" href="#Interactive:60">60&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stMotionStage:=M1,</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:61" class="lineid"><a class="unassuming-link" href="#Interactive:61">61&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stPositionState:=stIn,</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:62" class="lineid"><a class="unassuming-link" href="#Interactive:62">62&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bAtState=>bIn);</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:63" class="lineid"><a class="unassuming-link" href="#Interactive:63">63&nbsp;</a></td>
-            <td class="code">fbGoBad(</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:64" class="lineid"><a class="unassuming-link" href="#Interactive:64">64&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bExecute:=bGoHCF,</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:65" class="lineid"><a class="unassuming-link" href="#Interactive:65">65&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stMotionStage:=M1,</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:66" class="lineid"><a class="unassuming-link" href="#Interactive:66">66&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;stPositionState:=stUnsafe,</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:67" class="lineid"><a class="unassuming-link" href="#Interactive:67">67&nbsp;</a></td>
-            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bAtState=>bHCF);</td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:68" class="lineid"><a class="unassuming-link" href="#Interactive:68">68&nbsp;</a></td>
-            <td class="code"></td>
-            <td class="note"></td>
-        </tr>
-        <tr>
-            <td id="Interactive:69" class="lineid"><a class="unassuming-link" href="#Interactive:69">69&nbsp;</a></td>
-            <td class="code">END_PROGRAM</td>
-            <td class="note"></td>
-        </tr>
-    </tbody>
-</table>
-
-<br/>
-Related:
-<br/>
-<ul>
-    <li><a href="#BasicTests">BasicTests</a></li>
-    <li><a href="#DUT_MotionStage">DUT_MotionStage</a></li>
-    <li><a href="#DUT_PositionState">DUT_PositionState</a></li>
-    <li><a href="#ENUM_StageEnableMode">ENUM_StageEnableMode</a></li>
-    <li><a href="#FB_MotionStageSim">FB_MotionStageSim</a></li>
-    <li><a href="#FB_PositionStateMove">FB_PositionStateMove</a></li>
-</ul>
-
-<h3>Interactive - API Usage Requirements</h3>
-<ul>
     <li>
+      For a gantry axis:
+      <pre>bAllForwardEnable = bLimitForwardEnable AND bGantryForwardEnable</pre>
+      <pre>bAllBackwardEnable = bLimitBackwardEnable AND bGantryBackwardEnable</pre>
     </li>
-</ul>
-
-<h3>Interactive - Assumptions for Correct Functionality</h3>
-<ul>
     <li>
+      For all axes:
+      <pre>bAllEnable = bEnable AND bHardwareEnable</pre>
+      <pre>bAllEnable zeroed if bUserEnable is FALSE</pre>
+      This means that bUserEnable has the final say in axis enable status.
     </li>
 </ul>
-
-<h3>Interactive - Failure Modes</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>Interactive - Summary</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-</div>
-
-</body>
-</html>

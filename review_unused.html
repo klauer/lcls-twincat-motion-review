@@ -10635,3 +10635,170 @@ Related:
 </ul>
 
 
+
+<h2 id="FB_PositionStatePMPS_Test">FB_PositionStatePMPS_Test</h2>
+<img src="graphs/FB_PositionStatePMPS_Test.dot.png" />
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Line</th>
+            <th>Code</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:1" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:1">1&nbsp;</a></td>
+            <td class="code">FUNCTION_BLOCK <a class="coderef" href="#FB_PositionStatePMPS_Test">FB_PositionStatePMPS_Test</a>&nbsp;EXTENDS <a class="coderef" href="#FB_PositionStatePMPS_Base">FB_PositionStatePMPS_Base</a></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:2" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:2">2&nbsp;</a></td>
+            <td class="code">(*</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:3" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:3">3&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Implement position state pmps with no FFO and auto-accept transition after 3s</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:4" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:4">4&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Use for offline testing of everything except the explicit interface</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:5" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:5">5&nbsp;</a></td>
+            <td class="code">*)</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:6" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:6">6&nbsp;</a></td>
+            <td class="code">VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:7" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:7">7&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;tonReq: TON;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:8" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:8">8&nbsp;</a></td>
+            <td class="code">END_VAR</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:9" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:9">9&nbsp;</a></td>
+            <td class="code">Exec();</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:10" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:10">10&nbsp;</a></td>
+            <td class="code"></td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:11" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:11">11&nbsp;</a></td>
+            <td class="code">END_FUNCTION_BLOCK</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:12" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:12">12&nbsp;</a></td>
+            <td class="code">ACTION HandleBPTM:</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:13" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:13">13&nbsp;</a></td>
+            <td class="code">// Send the fake BPTM our assertion request by changing stStateReq.stBeamParams</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:14" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:14">14&nbsp;</a></td>
+            <td class="code">// We expect to recieve bTransitionAuthorized TRUE after some delta T</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:15" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:15">15&nbsp;</a></td>
+            <td class="code">// We expect bTransitionAuthorized to go FALSE after stMotionStage.bBusy goes FALSE</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:16" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:16">16&nbsp;</a></td>
+            <td class="code">tonReq(</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:17" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:17">17&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;IN:=bInTransition,</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:18" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:18">18&nbsp;</a></td>
+            <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;PT:=T#3s);</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:19" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:19">19&nbsp;</a></td>
+            <td class="code">bTransitionAuthorized := tonReq.Q AND stMotionStage.bExecute;</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:20" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:20">20&nbsp;</a></td>
+            <td class="code">END_ACTION</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:21" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:21">21&nbsp;</a></td>
+            <td class="code">ACTION HandleFFO:</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:22" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:22">22&nbsp;</a></td>
+            <td class="code">// Skip implementing this for offline testing</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:23" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:23">23&nbsp;</a></td>
+            <td class="code">// We won't be able to tell if it worked anyway</td>
+            <td class="note"></td>
+        </tr>
+        <tr>
+            <td id="FB_PositionStatePMPS_Test:24" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Test:24">24&nbsp;</a></td>
+            <td class="code">END_ACTION</td>
+            <td class="note"></td>
+        </tr>
+    </tbody>
+</table>
+
+<br/>
+Related:
+<br/>
+<ul>
+    <li><a href="#FB_PositionStatePMPS_Base">FB_PositionStatePMPS_Base</a></li>
+</ul>
+
+<h3>FB_PositionStatePMPS_Test - API Usage Requirements</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>FB_PositionStatePMPS_Test - Assumptions for Correct Functionality</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>FB_PositionStatePMPS_Test - Failure Modes</h3>
+<ul>
+    <li>
+    </li>
+</ul>
+
+<h3>FB_PositionStatePMPS_Test - Summary</h3>
+<ul>
+    <li>
+    </li>
+</ul>
