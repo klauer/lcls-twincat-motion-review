@@ -7,12 +7,90 @@
 <body>
 
 <h1>lcls-twincat-motion</h1>
-Commit hash: <a href="https://github.com/pcdshub/lcls-twincat-motion/tree/21d1f2ffa3050bc1623e76b697e94a7824b6725d">21d1f2ffa3050bc1623e76b697e94a7824b6725d</a>
-<br />
 
-<img src="graphs/full_project.dot.png" />
+<h2>Introduction</h2>
+
+This document reflects a line-by-line review of lcls-twincat-motion with the
+goal of finding potential failure modes.
+
+Keeping in mind that no such manual read-through and subsequent evaluation can
+ever be perfect, I reduced the scope of evaluation in order to give what I
+would consider a "reasonably sound" seal of approval for the code contained
+within.
+
+Goals:
+
+<ul>
+  <li>
+    Evaluate possibilities for invalid input to functions.
+  </li>
+  <li>
+    Evaluate impact of complexity issues for the PLC developer - what would
+    happen if the user misconfigures a function block from this library.
+  </li>
+  <li>
+    Evaluate what assumptions are made about configuring code blocks, and
+    what might happen if those assumptions are not followed.
+  </li>
+  <li>
+    Detail API usage requirements per code section and summarize functionality.
+  </li>
+  <li>
+    Mark items that may be worthy of following up with (Issue), (Question), or
+    the like.
+  </li>
+  <li>
+    Include function block relational diagrams where sensible.
+  </li>
+  <li>
+    Evaluate state machine logic. Include state machine diagrams where sensible.  See <a
+      href="#FB_MotionRequest">FB_MotionRequest</a> and <a
+      href="#FB_MotionHoming">FB_MotionHoming</a> for two such state machines.
+  </li>
+  <li>
+    Skip source code items that are not used or are irrelevant.
+    The source of those is available in the linked documents below.
+  </li>
+  <li>
+    List some potential failure modes that can happen to the PLC, its modules,
+    controlled motors, or encoders, and surmise what would happen with
+    knowledge of the code base.
+  </li>
+</ul>
+
+The following are explicit non-goals of this review:
+
+<ul>
+  <li>
+    Evaluating the effect of malicious actors or those who may attempt to
+    tinker with the internals of lcls-twincat-motion (by way of PLC, ADS,
+    or an IOC).
+  </li>
+  <li>
+    Evaluating the interaction of other layers (e.g., EPICS) with the PLC,
+    except in terms of pragma usage and appropriate levels of read/write
+    access.
+  </li>
+  <li>
+    Suggesting large architectural changes.  The goal is rather to see how the
+    existing codebase functions, and not try to redesign it.
+  </li>
+  <li>
+    Evaluating the library for safety critical applications is absolutely a
+    non-goal.
+  </li>
+</ul>
+
+<h2>Links and General Information</h2>
+
 Relevant links:
 <ul>
+    <li>
+        <a href="https://github.com/pcdshub/lcls-twincat-motion">lcls-twincat-motion</a>, the library under review.
+    </li>
+    <li>
+        <a href="https://pcdshub.github.io/lcls-twincat-motion/v1.5.0/">Documentation</a>, documentation of the library under review.
+    </li>
     <li>
         <a href="https://github.com/pcdshub/ethercatmc">m-epics-ethercatmc</a>, referred to as ethercatmc in this document.
     </li>
@@ -21,68 +99,185 @@ Relevant links:
     </li>
 </ul>
 
-Ideas / thoughts
-<pre>
 
-Mark issue-worthy items with "(Issue)"
+Commit hash: <a href="https://github.com/pcdshub/lcls-twincat-motion/tree/21d1f2ffa3050bc1623e76b697e94a7824b6725d">21d1f2ffa3050bc1623e76b697e94a7824b6725d</a>
+<br />
 
-Failure mode analysis thoughts
-==============================
+<h2>Diagram of the full project</h2>
 
-* Module-by-module, function-by-function
+<img src="graphs/full_project.dot.png" />
 
-* Assumptions
-    - Determine assumptions made
-    - Record what happens if assumptions do not hold
+<h2>Miscellaneous General Failures</h2>
 
-* API library requirements vs user error
-    - Misconfigured bError, for example
+<h3>Division by zero</h3>
 
-* Graph dependencies / flow
-* Flow charting?
-* Gantry:
-    - Coupling failure
-    - Encoder strip damage
-    - Encoder readhead damage
+In every instance of division in this source code base, there are effective
+safeguards against division by zero.
 
-Controls purview
-* PLC module failure
-* PLC failure
-* DC supply failure
-* EPICS IOC failure
-* Communication failure
-* EPICS bad values
-* IOC machine failure
-* Physical limit failure
-* Digital input failure (limits?)
-* Memory corruption?
-* Check all code for division and potential for divide by 0
-* Floating point arithmetic verification 
-    - re-read https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html
-* User logs in to PLC, reactivates, stops, online changes, ...
+<h3>Memory Corruption</h3>
 
-Consider things like:
-* Power loss
-* Earthquake
+<p>
+  Our Beckhoff PLCs use DDR3 RAM.  There is a non-zero probability (depending
+  on the source you read, it may be a reasonably high probability per gigabit
+  of RAM) of a single bit flip error in any portion of our PLCs RAM.
+</p>
 
+<p>
+  I consider this a general concern, despite not knowingly having seen this in
+  practice before.  A single bit flipping could change the course of almost
+  all of the source code contained here in unpredictable ways.
+</p>
 
-Can't be accounted for:
-* Users logging in, changing values
-</pre>
+<p>
+  (Question) Are there any PLCs which utilize ECC RAM? Or is the only option
+  to move to safety PLCs?
+</p>
 
-<pre>
-General assumptions
-===================
+<h2>Floating point calculations</h2>
 
-* No external adjustment of ADS symbols, outside of what is allowed through
-the IOC.
-</pre>
+<p>
+  There is nothing in this codebase that would indicate a potential problem
+  with floating point calculations, such as loss of precision, NaN-handling,
+  and so on.
+</p>
 
-Omitted items:
-<ol>
-    <li>dutEL2521_Ctrl</li>
-    <li>dutEL2521_Status</li>
-</ol>
+<h2>External Failures</h2>
+
+<h3>Absolute Encoder Strip Failure</h3>
+
+Encoder strips are encoded in such a way that errors can be detected readily.
+Such errors will be propagated to the NC axis and caught immediately in
+the PLC project.
+
+<h3>Absolute Encoder Failure</h3>
+
+<p>
+  Absolute BiSS-C encoders report simple status by way of a Ready bit.
+</p>
+<p>
+  When linked appropriately, this information is propagated to the MC blocks
+  and reported back through error IDs.  lcls-twincat-motion reports those back
+  to EPICS.
+</p>
+
+<h3>DC Supply Failure</h3>
+
+Supply failure for an absolute encoder would stop it reading back correctly and
+disable motion.  Supply failure for a motor would stop motion, potentially
+leading to following errors or - perhaps more likely - error messages regarding
+a lack of DC supply for the motors.
+
+<h3>EPICS IOC Failure</h3>
+
+<p>
+  While the IOC is not in the scope of this review, it is considered an external
+  thing that could fail.  The IOC could crash and stop communicating with the PLC.
+</p>
+<p>
+  This would interrupt the operator's ability to perform motion or otherwise
+  interact with the system.  PMPS and other PLC-to-PLC communication would
+  continue to work regardless of the status of the EPICS IOC talking to a
+  general motion PLC, which is most critical.  
+</p>
+<p>
+  After all, the mechanical components such as limit switches, the PMPS
+  protection logic, and logic checks are what are protecting the system - and not
+  users sitting in front of GUIs.
+</p>
+<p>
+  The IOC portion has been found to be reasonably robust, so this is not
+  a major concern.
+</p>
+
+<h3>EPICS IOC Host Failure</h3>
+
+Were the host on which the EPICS IOC to fail, the IOC could be easily
+transitioned to another host.  Only an ADS route setting would be required to
+be added, if not already present in the PLC configuration.
+
+<h3>PLC failure</h3>
+
+<p>
+  The result of a PLC failing would be that the project would stop and control
+  of the system would no longer be possible.
+</p>
+
+<p>
+  With appropriate mechanical design, a PLC failure would not endanger a
+  connected motion system.
+</p>
+
+<h3>Power Failure</h3>
+
+<p>
+  Beckhoff reports that persistent values are safely stored even in the event
+  of power loss.
+</p>
+
+<p>
+  Post power failure, a clean boot of the system should not require much time
+  to bring back up - especially with no homing sequence required using absolute
+  encoders.
+</p>
+
+<p>
+  Regardless, a recommendation would be to have essential PLCs on UPS systems
+  to avoid both brown-outs and power loss in general.
+</p>
+
+<h3>PLC Module Failure</h3>
+
+<p>
+  Modules can fail in a variety of ways.   Internal sanity checks in the
+  Beckhoff hardware, coupled with additional hardware monitoring checks that we
+  perform out of the scope of lcls-twincat-motion should be enough to avoid
+  issue.
+</p>
+
+<h3>EtherCAT Communication Failure</h3>
+<p>
+  EtherCAT has a robust error detection mechanism, ensuring that valid data
+  is being transferred.
+</p>
+
+<h2>Gantry-related issues</h2>
+
+<h3>Power loss</h3>
+
+Power loss affects gantry systems the same as single-axis systems.  With 
+absolute encoders, power loss remains a small inconvenience.
+
+<h3>Physical Limit Failure</h3>
+
+<p>
+  Limit switch failure could cause an axis to travel beyond where it is
+  supposed to.  Appropriate soft limits and gantry tolerances could avoid this.
+</p>
+
+<h3>Physical Limit Digital Input Failure</h3>
+
+<p>
+  This would manifest itself in the same way as a physical limit switch
+  failure.
+  Appropriate soft limits and gantry tolerances could avoid the issue.
+</p>
+
+<h3>Earthquake</h3>
+
+<p>
+  A sufficiently large earthquake could put the gantry system out of tolerance,
+  which could stop motion.  In the absence of physical damage, an axis may
+  even be able to maintain its position within tolerance.
+</p>
+
+Recovery should not be problematic.
+
+<h3>Encoder failure</h3>
+
+An encoder of one axis failing should stop the other axis from coupling or
+being moved.  (Question) Is this worth investigating further?
+
+<h2>Source Code</h2>
 
 <div id="toc_container">
     <p class="toc_title">Contents</p>
@@ -2431,7 +2626,6 @@ Related:
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv: PLC:nCommand</td>
             <td class="note">
                 This is actually <a href="#ENUM_EpicsMotorCmd">ENUM_EpicsMotorCmd</a>.
-                TODO: what if set manually in code? What if invalid value?
             </td>
         </tr>
         <tr>
@@ -3178,8 +3372,8 @@ Related:
 </ul>
 
 Several attributes should not be set to avoid interfering with standard
-functionality.  A non-exhaustive list is as follows:  (TODO what would happen
-for each of these? State machine dependent?)
+functionality.  A non-exhaustive list is as follows:  (The author did not
+fully consider the result of what such actions would lead to.)
 <ul>
     <li>nEncoder</li>
     <li>nCommand (internally + IOC)</li>
@@ -3766,7 +3960,7 @@ Related:
     <li>This DUT should not have a pytmc pragma attached.</li>
     <li>Must be set: <span class="code">sName</span></li>
     <li>Must be set: <span class="code">fPosition</span></li>
-    <li>Must be set: <span class="code">fVelocity</span> (TODO: or 0 velocity request will be made?)</li>
+    <li>Must be set: <span class="code">fVelocity</span> (a velocity of 0.0 may be rejected by MC_MoveAbsolute)</li>
     <li>Must be set: <span class="code">bMoveOk</span> (Safety parameter. This
         must be set to TRUE by the PLC program to allow moves to this state.)</li>
     <li>
@@ -3777,7 +3971,8 @@ Related:
     <li>Optional: <span class="code">fDecel</span> (or default NC deceleration will be used)</li>
     <li>Optional: <span class="code">bUseRawCounts</span> (only if raw counts should be used)</li>
     <li>
-        Optional: <span class="code">bLocked</span> (set only if the state should be immutable; TODO check logic with zeros for fAccel etc)
+        Optional: <span class="code">bLocked</span> (set only if the state should be immutable); See
+        relevant issue in <a href="#FB_PositionStateLock">FB_PositionStateLock</a> section.
     </li>
     <li>Set automatically: <span class="code">nEncoderCount</span> (by <a href="#FB_PositionStateInternal">FB_PositionStateInternal</a>)</li>
 
@@ -3789,8 +3984,6 @@ The following must not be modified externally:<br/>
 <ul>
     <li>bUpdated: could interfere with motion</li>
 </ul>
-
-TODO: parameters updated after init?
 
 <h3>DUT_PositionState - Summary</h3>
 <ul>
@@ -4075,8 +4268,6 @@ Related:
 <ul>
     <li><a href="#FB_MotionStage">FB_MotionStage</a></li>
 </ul>
-
-(TODO these belong in a separate section)
 
 <h3>ENUM_EpicsHomeCmd - Failure Modes</h3>
 <ul>
@@ -5332,7 +5523,7 @@ Related:
         only performed with a variable array index. A consistently faulty array
         index results in a compiler error. TwinCAT calls the function
         implicitly as soon as an ARRAY variable is assigned values.</span>
-        (TODO: does this apply when in a library?)
+        (Question) TwinCAT: Does this apply when in a library?
     </li>
 </ul>
 
@@ -8135,8 +8326,6 @@ Related:
     <li><a href="#FB_HomeVirtual">FB_HomeVirtual</a></li>
 </ul>
 
-(TODO review its ST_AxisStatus, and MC_* blocks)
-
 <h3>FB_DriveVirtual - API Usage Requirements</h3>
 <ul>
     <li>
@@ -8146,9 +8335,9 @@ Related:
         nCmdData should be set with command-specific data.
     </li>
     <li>
-        Axis should be set to the primary axis (or slave axis in a gantry
-        configuration, with MasterAxis set to the master; to be considered
-        separately TODO).
+        Axis should be set to the primary axis.
+        (Gantry configurations should be using FB_GantryAutoCoupling
+        separately.)
     </li>
     <li>
         bExecute should be set from 0 to 1.
@@ -8258,8 +8447,6 @@ Related:
       nCommand must be set when executing. However, an unset nCommand (i.e., 0)
       would be seen as a valid "jog" command, which could result in undesired
       motion.  It may be advisable to adjust the ENUM values to avoid this.
-      (TODO) look into BufferMode, as it may be a Beckhoff-provided solution
-      to the same problem.
     </li>
 </ul>
 
@@ -8738,7 +8925,8 @@ To this end, we figure out which encoder is linked and process
 the value appropriately.
 </pre>
 
-(TODO) double-check sign-extension assumptions; is it off-by-one?
+(Possible issue) sign-extension assumption may be off-by-one? Should
+double-check this.
 
 <h2 id="FB_EncSaveRestore">FB_EncSaveRestore</h2>
 <img src="graphs/FB_EncSaveRestore.dot.png" />
@@ -9346,7 +9534,9 @@ Related:
         <tr>
             <td id="FB_GantryAutoCoupling:42" class="lineid"><a class="unassuming-link" href="#FB_GantryAutoCoupling:42">42&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;Master.bGantryForwardEnable := Master.bGantryForwardEnable AND Slave.bAllForwardEnable;</td>
-            <td class="note"></td>
+            <td class="note">
+              This is an important setting: Master gantry forward enable is dependent on the slave's enabled status.
+            </td>
         </tr>
         <tr>
             <td id="FB_GantryAutoCoupling:43" class="lineid"><a class="unassuming-link" href="#FB_GantryAutoCoupling:43">43&nbsp;</a></td>
@@ -9523,12 +9713,13 @@ Related:
     </li>
 </ul>
 
-<h3>FB_GantryAutoCoupling - Failure Modes</h3>
+<h3>FB_GantryAutoCoupling - Notes</h3>
 <ul>
     <li>
-      (TODO) There are encoder error checks elsewhere, but not in this block or
-      gantry_diff_limit specifically.  I don't feel this could be a problem,
-      but I should dig deeper. (FB_SetEnables doesn't consider errors)
+      Forward/backward enable logic is sound, as-is.  It may be worth
+      considering adding another check of bAllEnable for each axis, as one
+      disabled would stop synchronized motion. (Though perhaps this would be
+      stopped at the MC_* level.)
     </li>
 </ul>
 
@@ -11246,7 +11437,7 @@ Related:
 
 <ul>
     <li>
-      A valid, configured <a href="DUT_MotionStage#"DUT_MotionStage></a> and 
+      A valid, configured <a href="#DUT_MotionStage">DUT_MotionStage</a> and 
       bExecute flag are all that is required.
     </li>
     <li>
@@ -13265,7 +13456,7 @@ Related:
 
 <ul>
     <li>
-      A valid, configured <a href="DUT_MotionStage#"DUT_MotionStage></a> is
+      A valid, configured <a href="#DUT_MotionStage">DUT_MotionStage</a> is
       the primary requirement.  Motion requests should be specified in
       <span class="code">enumMotionRequest</span>, with relevant motion
       details set in fPos (the target position), fVel (motion velocity),
@@ -13737,7 +13928,7 @@ Related:
             <td id="FB_MotionStage:81" class="lineid"><a class="unassuming-link" href="#FB_MotionStage:81">81&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stMotionStage.bEnable := TRUE;</td>
             <td class="note">
-              (TODO) Why not bSafetyReady like the others?
+              (Question) Why not bSafetyReady like the others?
             </td>
         </tr>
         <tr>
@@ -14953,7 +15144,7 @@ END_TYPE
 <h3>FB_MotionStage - API Usage Requirements</h3>
 <ul>
     <li>
-      A valid, configured <a href="DUT_MotionStage#"DUT_MotionStage></a> is
+      A valid, configured <a href="#DUT_MotionStage">DUT_MotionStage</a> is
       the sole requirement.
     </li>
     <li>
@@ -14988,9 +15179,9 @@ END_TYPE
      and reports status by way of updating the DUT_MotionStage.
    </li>
    <li>
-      This block allocates the necessary <a href="FB_DriveVirtual#"FB_DriveVirtual></a>,
-      <a href="FB_MotionHoming#"FB_MotionHoming></a>, and <a
-      href="FB_EncSaveRestore#"FB_EncSaveRestore></a> blocks so that the user
+     This block allocates the necessary <a href="#FB_DriveVirtual">FB_DriveVirtual</a>,
+     <a href="#FB_MotionHoming">FB_MotionHoming</a>, and <a
+        href="#FB_EncSaveRestore">FB_EncSaveRestore</a> blocks so that the user
     does not need to.
     </li> 
 </ul>
@@ -15202,7 +15393,7 @@ Related:
 <h3>FB_MotionStageNCParams - API Usage Requirements</h3>
 <ul>
     <li>
-      A valid, configured <a href="DUT_MotionStage#"DUT_MotionStage></a>, a 
+      A valid, configured <a href="#DUT_MotionStage">DUT_MotionStage</a>, a 
       bEnable flag, and a tRefreshDelay time are all that is required.  
     </li>
 </ul>
@@ -15841,7 +16032,7 @@ Related:
 <h3>FB_NCErrorFFO - API Usage Requirements</h3>
 <ul>
     <li>
-      A valid, configured <a href="DUT_MotionStage#"DUT_MotionStage></a>, a
+      A valid, configured <a href="#DUT_MotionStage">DUT_MotionStage</a>, a
       hardware fast fault output, and an inclusive error range are primarily
       required to use this block.  A custom error description is also an
       option.
@@ -15866,7 +16057,7 @@ Related:
       This effectively removes the lower byte of the error and adding 0x2000.
       <br/>
       <br/>
-      (TODO) look into this translation further
+      (Question) It may be worthwhile to document this.
     </li>
 </ul>
 
@@ -16963,8 +17154,8 @@ Related:
       pytmc pragmas included (examples include copy-pastable versions).
     </li>
     <li>
-      Secondarily, a valid, configured <a
-        href="DUT_MotionStage#"DUT_MotionStage></a> is required.
+      Secondarily, a valid, configured 
+      <a href="#DUT_MotionStage">DUT_MotionStage</a> is required.
     </li>
     <li>
       The inline code documentation indicates that this block should be
@@ -17375,7 +17566,7 @@ Related:
     <li><a href="#FB_PositionStatePMPS">FB_PositionStatePMPS</a></li>
 </ul>
 
-<h3>FB_PositionStateBase_WithPMPS - API Usage Requirements</h3>
+<h3>FB_PositionStateBase_WithPMPS - API / Notes</h3>
 <ul>
     <li>
       All requirements from FB_PositionStateBase apply. The following are
@@ -17408,21 +17599,15 @@ Related:
     </li>
     <li>
       bMoveOnArbiterTimeout indicates that the axis should continue to move
-      if the arbiter times out (default is TRUE).
+      if the arbiter times out (default is TRUE). (Question) Is this a sensible
+      default?
     </li>
     <li>
       fStateBoundaryDeadband (default 0) indicates the amount of wiggle room,
       in EGU, around the state in which another request to PMPS would be
       unnecessary.
     </li>
-</ul>
 
-<h3>FB_PositionStateBase_WithPMPS - Failure Modes</h3>
-<ul>
-    <li>
-      The beam parameter transition manager can timeout, leading to optional
-      motion depending on bMoveOnArbiterTimeout. (TODO)
-    </li>
 </ul>
 
 <h3>FB_PositionStateBase_WithPMPS - Summary</h3>
@@ -19548,14 +19733,14 @@ Related:
 <h3>FB_PositionStateMove - API Usage Requirements</h3>
 <ul>
     <li>
-      A valid, configured <a href="DUT_MotionStage#"DUT_MotionStage></a> and 
-      a target <a href="DUT_PositionState#"DUT_PositionState></a>, and the
+      A valid, configured <a href="#DUT_MotionStage">DUT_MotionStage</a> and 
+      a target <a href="#DUT_PositionState">DUT_PositionState</a>, and the
       usual bExecute/bReset are required.  enumMotionRequest defines what
       happens when a new move is requested when one is already in progress.
     </li>
     <li>
-      This wraps <a href="FB_MotionRequest#"FB_MotionRequest></a> to cause the
-      <a href="DUT_MotionStage#"DUT_MotionStage></a> to move to the position
+      This wraps <a href="#FB_MotionRequest">FB_MotionRequest</a> to cause the
+      <a href="#DUT_MotionStage">DUT_MotionStage</a> to move to the position
       defined by the state in <a href="#DUT_PositionState">DUT_PositionState</a>
       when bExecute and bAllowMove are set.
     </li>
@@ -19581,7 +19766,7 @@ Related:
 <h3>FB_PositionStateMove - Failure Modes</h3>
 <ul>
     <li>
-      <a href="FB_PositionStateMove#"FB_PositionStateMove></a> does not
+      <a href="#FB_PositionStateMove">FB_PositionStateMove</a> does not
       appear to have much of its own potential failure modes, as it mostly
       integrates other function blocks.
     </li>
@@ -20281,7 +20466,8 @@ Related:
             <td id="FB_PositionStatePMPS_Base:128" class="lineid"><a class="unassuming-link" href="#FB_PositionStatePMPS_Base:128">128&nbsp;</a></td>
             <td class="code">&nbsp;&nbsp;&nbsp;&nbsp;bArbiterTimeout := stMotionStage.bExecute;</td>
             <td class="note">
-              (TODO) Timeout set when bExecute is set?
+              (Question) Timeout set when bExecute is set? What is the logic
+              here?
             </td>
         </tr>
         <tr>
@@ -20745,9 +20931,10 @@ Related:
 <h3>FB_PositionStatePMPS_Base - Summary</h3>
 <ul>
     <li>
-    TODO**
+      See FB_PositionStatePMPS for further details.
     </li>
 </ul>
+
 <h2 id="FB_PositionStatePMPS">FB_PositionStatePMPS</h2>
 <img src="graphs/FB_PositionStatePMPS.dot.png" />
 
@@ -21433,7 +21620,7 @@ Related:
 <h3>FB_PositionStatePMPS - API Usage Requirements</h3>
 <ul>
     <li>
-      The <a href="FB_PositionStateBase_WithPMPS#"FB_PositionStateBase_WithPMPS></a>
+      The <a href="#FB_PositionStateBase_WithPMPS">FB_PositionStateBase_WithPMPS</a>
       is the user-facing function block that should be extended.  It includes
       an <a href="#FB_PositionStatePMPS">FB_PositionStatePMPS</a> and
       a <a href="#FB_EncErrorFO">FB_EncErrorFO</a> directly.
@@ -21644,7 +21831,7 @@ this function block:
 <ul>
     <li>
       <a href="#ST_AxisParameterSet">ST_AxisParameterSet</a> from the
-      <a href="DUT_MotionStage#"DUT_MotionStage></a> which has been
+      <a href="#DUT_MotionStage">DUT_MotionStage</a> which has been
       initialized.
     </li>
     <li>
@@ -22152,7 +22339,7 @@ Related:
 <h3>FB_SetEnables - API Usage Requirements</h3>
 <ul>
     <li>
-      A valid, configured <a href="DUT_MotionStage#"DUT_MotionStage></a> is
+      A valid, configured <a href="#DUT_MotionStage">DUT_MotionStage</a> is
       required.  (No bEnable flag is used or required.)
     </li>
 </ul>
