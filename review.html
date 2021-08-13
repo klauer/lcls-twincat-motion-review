@@ -15203,24 +15203,26 @@ Related:
 <h3>FB_MotionStageNCParams - API Usage Requirements</h3>
 <ul>
     <li>
+      A valid, configured <a href="DUT_MotionStage#"DUT_MotionStage></a>, a 
+      bEnable flag, and a tRefreshDelay time are all that is required.  
     </li>
 </ul>
 
 <h3>FB_MotionStageNCParams - Assumptions for Correct Functionality</h3>
 <ul>
-    <li>
-    </li>
-</ul>
-
-<h3>FB_MotionStageNCParams - Failure Modes</h3>
-<ul>
-    <li>
-    </li>
 </ul>
 
 <h3>FB_MotionStageNCParams - Summary</h3>
 <ul>
     <li>
+      This block updates NC parameters from an NC axis defined in a
+      DUT_MotionStage, reflecting them in stAxisParameters at periodic
+      intervals when bEnable is set.
+    </li>
+    <li>
+      A flag on the stage, <span class="code">bAxisParamsInit</span>, will be
+      set when parameters have been read at least once.  This is used elsewhere
+      in the codebase.
     </li>
 </ul>
 
@@ -15410,27 +15412,16 @@ Related:
     <li><a href="#FB_MotionStage">FB_MotionStage</a></li>
 </ul>
 
-<h3>FB_MotionStageSim - API Usage Requirements</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>FB_MotionStageSim - Assumptions for Correct Functionality</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
-<h3>FB_MotionStageSim - Failure Modes</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
 <h3>FB_MotionStageSim - Summary</h3>
 <ul>
     <li>
+      This is a simulation object that wraps - and replaces instances where one
+      would use - <a href="#FB_MotionStage">FB_MotionStage</a>.
+    </li>
+    <li>
+      Limits are not set by default, and the FB_MotionStage is set to power
+      itself (such that no MC_Power block is required). The user is free
+      to toggle DUT_MotionStage parameters while testing.
     </li>
 </ul>
 
@@ -15851,31 +15842,37 @@ Related:
 <h3>FB_NCErrorFFO - API Usage Requirements</h3>
 <ul>
     <li>
+      A valid, configured <a href="DUT_MotionStage#"DUT_MotionStage></a>, a
+      hardware fast fault output, and an inclusive error range are primarily
+      required to use this block.  A custom error description is also an
+      option.
+    </li>
+    <li>
+      Pass-through bReset and bAutoReset are passed through automatically
+      to the FF.
+    </li>
+    <li>
+      Multiple blocks can be used to select different error ranges.
     </li>
 </ul>
 
 <h3>FB_NCErrorFFO - Assumptions for Correct Functionality</h3>
 <ul>
     <li>
+      DUT_MotionStage validity is uniquely checked here by looking at sName.
     </li>
-</ul>
-
-<h3>FB_NCErrorFFO - Failure Modes</h3>
-<ul>
     <li>
+      The motion stage error ID is translated into a PMPS type code:
+      <pre>0x2000 + (MotionStage.nErrorId &gt;&gt; 8)</pre>
+      This effectively removes the lower byte of the error and adding 0x2000.
+      <br/>
+      <br/>
+      (TODO) look into this translation further
     </li>
 </ul>
-
-<h3>FB_NCErrorFFO - Summary</h3>
-<ul>
-    <li>
-    </li>
-</ul>
-
 
 <h2 id="FB_PositionStateBase">FB_PositionStateBase</h2>
 <img src="graphs/FB_PositionStateBase.dot.png" />
-
 
 <table>
     <thead>
